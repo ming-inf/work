@@ -1,0 +1,14 @@
+= cygwin
+
+== additional packages
+. zsh
+. tmux
+. git
+. asciidoc
+
+== default to zsh
+
+./etc/nsswitch.conf
+----
+db_shell: /usr/bin/zsh
+----
