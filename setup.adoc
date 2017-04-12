@@ -12,3 +12,7 @@
 ----
 db_shell: /usr/bin/zsh
 ----
+
+== symlink in windows
+
+symlinks in windows require administrative rights
