@@ -1,0 +1,3 @@
+alias reloadrc='. ~/.zshrc'
+alias l='ls -l'
+alias ll='ls -la'

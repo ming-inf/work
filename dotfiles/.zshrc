@@ -6,3 +6,5 @@ compinit
 # End of lines added by compinstall
 
 export CYGWIN=winsymlinks:nativestrict
+
+. ~/.alias
