@@ -1,3 +1,9 @@
 alias reloadrc='. ~/.zshrc'
 alias l='ls -l'
 alias ll='ls -la'
+
+alias ga='git add'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gs='git status'
