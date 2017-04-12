@@ -1,7 +1,7 @@
 alias open='cygstart'
 alias reloadrc='. ~/.zshrc'
-alias l='ls -l'
-alias ll='ls -la'
+alias l='ls -l --color=auto'
+alias ll='ls -la --color=auto'
 
 alias ga='git add'
 alias gcm='git commit -m'
