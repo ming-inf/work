@@ -1,0 +1,11 @@
+"7307
+
+loadplugins '\.(js|penta)$'
+group user
+map -count -modes=n,v ; <count><C-i>
+map -count -modes=n,v l <count><C-o>
+set cdpath=''
+set guioptions=bCnrs
+set hintkeys=fdsa
+
+" vim: set ft=pentadactyl:
