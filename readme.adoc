@@ -1,0 +1,22 @@
+= readme
+
+== articles
+https://news.ycombinator.com/item?id=14129543[Rope Science – Advanced computer science concepts behind the Xi editor]
+https://news.ycombinator.com/item?id=14130241[Phishing with Unicode Domains]
+https://news.ycombinator.com/item?id=14128145[Data structures and algorithms interview questions and their solutions]
+https://news.ycombinator.com/item?id=14100254[An Alternative Approach to Rate Limiting]
+https://news.ycombinator.com/item?id=14077863[Programming in the Point-Free Style]
+https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool used in optics, MP3s, JPEGs and more (2013)]
+
+== libraries
+https://github.com/atomix/copycat
+raft consensus algorithm
+
+https://google.github.io/flatbuffers/index.html
+serialization
+
+https://fi.java.net/
+serialization
+
+https://logging.apache.org/log4j/2.x/
+structured logging
