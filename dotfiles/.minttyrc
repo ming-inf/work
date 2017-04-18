@@ -2,3 +2,7 @@ BoldAsFont=-1
 Font=Consolas
 FontHeight=8
 CursorType=block
+CursorColour=255,0,0
+Term=xterm-256color
+BellType=0
+Scrollbar=none
