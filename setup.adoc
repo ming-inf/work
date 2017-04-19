@@ -16,3 +16,12 @@ db_shell: /usr/bin/zsh
 == symlink in windows
 
 symlinks in windows require administrative rights
+
+== setup
+
+symlink
+. .zshrc
+. .alias
+. .vimrc
+. .tmux.conf
+. .minttyrc
