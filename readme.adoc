@@ -1,6 +1,8 @@
 = readme
 
 == articles
+https://discordapp.com/
+https://mastodon.social/
 https://news.ycombinator.com/item?id=14145252[The History of Computer RPGs]
 http://onemodel.org/
 https://news.ycombinator.com/item?id=14133060[The 9-Minute Strength Workout – Well Guides]
