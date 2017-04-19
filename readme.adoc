@@ -11,6 +11,11 @@ https://news.ycombinator.com/item?id=14100254[An Alternative Approach to Rate Li
 https://news.ycombinator.com/item?id=14077863[Programming in the Point-Free Style]
 https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool used in optics, MP3s, JPEGs and more (2013)]
 
+== documentation
+
+zsh git customization
+https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+
 == libraries
 https://github.com/atomix/copycat
 raft consensus algorithm
