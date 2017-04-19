@@ -1,6 +1,7 @@
 = readme
 
 == articles
+https://news.ycombinator.com/item?id=14145252[The History of Computer RPGs]
 http://onemodel.org/
 https://news.ycombinator.com/item?id=14133060[The 9-Minute Strength Workout – Well Guides]
 https://news.ycombinator.com/item?id=14129543[Rope Science – Advanced computer science concepts behind the Xi editor]
