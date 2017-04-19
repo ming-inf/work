@@ -9,6 +9,7 @@ alias ll='ls -la --color=auto'
 
 alias ga='git add'
 alias gcm='git commit -m'
+alias gco='git checkout'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gf='git fetch'
