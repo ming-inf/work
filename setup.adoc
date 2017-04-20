@@ -5,6 +5,7 @@
 . tmux
 . git
 . asciidoc
+. gnu stow
 
 == default to zsh
 
@@ -19,9 +20,5 @@ symlinks in windows require administrative rights
 
 == setup
 
-symlink
-. .zshrc
-. .alias
-. .vimrc
-. .tmux.conf
-. .minttyrc
+cd dotfiles
+stow -t ~ mintty zsh tmux alias tmux
