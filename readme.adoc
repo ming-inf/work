@@ -1,6 +1,8 @@
 = readme
 
 == articles
+https://news.ycombinator.com/item?id=14149186[Microsoft To-Do Preview]
+https://news.ycombinator.com/item?id=14154378[Microsoft to shut down Wunderlist in favor of its new app, To-Do]
 https://discordapp.com/
 https://mastodon.social/
 https://news.ycombinator.com/item?id=14145252[The History of Computer RPGs]
