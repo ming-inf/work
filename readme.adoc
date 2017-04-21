@@ -1,6 +1,7 @@
 = readme
 
 == articles
+https://news.ycombinator.com/item?id=14164662[Scalable, Lie-Detecting Timeserving with Roughtime]
 https://news.ycombinator.com/item?id=14149186[Microsoft To-Do Preview]
 https://news.ycombinator.com/item?id=14154378[Microsoft to shut down Wunderlist in favor of its new app, To-Do]
 https://discordapp.com/
@@ -17,18 +18,21 @@ https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool 
 
 == documentation
 
-zsh git customization
+=== zsh git customization
 https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
 
 == libraries
+=== code coverage
+http://www.eclemma.org/
+
+=== raft consensus algorithm
 https://github.com/atomix/copycat
-raft consensus algorithm
 
+=== serialization
 https://google.github.io/flatbuffers/index.html
-serialization
-
 https://fi.java.net/
-serialization
+https://capnproto.org/
 
+=== structured logging
+http://syslog4j.org/
 https://logging.apache.org/log4j/2.x/
-structured logging
