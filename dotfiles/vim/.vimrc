@@ -6,13 +6,11 @@ noremap h :
 set splitbelow splitright
 
 " https://dougblack.io/words/a-good-vimrc.html
-set number
+set number relativenumber
 set tabstop=1
 set showcmd
 set cursorline cursorcolumn
-set showmatch
-set incsearch
-set hlsearch
+set incsearch hlsearch showmatch
 
 " https://github.com/mintty/mintty/wiki/Tips#mode-dependent-cursor-in-vim
 let &t_ti.="\e[1 q"
