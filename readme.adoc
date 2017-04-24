@@ -45,6 +45,9 @@ http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
 https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
 
 == libraries
+=== dependency injection
+https://google.github.io/dagger/users-guide
+
 === code coverage
 http://www.eclemma.org/
 
