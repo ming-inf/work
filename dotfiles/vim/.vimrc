@@ -3,6 +3,9 @@ noremap l h
 noremap ; l
 noremap h :
 
+noremap <C-w>l <C-w>h
+noremap <C-w>; <C-w>l
+
 set splitbelow splitright
 
 " https://dougblack.io/words/a-good-vimrc.html
