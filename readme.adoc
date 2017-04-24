@@ -28,6 +28,16 @@ outputs
 a.txt b.txt c.txt
 --
 
+=== ssh key privacy
+--
+    # Ignore SSH keys unless specified in Host subsection
+    IdentitiesOnly yes
+
+    # Send your public key to github only
+    Host github.com
+        IdentityFile ~/.ssh/id_rsa
+--
+
 === asciidoc user guide
 http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
 
