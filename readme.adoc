@@ -1,6 +1,8 @@
 = readme
 
 == articles
+http://stackoverflow.com/questions/30019585/log4j2-why-would-you-use-it-over-log4j
+https://techblog.bozho.net/external-project-configuration/
 https://news.ycombinator.com/item?id=14164662[Scalable, Lie-Detecting Timeserving with Roughtime]
 https://news.ycombinator.com/item?id=14149186[Microsoft To-Do Preview]
 https://news.ycombinator.com/item?id=14154378[Microsoft to shut down Wunderlist in favor of its new app, To-Do]
