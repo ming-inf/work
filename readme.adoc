@@ -17,6 +17,19 @@ https://news.ycombinator.com/item?id=14077863[Programming in the Point-Free Styl
 https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool used in optics, MP3s, JPEGs and more (2013)]
 
 == documentation
+=== command line notes
+create anonymous function
+requires setopt RC_EXPAND_PARAM in .zshrc
+--
+(){echo $@.txt} a b c
+--
+outputs
+--
+a.txt b.txt c.txt
+--
+
+=== asciidoc user guide
+http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
 
 === zsh git customization
 https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
