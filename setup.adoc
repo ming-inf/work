@@ -6,6 +6,7 @@
 . git
 . asciidoc
 . gnu stow
+. vim
 
 == default to zsh
 
