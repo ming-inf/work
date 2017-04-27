@@ -24,6 +24,3 @@ alias gr='git rebase'
 alias gs='git status'
 
 alias adoc='asciidoc'
-adc(){asciidoc $1adoc} # asciidoc compile
-ado(){open $1html} # asciidoc open
-adco(){adc $1; ado $1}

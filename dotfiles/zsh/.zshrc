@@ -20,6 +20,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 
 . ~/.alias
+. ~/.zsh_alias
 
 # http://stackoverflow.com/a/12935606
 setopt prompt_subst
