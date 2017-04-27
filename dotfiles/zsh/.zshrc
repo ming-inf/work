@@ -15,6 +15,10 @@ compinit
 
 export CYGWIN=winsymlinks:nativestrict
 
+# set vim as default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 . ~/.alias
 
 # http://stackoverflow.com/a/12935606
