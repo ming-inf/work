@@ -26,4 +26,4 @@ symlinks in windows require administrative rights
 == setup
 
 cd dotfiles
-stow -t ~ mintty zsh tmux alias tmux
+stow -t ~ mintty zsh tmux alias tmux vim
