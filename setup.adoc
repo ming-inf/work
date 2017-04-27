@@ -7,6 +7,10 @@
 . asciidoc
 . gnu stow
 . vim
+. p7zip
+. par2
+. flac
+. vorbis
 
 == default to zsh
 
