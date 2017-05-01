@@ -11,6 +11,8 @@
 . par2
 . flac
 . vorbis
+. tree
+. dos2unix
 
 == default to zsh
 
