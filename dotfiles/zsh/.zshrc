@@ -43,5 +43,6 @@ fi
 precmd () { vcs_info }
 PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_} %f%# '
 
+bindkey ' ' magic-space # remap space to perform history expansion
 
 [[ -a ~/.zshrc.local ]] && . ~/.zshrc.local # if local customizations exists, load it
