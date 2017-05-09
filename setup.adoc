@@ -27,5 +27,12 @@ symlinks in windows require administrative rights
 
 == setup
 
+=== configure git to use proxy
+git config --global http.proxy http://mydomain\\myusername:mypassword@myproxyserver:8080
+
+=== Unable to clone Git repository due to self signed certificate
+git config --global http.sslVerify false
+
+=== configure dotfiles
 cd dotfiles
 stow -t ~ mintty zsh tmux alias tmux vim
