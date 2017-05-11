@@ -21,6 +21,11 @@
 db_shell: /usr/bin/zsh
 ----
 
+== zsh symlinks
+
+uname is not available when .zshenv loads so cygwin symlink environment variable is set in .zprofile
+http://zsh.sourceforge.net/Intro/intro_3.html[zsh startup files]
+
 == symlink in windows
 
 symlinks in windows require administrative rights
