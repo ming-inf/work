@@ -34,6 +34,8 @@ set cursorline cursorcolumn " highlight line and column of the cursor
 set incsearch " perform incremental search
 set hlsearch " highlight matches
 set showmatch " when bracket is inserted, briefly jump to matching one
+set wildmenu " visual autocomplete for command menu
+set lazyredraw " redraw only when necessary
 
 " https://github.com/mintty/mintty/wiki/Tips#mode-dependent-cursor-in-vim
 " block cursor in normal mode, line cursor in insert mode
