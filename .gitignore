@@ -4,5 +4,8 @@
 [._]s[a-v][a-z]
 [._]sw[a-p]
 
+# vim local override
+.vimrc.local
+
 # asciidoc html backend
 **/*.html
