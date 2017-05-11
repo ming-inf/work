@@ -8,6 +8,7 @@ alias l='ls -l --color=auto'
 alias ll='ls -la --color=auto'
 
 alias ga='git add'
+alias gai='git add -i'
 alias gb='git branch'
 alias gcm='git commit -m'
 alias gco='git checkout'
