@@ -10,6 +10,19 @@ noremap <C-w>l <C-w>h " moves left pane
 noremap <C-w>; <C-w>l " moves right pane
 
 set splitbelow splitright " open split panes below and to the right of the current pane
+set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
+set textwidth=120 " set line length
+set colorcolumn=+1 " show columns (relative to textwidth)
+set timeoutlen=1000 ttimeoutlen=0 " esc key delay
+set nobackup nowritebackup " no backup made
+set noswapfile " disable swap file
+set ignorecase " ignore case when searching
+set smartcase " ignore case when pattern is all lowercase
+set smarttab " insert tabs according to shiftwidgth not tabstop
+set autoindent " copy indent from current line when starting new line
+set copyindent " copy previous indentation on autoindenting
+set visualbell " don't beep
+set noerrorbells " don't beep
 
 " https://dougblack.io/words/a-good-vimrc.html
 set number " precede each line with line number
@@ -31,20 +44,6 @@ let &t_te.="\e[0 q"
 
 :highlight cursorline ctermbg=0 cterm=none
 :highlight cursorcolumn ctermbg=0
-
-set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
-set textwidth=120 " set line length
-set colorcolumn=+1 " show columns (relative to textwidth)
-set timeoutlen=1000 ttimeoutlen=0 " esc key delay
-set nobackup nowritebackup " no backup made
-set noswapfile " disable swap file
-set ignorecase " ignore case when searching
-set smartcase " ignore case when pattern is all lowercase
-set smarttab " insert tabs according to shiftwidgth not tabstop
-set autoindent " copy indent from current line when starting new line
-set copyindent " copy previous indentation on autoindenting
-set visualbell " don't beep
-set noerrorbells " don't beep
 
 " local override
 if filereadable($HOME . "/.vimrc.local")
