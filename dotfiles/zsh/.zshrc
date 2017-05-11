@@ -17,7 +17,7 @@ export CYGWIN=winsymlinks:nativestrict
 
 # set vim as default editor
 export VISUAL=vim
-export EDITOR="$VISUAL"
+export EDITOR=$VISUAL
 
 . ~/.alias
 . ~/.zsh_alias
