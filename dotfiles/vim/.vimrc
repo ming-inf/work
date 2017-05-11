@@ -6,8 +6,11 @@ noremap l <left>| " moves left
 noremap ; <right>| " moves right
 noremap h :| " enters commandline mode
 
-noremap <C-w>l <C-w>h " moves left pane
-noremap <C-w>; <C-w>l " moves right pane
+noremap <C-w>l <C-w>h| " moves left pane
+noremap <C-w>; <C-w>l| " moves right pane
+
+highlight cursorline ctermbg=0 cterm=none| " highlight current line
+highlight cursorcolumn ctermbg=0| " highlight current column
 
 set splitbelow splitright " open split panes below and to the right of the current pane
 set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
@@ -43,9 +46,6 @@ let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
-
-:highlight cursorline ctermbg=0 cterm=none
-:highlight cursorcolumn ctermbg=0
 
 " local override
 if filereadable($HOME . "/.vimrc.local")
