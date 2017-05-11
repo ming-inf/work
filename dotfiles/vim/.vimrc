@@ -31,6 +31,7 @@ set noerrorbells " don't beep
 set number " precede each line with line number
 set relativenumber " show line numbers relative to line with cursor
 set tabstop=1 " set tab to 1 space
+set shiftwidth=0 " disable shiftwidth, use tabstop
 set ruler " show cursor position
 set showcmd " display incomplete commands
 set cursorline cursorcolumn " highlight line and column of the cursor
