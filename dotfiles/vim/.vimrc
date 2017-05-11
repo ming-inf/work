@@ -23,6 +23,7 @@ set hlsearch " highlight matches
 set showmatch " when bracket is inserted, briefly jump to matching one
 
 " https://github.com/mintty/mintty/wiki/Tips#mode-dependent-cursor-in-vim
+" block cursor in normal mode, line cursor in insert mode
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
