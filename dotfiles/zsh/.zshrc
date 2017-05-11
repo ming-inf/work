@@ -14,7 +14,7 @@ compinit
 # End of lines added by compinstall
 
 . ~/.alias
-. ~/.zsh_alias
+. ~/.alias.zsh
 
 # http://stackoverflow.com/a/12935606
 setopt prompt_subst
