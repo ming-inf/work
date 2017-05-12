@@ -4,6 +4,7 @@
 . zsh
 . tmux
 . git
+. tig (git cli gui)
 . asciidoc
 . gnu stow
 . vim
@@ -14,6 +15,15 @@
 . tree
 . dos2unix
 . silver searcher (alternative: git grep)
+. pv
+. multitail
+. mosh
+. keychain
+. task
+. duff, fdupes
+. convmv (filename encoding conversion)
+. cdargs (bookmarks for cd)
+. asciinema
 
 == default to zsh
 
