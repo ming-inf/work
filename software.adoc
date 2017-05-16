@@ -1,0 +1,12 @@
+= software
+
+- Launchy – launch application with keystroke - http://www.launchy.net/
+- Search everything – search across your whole desktop -  https://www.voidtools.com/
+- conemu – tabbed windows terminal -  https://conemu.github.io/
+- tinytake – Screenshot tool - https://tinytake.com/
+- clipx – Retain multiple items in clipboard -  http://bluemars.org/clipx/
+- greenshot - screenshot tool - http://getgreenshot.org/
+- moboxterm – tabbed unix terminal - http://mobaxterm.mobatek.net/
+- dbeaver - universal sql client - http://dbeaverss.org/
+- wiztree - search file system - http://antibody-software.com/web/software/software/wiztree-finds-the-files-and-folders-using-the-most-disk-space-on-your-hard-drive/
+- beyond compare - diff - https://www.scootersoftware.com/
