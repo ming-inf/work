@@ -21,15 +21,15 @@ bindkey ' ' magic-space # remap space to perform history expansion
 # git prompt
 source ~/.git-prompt.zsh
 
-precmd() {
+status_line() {
 	blank_line=$'\n'
-	left='%D{%F %H:%M} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f '$?
+	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f '$?
 	right=$(parse_git_state)
 
-	left_size=${#${(S%%)left//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-	padding=$(($COLUMNS-$left_size))
+	left_size=${#${(S%%)left//(\%([KF1]|)\{*\}|\%[Bbkf])}} # filter non-printable characters (colour codes)
+	right_padding_size=$(($COLUMNS-$left_size))
 
-	print -P $blank_line$left${(l:$padding:: :)right}
+	echo $blank_line$left${(l:$right_padding_size:: :)right}
 }
 
 function nested_processes() {
@@ -46,11 +46,11 @@ function nested_processes() {
 			parentpid=$(ps -O ppid -p "$parentpid" | awk '$1 == PP {print $2}' PP="$parentpid")
 		done
 	fi
-	echo ${(j: > :)p} # prepend ' > '
+	echo ${(j: > :)p} # join strings with ' > '
 }
 
 setopt PROMPT_SUBST
-PROMPT='$(nested_processes) %# '
+PROMPT='$(status_line)$(nested_processes) %# '
 #PS1="%m%# " # default
 PS2="$_> "
 PS3="?# "

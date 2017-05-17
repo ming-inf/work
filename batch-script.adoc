@@ -1,0 +1,8 @@
+= windows batch scripting
+
+== variable scope
+global: set
+local: setlocal; end with endlocal, exit, or eof
+
+== references
+https://robots.thoughtbot.com/the-unix-shells-humble-if
