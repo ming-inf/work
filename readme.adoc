@@ -47,6 +47,9 @@ a.txt b.txt c.txt
         IdentityFile ~/.ssh/id_rsa
 --
 
+=== bash tips
+https://robots.thoughtbot.com/the-unix-shells-humble-if
+
 === asciidoc user guide
 http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
 
