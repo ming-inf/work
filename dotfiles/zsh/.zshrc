@@ -16,27 +16,44 @@ compinit
 . ~/.alias
 . ~/.alias.zsh
 
-# http://stackoverflow.com/a/12935606
-setopt prompt_subst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' stagedstr 'M'
-zstyle ':vcs_info:*' unstagedstr 'M'
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-zstyle ':vcs_info:*' enable git
-+vi-git-untracked() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-  hook_com[unstaged]+='%F{1}?%f'
-fi
+bindkey ' ' magic-space # remap space to perform history expansion
+
+# git prompt
+source ~/.git-prompt.zsh
+
+precmd() {
+	blank_line=$'\n'
+	left='%D{%F %H:%M} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f '$?
+	right=$(parse_git_state)
+
+	left_size=${#${(S%%)left//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+	padding=$(($COLUMNS-$left_size))
+
+	print -P $blank_line$left${(l:$padding:: :)right}
 }
 
+function nested_processes() {
+	typeset -a p
+	parentpid=$PPID
+	if [[ cygwin = $os ]]; then
+		while (($parentpid != 1)) do
+			p=($(ps -p "$parentpid" | awk '$1 == PP {print $8}' PP="$parentpid" | xargs basename) $p)
+			parentpid=$(ps -p "$parentpid" | awk '$1 == PP {print $2}' PP="$parentpid")
+		done
+	else
+		while (($parentpid != 1)) do
+			p=($(ps -O pid -p "$parentpid" | awk '$1 == PP {print $8}' PP="$parentpid" | xargs basename) $p)
+			parentpid=$(ps -O ppid -p "$parentpid" | awk '$1 == PP {print $2}' PP="$parentpid")
+		done
+	fi
+	echo ${(j: > :)p} # prepend ' > '
+}
 
-precmd () { vcs_info }
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_} %f%# '
-
-bindkey ' ' magic-space # remap space to perform history expansion
+setopt PROMPT_SUBST
+PROMPT='$(nested_processes) %# '
+#PS1="%m%# " # default
+PS2="$_> "
+PS3="?# "
+PS4="+"
 
 [[ -a ~/.zshrc.local ]] && . ~/.zshrc.local # local override
