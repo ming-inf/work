@@ -9,7 +9,7 @@ function parse_git_state() {
 	local ahead=$(git rev-list @{u}.. 2> /dev/null | awk '{count++} END {print count}')
 	local behind=$(git rev-list ..@{u} 2> /dev/null | awk '{count++} END {print count}')
 
-	local git_branch=${$(git symbolic-ref -q HEAD 2> /dev/null || git name-rev --name-only --no-undefined --always HEAD)#refs\/heads\/}
+	local git_branch=$(git name-rev --name-only --no-undefined --always HEAD)
 	local git_hash=$(git rev-parse --short HEAD 2> /dev/null)
 
 	local git_state="± $git_hash"
