@@ -24,7 +24,11 @@ source ~/.git-prompt.zsh
 status_line() {
 	blank_line=$'\n'
 	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f '$?
-	right=$(parse_git_state)
+	if type parse_git_state > /dev/null; then
+		right=$(parse_git_state)
+	else
+		right=''
+	fi
 
 	left_size=${#${(S%%)left//(\%([KF1]|)\{*\}|\%[Bbkf])}} # filter non-printable characters (colour codes)
 	right_padding_size=$(($COLUMNS-$left_size))
