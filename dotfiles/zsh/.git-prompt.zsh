@@ -3,11 +3,9 @@ function parse_git_state() {
 
 	local git_status=$(git status -s --porcelain)
 
-	local git_index_state staged unstaged
 	local staged=$(echo $git_status | awk '/^[ACDMR]/ {count++} END {print count}')
 	local unstaged=$(echo $git_status | awk '/^.[ADM?]/ {count++} END {print count}')
 
-	local git_branch_state ahead behind
 	local ahead=$(git rev-list @{u}.. 2> /dev/null | awk '{count++} END {print count}')
 	local behind=$(git rev-list ..@{u} 2> /dev/null | awk '{count++} END {print count}')
 
