@@ -10,6 +10,8 @@ alias l='ls -l --color=auto'
 alias ll='ls -al --color=auto'
 alias ld='ls -adl */ .*/ --color=auto'
 
+alias grep='grep --color=auto'
+
 alias ga='git add'
 alias gai='git add -i'
 alias gb='git branch'
