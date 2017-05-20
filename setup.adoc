@@ -3,7 +3,7 @@
 == additional packages
 . zsh
 . tmux
-. procps
+. procps-ng
 . git
 . tig (git cli gui)
 . asciidoc
