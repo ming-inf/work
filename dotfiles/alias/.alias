@@ -1,7 +1,7 @@
 alias virc='vi ~/.zshrc && source $_'
 alias reloadrc='source ~/.zshrc'
 
-alias cls='clear'
+alias cls=clear
 
 alias l='ls -l --color=auto'
 alias ll='ls -la --color=auto'
