@@ -26,6 +26,13 @@ set autoindent " copy indent from current line when starting new line
 set copyindent " copy previous indentation on autoindenting
 set visualbell " don't beep
 set noerrorbells " don't beep
+set backspace=start,indent,eol " make backspace delete over line breaks
+set title " set terminal title
+set laststatus=2 " always display status line
+set background=dark " set colour scheme
+
+filetype on| " autodetect file type
+syntax enable| " enable syntax highlighting
 
 " https://dougblack.io/words/a-good-vimrc.html
 set number " precede each line with line number
