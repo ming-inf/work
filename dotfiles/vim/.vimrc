@@ -6,8 +6,8 @@ noremap l <left>| " moves left
 noremap ; <right>| " moves right
 noremap h :| " enters commandline mode
 
-noremap <C-w>l <C-w>h| " moves left pane
-noremap <C-w>; <C-w>l| " moves right pane
+noremap <c-w>l <c-w>h| " moves left pane
+noremap <c-w>; <c-w>l| " moves right pane
 
 highlight cursorline ctermbg=0 cterm=none| " highlight current line
 highlight cursorcolumn ctermbg=0| " highlight current column
