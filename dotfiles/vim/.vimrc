@@ -1,3 +1,5 @@
+" reload with :so %
+" turn off highlighting until next search :noh
 " | separates commands
 imap jk <esc>| " set jk to escape insert mode
 noremap j gj| " move down in between wrapped lines
