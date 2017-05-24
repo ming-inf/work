@@ -1,0 +1,4 @@
+# add this config using: git config include.path ../.gitconfig
+[diff]
+	indentHeuristic = on
+	algorithm = histogram
