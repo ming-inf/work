@@ -13,6 +13,7 @@ alias ld='ls -adl */ .*/ --color=auto'
 alias grep='grep --color=auto'
 
 alias ga='git add'
+alias gauth='git blame' # author
 alias gai='git add -i'
 alias gb='git branch'
 alias gba='git branch --all'
