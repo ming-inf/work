@@ -1,6 +1,17 @@
 = readme
 
 == articles
+https://news.ycombinator.com/item?id=14272702[The Patek Philippe Caliber 89 and Horology’s Easter Problem]
+https://news.ycombinator.com/item?id=14272847[Generating all permutations, combinations, and power set of a string
+(2012)]
+https://en.wikipedia.org/wiki/Sheng_ji
+https://news.ycombinator.com/item?id=14290617[Reed-Solomon coder computing one million ECC blocks at 1 GB/s]
+https://news.ycombinator.com/item?id=14289307[Jeff Varasano's Famous New York Pizza Recipe (2008)]
+https://news.ycombinator.com/item?id=14334154[What made Bell Labs special? (2012)]
+https://news.ycombinator.com/item?id=14341623[An Abridged Cartoon Introduction To WebAssembly]
+https://news.ycombinator.com/item?id=14392305[How a 64k intro is made]
+https://news.ycombinator.com/item?id=14398868[Ask HN: How do you become productive in a new project as a Senior
+Developer?]
 https://news.ycombinator.com/item?id=14249623[Why website body text should be bigger]
 https://en.wikipedia.org/wiki/Change_data_capture
 https://en.wikipedia.org/wiki/Vector_tiles
