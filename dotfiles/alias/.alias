@@ -1,5 +1,5 @@
 alias virc='vi ~/.zshrc && source $_'
-alias reloadrc='source ~/.zshrc'
+alias rc='source ~/.zshrc'
 
 alias po=popd
 alias pu=pushd
