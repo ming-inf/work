@@ -31,6 +31,18 @@ bindkey ' ' magic-space # remap space to perform history expansion
 # git prompt
 source ~/.git-prompt.zsh
 
+function print_exit_status() {
+	es=$?
+	if [ $es -eq 0 ]; then
+		ok='[  OK  ]'
+		statusline="%F{green}${(l:$COLUMNS:: :)ok}"
+	else
+		error='[ERRORS]'
+		statusline="%F{red}${(l:$COLUMNS:: :)error}"
+	fi
+	echo '\n'$statusline%f
+}
+
 function status_line() {
 	blank_line=$'\n'
 	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f'
@@ -75,6 +87,9 @@ if type nested_processes > /dev/null; then
 fi
 if type status_line > /dev/null; then
 	PROMPT='$(status_line)'$PROMPT
+fi
+if type print_exit_status > /dev/null; then
+	PROMPT='$(print_exit_status)'$PROMPT
 fi
 #PS1="%m%# " # default
 PS2="$_> "
