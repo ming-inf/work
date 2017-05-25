@@ -96,4 +96,6 @@ PS2="$_> "
 PS3="?# "
 PS4="+"
 
-[[ -a ~/.zshrc.local ]] && source ~/.zshrc.local # local override
+if [[ -a ~/.zshrc.local ]]; then
+	source ~/.zshrc.local # local override
+fi
