@@ -1,6 +1,10 @@
 = readme
 
 == articles
+https://raft.github.io/
+http://container-solutions.com/raft-explained-part-1-the-consenus-problem/
+https://asafdav2.github.io/2017/raft-algorithm/
+https://news.ycombinator.com/item?id=14416849[Distributed Consensus – How Shared Data Is Stored]
 https://news.ycombinator.com/item?id=14272702[The Patek Philippe Caliber 89 and Horology’s Easter Problem]
 https://news.ycombinator.com/item?id=14272847[Generating all permutations, combinations, and power set of a string
 (2012)]
