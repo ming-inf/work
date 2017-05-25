@@ -1,4 +1,3 @@
-setopt appendhistory autocd notify
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc'
 
@@ -8,6 +7,11 @@ compinit
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
+
+setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
+setopt autocd # automatically change directory
+setopt notify # Report the status of background jobs immediately, rather than waiting until just before printing a prompt
+
 unsetopt beep
 bindkey -v
 # End of lines added by compinstall
