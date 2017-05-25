@@ -69,7 +69,13 @@ function nested_processes() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='$(status_line)$(nested_processes) %# '
+PROMPT=' %# '
+if type nested_processes > /dev/null; then
+	PROMPT='$(nested_processes)'$PROMPT
+fi
+if type status_line > /dev/null; then
+	PROMPT='$(status_line)'$PROMPT
+fi
 #PS1="%m%# " # default
 PS2="$_> "
 PS3="?# "
