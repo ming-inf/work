@@ -33,7 +33,7 @@ source ~/.git-prompt.zsh
 
 status_line() {
 	blank_line=$'\n'
-	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f '$?
+	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f'
 	if type parse_git_state > /dev/null; then
 		right=$(parse_git_state)
 	else
