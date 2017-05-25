@@ -23,8 +23,8 @@ unsetopt beep
 bindkey -v
 # End of lines added by compinstall
 
-. ~/.alias
-. ~/.alias.zsh
+source ~/.alias
+source ~/.alias.zsh
 
 bindkey ' ' magic-space # remap space to perform history expansion
 
@@ -75,4 +75,4 @@ PS2="$_> "
 PS3="?# "
 PS4="+"
 
-[[ -a ~/.zshrc.local ]] && . ~/.zshrc.local # local override
+[[ -a ~/.zshrc.local ]] && source ~/.zshrc.local # local override
