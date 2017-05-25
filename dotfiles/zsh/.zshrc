@@ -61,7 +61,7 @@ function status_line() {
 function nested_processes() {
 	typeset -a p
 	parentpid=$PPID
-	if [[ cygwin = $OSTYPE ]]; then
+	if [ cygwin = $OSTYPE ]; then
 		while (($parentpid != 1)) do
 			if type procps > /dev/null; then
 				p=($(procps -o cmd= $parentpid | awk '{sub(/^-/, "", $1);print $1}' | xargs basename) $p)
