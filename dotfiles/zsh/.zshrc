@@ -31,7 +31,7 @@ bindkey ' ' magic-space # remap space to perform history expansion
 # git prompt
 source ~/.git-prompt.zsh
 
-status_line() {
+function status_line() {
 	blank_line=$'\n'
 	left='%D{%F %T} %F{245}%! %F{cyan}%n%f@%F{red}%m%f:%F{cyan}%~%f'
 	if type parse_git_state > /dev/null; then
