@@ -52,7 +52,7 @@ function nested_processes() {
 	if [[ cygwin = $OSTYPE ]]; then
 		while (($parentpid != 1)) do
 			if type procps > /dev/null; then
-				p=($(procps -o cmd= $parentpid) $p)
+				p=($(procps -o cmd= $parentpid | awk '{sub(/^-/, "", $1);print $1}' | xargs basename) $p)
 				parentpid=$(procps -o ppid:1= $parentpid)
 			else
 				p=($(ps -p "$parentpid" | awk '$1 == PP {print $8}' PP="$parentpid" | xargs basename) $p)
