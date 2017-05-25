@@ -49,7 +49,7 @@ status_line() {
 function nested_processes() {
 	typeset -a p
 	parentpid=$PPID
-	if [[ cygwin = $os ]]; then
+	if [[ cygwin = $OSTYPE ]]; then
 		while (($parentpid != 1)) do
 			if type procps > /dev/null; then
 				p=($(procps -o cmd= $parentpid) $p)
