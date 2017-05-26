@@ -64,6 +64,7 @@ a.txt b.txt c.txt
 
 === bash tips
 https://robots.thoughtbot.com/the-unix-shells-humble-if
+https://unix.stackexchange.com/a/306115[Confused about operators [[ vs [ vs ( vs ((]
 
 === asciidoc user guide
 http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
