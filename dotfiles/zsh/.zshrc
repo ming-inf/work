@@ -32,8 +32,8 @@ bindkey ' ' magic-space # remap space to perform history expansion
 source ~/.git-prompt.zsh
 
 function print_exit_status() {
-	es=$?
-	if [ $es -eq 0 ]; then
+	exit_status=$?
+	if [ $exit_status -eq 0 ]; then
 		ok='[  OK  ]'
 		statusline="%F{green}${(l:$COLUMNS:: :)ok}"
 	else
