@@ -1,2 +1,3 @@
 # set default behaviour, in case core.autocrlf is not set
 * text=auto
+.minttyrc -text
