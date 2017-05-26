@@ -1,6 +1,7 @@
 = readme
 
 == articles
+https://news.ycombinator.com/item?id=14416335[Ammonite: Scala Scripting]
 https://raft.github.io/
 http://container-solutions.com/raft-explained-part-1-the-consenus-problem/
 https://asafdav2.github.io/2017/raft-algorithm/
