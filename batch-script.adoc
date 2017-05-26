@@ -4,5 +4,25 @@
 global: set
 local: setlocal; end with endlocal, exit, or eof
 
+in .bat files, variables need to be escaped with an extra %
+
+== comparison
+if /I string1 compare-op string2
+compare-op:
+\= EQU
+!= NEQ
+< LSS
+<= LEQ
+> GTR
+>= GEQ
+
+== loop
+for /F "usebackq tokens=2,3,4" %%variable in (\`file-set\`) do command [command-parameters]
+read each line in every file in file-set into %%variable
+usebackq to escape file-set expression
+tokens selects the nth position of the output and puts it into single letter variables starting with %%variable (ie if
+%%variable is %%i, then 3rd token is set to %%j)
+
 == references
 https://robots.thoughtbot.com/the-unix-shells-humble-if
+https://stackoverflow.com/questions/18499797/less-than-or-equal-to
