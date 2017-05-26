@@ -78,11 +78,11 @@ function nested_processes() {
 			parentpid=$(ps -O ppid -p "$parentpid" | awk '$1 == PP {print $2}' PP="$parentpid")
 		done
 	fi
-	echo ${(j: > :)p} # join strings with ' > '
+	echo ${(j: > :)p}' ' # join strings with ' > '
 }
 
 setopt PROMPT_SUBST
-PROMPT=' %# '
+PROMPT='%# '
 if type nested_processes > /dev/null; then
 	PROMPT='$(nested_processes)'$PROMPT
 fi
