@@ -32,15 +32,16 @@ bindkey ' ' magic-space # remap space to perform history expansion
 source ~/.git-prompt.zsh
 
 function exit_status() {
+	blank_line=$'\n'
 	exit_status=$?
 	if [ $exit_status -eq 0 ]; then
 		ok='[  OK  ]'
-		statusline="%F{green}${(l:$COLUMNS:: :)ok}"
+		statusline="%F{green}${(l:$COLUMNS:: :)ok}%f"
 	else
 		error='[ERRORS]'
-		statusline="%F{red}${(l:$COLUMNS:: :)error}"
+		statusline="%F{red}${(l:$COLUMNS:: :)error}%f"
 	fi
-	echo '\n'$statusline%f
+	echo $blank_line$statusline
 }
 
 function status_line() {
