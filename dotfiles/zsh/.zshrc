@@ -31,7 +31,7 @@ bindkey ' ' magic-space # remap space to perform history expansion
 # git prompt
 source ~/.git-prompt.zsh
 
-function print_exit_status() {
+function exit_status() {
 	exit_status=$?
 	if [ $exit_status -eq 0 ]; then
 		ok='[  OK  ]'
@@ -88,8 +88,8 @@ fi
 if type status_line > /dev/null; then
 	PROMPT='$(status_line)'$PROMPT
 fi
-if type print_exit_status > /dev/null; then
-	PROMPT='$(print_exit_status)'$PROMPT
+if type exit_status > /dev/null; then
+	PROMPT='$(exit_status)'$PROMPT
 fi
 #PS1="%m%# " # default
 PS2="$_> "
