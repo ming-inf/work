@@ -99,3 +99,8 @@ PS4="+"
 if [[ -a ~/.zshrc.local ]]; then
 	source ~/.zshrc.local # local override
 fi
+
+# os specific settings
+if [ -f ~/.zshrc.os ]; then
+	source ~/.zshrc.os
+fi
