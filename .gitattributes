@@ -1,5 +1,2 @@
 # set default behaviour, in case core.autocrlf is not set
-* text=auto
-.minttyrc text eol=lf
-.tmux.conf text eol=lf
-.vimrc text eol=lf
+* text eol=lf
