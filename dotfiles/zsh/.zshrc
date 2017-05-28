@@ -23,11 +23,16 @@ unsetopt beep
 bindkey -v
 # End of lines added by compinstall
 
+bindkey ' ' magic-space # remap space to perform history expansion
+
 [[ -f ~/.alias ]] && source ~/.alias
 [[ -f ~/.alias.zsh ]] && source ~/.alias.zsh
 [[ -f ~/.functions.zsh ]] && source ~/.functions.zsh
 
-bindkey ' ' magic-space # remap space to perform history expansion
+# os specific settings
+if [ -f ~/.zshrc.os ]; then
+	source ~/.zshrc.os
+fi
 
 function nested_processes() {
 	typeset -a p
@@ -69,9 +74,4 @@ PS4="+"
 
 if [[ -a ~/.zshrc.local ]]; then
 	source ~/.zshrc.local # local override
-fi
-
-# os specific settings
-if [ -f ~/.zshrc.os ]; then
-	source ~/.zshrc.os
 fi
