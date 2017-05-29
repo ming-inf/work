@@ -1,3 +1,6 @@
+alias l='ls -lG'
+alias ll='ls -alG'
+
 function nested_processes() {
 	typeset -a p
 	parentpid=$PPID
