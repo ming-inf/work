@@ -6,10 +6,6 @@ alias pu=pushd
 
 alias cls=clear
 
-alias l='ls -l --color=auto'
-alias ll='ls -al --color=auto'
-alias ld='ls -adl */ .*/ --color=auto'
-
 alias grep='grep --color=auto'
 
 alias ga='git add'

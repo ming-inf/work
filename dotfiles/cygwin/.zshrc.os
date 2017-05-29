@@ -1,6 +1,10 @@
 export CYGWIN=winsymlinks:nativestrict
 alias open='cygstart'
 
+alias l='ls -l --color=auto'
+alias ll='ls -al --color=auto'
+alias ld='ls -adl */ .*/ --color=auto'
+
 function nested_processes() {
 	typeset -a p
 	parentpid=$PPID
