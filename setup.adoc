@@ -26,6 +26,9 @@
 . cdargs (bookmarks for cd)
 . asciinema
 
+== font
+https://fonts.google.com/specimen/Inconsolata
+
 == default to zsh
 
 ./etc/nsswitch.conf
