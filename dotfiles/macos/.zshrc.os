@@ -1,3 +1,4 @@
+# bsd ls
 alias l='ls -lG'
 alias ll='ls -alG'
 

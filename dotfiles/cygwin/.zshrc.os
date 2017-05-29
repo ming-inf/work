@@ -1,6 +1,7 @@
 export CYGWIN=winsymlinks:nativestrict
 alias open='cygstart'
 
+# gnu ls
 alias l='ls -l --color=auto'
 alias ll='ls -al --color=auto'
 alias ld='ls -adl */ .*/ --color=auto'
