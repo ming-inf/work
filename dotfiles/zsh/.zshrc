@@ -34,16 +34,6 @@ if [ -f ~/.zshrc.os ]; then
 	source ~/.zshrc.os
 fi
 
-#function nested_processes() {
-#	typeset -a p
-#	parentpid=$PPID
-#	while (($parentpid != 1)) do
-#		p=($(ps -O pid -p "$parentpid" | awk '$1 == PP {print $8}' PP="$parentpid" | xargs basename) $p)
-#		parentpid=$(ps -O ppid -p "$parentpid" | awk '$1 == PP {print $2}' PP="$parentpid")
-#	done
-#	echo ${(j: > :)p}' ' # join strings with ' > '
-#}
-
 setopt PROMPT_SUBST
 PROMPT='%# '
 if type nested_processes > /dev/null; then
