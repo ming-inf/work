@@ -10,3 +10,4 @@
 - dbeaver - universal sql client - http://dbeaverss.org/
 - wiztree - search file system - http://antibody-software.com/web/software/software/wiztree-finds-the-files-and-folders-using-the-most-disk-space-on-your-hard-drive/
 - beyond compare - diff - https://www.scootersoftware.com/
+- vrapper - eclipse vim plugin - http://vrapper.sourceforge.net/home/
