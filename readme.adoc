@@ -1,49 +1,49 @@
 = readme
 
 == articles
-https://news.ycombinator.com/item?id=14437404[AES-GCM-SIV: AES-GCM with some forgiveness]
-https://softwareengineering.stackexchange.com/questions/132385/what-makes-a-language-turing-complete[What makes a language Turing-complete?]
-https://news.ycombinator.com/item?id=14438601[Unicode is hard]
-https://news.ycombinator.com/item?id=14437921[Ask HN: What are some examples of highly successful single-person businesses?]
-https://news.ycombinator.com/item?id=14440456[Ask HN: What does your diet look like?]
-https://news.ycombinator.com/item?id=14443968[Nile.js – A Peer-to-Peer Live Video Streaming Library built on WebTorrent]
-https://news.ycombinator.com/item?id=14416335[Ammonite: Scala Scripting]
-https://raft.github.io/
-http://container-solutions.com/raft-explained-part-1-the-consenus-problem/
-https://asafdav2.github.io/2017/raft-algorithm/
-https://news.ycombinator.com/item?id=14416849[Distributed Consensus – How Shared Data Is Stored]
-https://news.ycombinator.com/item?id=14272702[The Patek Philippe Caliber 89 and Horology’s Easter Problem]
-https://news.ycombinator.com/item?id=14272847[Generating all permutations, combinations, and power set of a string (2012)]
-https://en.wikipedia.org/wiki/Sheng_ji
-https://news.ycombinator.com/item?id=14290617[Reed-Solomon coder computing one million ECC blocks at 1 GB/s]
-https://news.ycombinator.com/item?id=14289307[Jeff Varasano's Famous New York Pizza Recipe (2008)]
-https://news.ycombinator.com/item?id=14334154[What made Bell Labs special? (2012)]
-https://news.ycombinator.com/item?id=14341623[An Abridged Cartoon Introduction To WebAssembly]
-https://news.ycombinator.com/item?id=14392305[How a 64k intro is made]
-https://news.ycombinator.com/item?id=14398868[Ask HN: How do you become productive in a new project as a Senior Developer?]
-https://news.ycombinator.com/item?id=14249623[Why website body text should be bigger]
-https://en.wikipedia.org/wiki/Change_data_capture
-https://en.wikipedia.org/wiki/Vector_tiles
-http://cmder.net/
-https://developers.google.com/web/updates/2017/04/headless-chrome[Getting Started with Headless Chrome]
-https://news.ycombinator.com/item?id=14246334[Show HN: MStream – A personal music streaming server]
-https://news.ycombinator.com/item?id=7495337[Pass: The standard unix password manager]
-http://stackoverflow.com/questions/30019585/log4j2-why-would-you-use-it-over-log4j
-https://techblog.bozho.net/external-project-configuration/
-https://news.ycombinator.com/item?id=14164662[Scalable, Lie-Detecting Timeserving with Roughtime]
-https://news.ycombinator.com/item?id=14149186[Microsoft To-Do Preview]
-https://news.ycombinator.com/item?id=14154378[Microsoft to shut down Wunderlist in favor of its new app, To-Do]
-https://discordapp.com/
-https://mastodon.social/
-https://news.ycombinator.com/item?id=14145252[The History of Computer RPGs]
-http://onemodel.org/
-https://news.ycombinator.com/item?id=14133060[The 9-Minute Strength Workout – Well Guides]
-https://news.ycombinator.com/item?id=14129543[Rope Science – Advanced computer science concepts behind the Xi editor]
-https://news.ycombinator.com/item?id=14130241[Phishing with Unicode Domains]
-https://news.ycombinator.com/item?id=14128145[Data structures and algorithms interview questions and their solutions]
-https://news.ycombinator.com/item?id=14100254[An Alternative Approach to Rate Limiting]
-https://news.ycombinator.com/item?id=14077863[Programming in the Point-Free Style]
-https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool used in optics, MP3s, JPEGs and more (2013)]
+- https://news.ycombinator.com/item?id=14437404[AES-GCM-SIV: AES-GCM with some forgiveness]
+- https://softwareengineering.stackexchange.com/questions/132385/what-makes-a-language-turing-complete[What makes a language Turing-complete?]
+- https://news.ycombinator.com/item?id=14438601[Unicode is hard]
+- https://news.ycombinator.com/item?id=14437921[Ask HN: What are some examples of highly successful single-person businesses?]
+- https://news.ycombinator.com/item?id=14440456[Ask HN: What does your diet look like?]
+- https://news.ycombinator.com/item?id=14443968[Nile.js – A Peer-to-Peer Live Video Streaming Library built on WebTorrent]
+- https://news.ycombinator.com/item?id=14416335[Ammonite: Scala Scripting]
+- https://raft.github.io/
+- http://container-solutions.com/raft-explained-part-1-the-consenus-problem/
+- https://asafdav2.github.io/2017/raft-algorithm/
+- https://news.ycombinator.com/item?id=14416849[Distributed Consensus – How Shared Data Is Stored]
+- https://news.ycombinator.com/item?id=14272702[The Patek Philippe Caliber 89 and Horology’s Easter Problem]
+- https://news.ycombinator.com/item?id=14272847[Generating all permutations, combinations, and power set of a string (2012)]
+- https://en.wikipedia.org/wiki/Sheng_ji
+- https://news.ycombinator.com/item?id=14290617[Reed-Solomon coder computing one million ECC blocks at 1 GB/s]
+- https://news.ycombinator.com/item?id=14289307[Jeff Varasano's Famous New York Pizza Recipe (2008)]
+- https://news.ycombinator.com/item?id=14334154[What made Bell Labs special? (2012)]
+- https://news.ycombinator.com/item?id=14341623[An Abridged Cartoon Introduction To WebAssembly]
+- https://news.ycombinator.com/item?id=14392305[How a 64k intro is made]
+- https://news.ycombinator.com/item?id=14398868[Ask HN: How do you become productive in a new project as a Senior Developer?]
+- https://news.ycombinator.com/item?id=14249623[Why website body text should be bigger]
+- https://en.wikipedia.org/wiki/Change_data_capture
+- https://en.wikipedia.org/wiki/Vector_tiles
+- http://cmder.net/
+- https://developers.google.com/web/updates/2017/04/headless-chrome[Getting Started with Headless Chrome]
+- https://news.ycombinator.com/item?id=14246334[Show HN: MStream – A personal music streaming server]
+- https://news.ycombinator.com/item?id=7495337[Pass: The standard unix password manager]
+- http://stackoverflow.com/questions/30019585/log4j2-why-would-you-use-it-over-log4j
+- https://techblog.bozho.net/external-project-configuration/
+- https://news.ycombinator.com/item?id=14164662[Scalable, Lie-Detecting Timeserving with Roughtime]
+- https://news.ycombinator.com/item?id=14149186[Microsoft To-Do Preview]
+- https://news.ycombinator.com/item?id=14154378[Microsoft to shut down Wunderlist in favor of its new app, To-Do]
+- https://discordapp.com/
+- https://mastodon.social/
+- https://news.ycombinator.com/item?id=14145252[The History of Computer RPGs]
+- http://onemodel.org/
+- https://news.ycombinator.com/item?id=14133060[The 9-Minute Strength Workout – Well Guides]
+- https://news.ycombinator.com/item?id=14129543[Rope Science – Advanced computer science concepts behind the Xi editor]
+- https://news.ycombinator.com/item?id=14130241[Phishing with Unicode Domains]
+- https://news.ycombinator.com/item?id=14128145[Data structures and algorithms interview questions and their solutions]
+- https://news.ycombinator.com/item?id=14100254[An Alternative Approach to Rate Limiting]
+- https://news.ycombinator.com/item?id=14077863[Programming in the Point-Free Style]
+- https://news.ycombinator.com/item?id=14084526[Fourier transform – A math tool used in optics, MP3s, JPEGs and more (2013)]
 
 == documentation
 === command line notes
