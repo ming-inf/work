@@ -31,6 +31,8 @@ set backspace=start,indent,eol " make backspace delete over line breaks
 set title " set terminal title
 set laststatus=2 " always display status line
 set background=dark " set colour scheme
+set wrap " visually word wrap
+set linebreak " wrap at a character in the breakat option
 
 filetype on| " autodetect file type
 syntax enable| " enable syntax highlighting
