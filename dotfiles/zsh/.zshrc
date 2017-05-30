@@ -34,6 +34,8 @@ if [ -f ~/.zshrc.os ]; then
 	source ~/.zshrc.os
 fi
 
+() {print -Pn "\e]0;%n@%m:%~\a"}
+
 setopt PROMPT_SUBST
 PROMPT='%# '
 if type nested_processes > /dev/null; then
