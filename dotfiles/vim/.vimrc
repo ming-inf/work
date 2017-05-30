@@ -11,6 +11,8 @@ noremap h :| " enters commandline mode
 noremap <c-w>l <c-w>h| " moves left pane
 noremap <c-w>; <c-w>l| " moves right pane
 
+set clipboard=unnamed " set clipboard to "* register
+
 highlight cursorline ctermbg=0 cterm=none| " highlight current line
 highlight cursorcolumn ctermbg=0| " highlight current column
 
