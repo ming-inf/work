@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14446871[comment: Ask HN: Why don't more open source projects monetize?]
 - https://news.ycombinator.com/item?id=14437404[AES-GCM-SIV: AES-GCM with some forgiveness]
 - https://softwareengineering.stackexchange.com/questions/132385/what-makes-a-language-turing-complete[What makes a language Turing-complete?]
 - https://news.ycombinator.com/item?id=14438601[Unicode is hard]
