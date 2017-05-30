@@ -16,8 +16,7 @@ highlight cursorcolumn ctermbg=0| " highlight current column
 
 set splitbelow splitright " open split panes below and to the right of the current pane
 set list listchars=tab:»·,trail:·,nbsp:· " display whitespace
-set textwidth=120 " set line length
-set colorcolumn=+1 " show columns (relative to textwidth)
+set colorcolumn=120 " show columns
 set timeoutlen=1000 ttimeoutlen=0 " esc key delay
 set nobackup nowritebackup " no backup made
 set noswapfile " disable swap file
