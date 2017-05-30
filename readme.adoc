@@ -1,6 +1,11 @@
 = readme
 
 == articles
+https://softwareengineering.stackexchange.com/questions/132385/what-makes-a-language-turing-complete[What makes a language Turing-complete?]
+https://news.ycombinator.com/item?id=14438601[Unicode is hard]
+https://news.ycombinator.com/item?id=14437921[Ask HN: What are some examples of highly successful single-person businesses?]
+https://news.ycombinator.com/item?id=14440456[Ask HN: What does your diet look like?]
+https://news.ycombinator.com/item?id=14443968[Nile.js – A Peer-to-Peer Live Video Streaming Library built on WebTorrent]
 https://news.ycombinator.com/item?id=14416335[Ammonite: Scala Scripting]
 https://raft.github.io/
 http://container-solutions.com/raft-explained-part-1-the-consenus-problem/
