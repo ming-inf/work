@@ -96,3 +96,6 @@ https://capnproto.org/
 === structured logging
 http://syslog4j.org/
 https://logging.apache.org/log4j/2.x/
+
+=== cryptography
+https://github.com/abstractj/kalium
