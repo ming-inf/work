@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14458293[Underscore's Scala books are now open source]
 - https://news.ycombinator.com/item?id=14453966[How to Keep Your Best Programmers (2012)]
 - https://news.ycombinator.com/item?id=14453263[Interleaving and varying your study location are good learning strategies (2012)]
 - https://news.ycombinator.com/item?id=14450905[On Conference Speaking]
@@ -80,6 +81,14 @@ http://www.methods.co.nz/asciidoc/userguide.html[AsciiDoc User Guide]
 
 === zsh git customization
 https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+
+=== scala
+https://github.com/underscoreio/creative-scala.git
+https://github.com/underscoreio/essential-scala.git
+https://github.com/underscoreio/shapeless-guide-code.git
+https://github.com/underscoreio/essential-slick.git
+https://github.com/underscoreio/advanced-scala.git
+
 
 == libraries
 === dependency injection
