@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14469316[Show HN: StockNerd – A community for index fund investors]
 - http://miegakure.com/
 - https://news.ycombinator.com/item?id=14471931[4D Toys: a box of four-dimensional toys]
 - https://news.ycombinator.com/item?id=14458293[Underscore's Scala books are now open source]
