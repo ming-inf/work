@@ -1,6 +1,12 @@
 = readme
 
 == articles
+- https://neil.fraser.name/writing/diff/[Diff Strategies]
+- https://www.jeffgeerling.com/blog/running-ansible-within-windows[Running Ansible within Windows]
+- https://news.ycombinator.com/item?id=14486964[An Advanced Intro to GnuPG]
+- https://news.ycombinator.com/item?id=14472353[Ask HN: As a skilled developer, how do you make pocket money with little time?]
+- https://news.ycombinator.com/item?id=14468212[Training Your Brain to Be (and Stay) Happy]
+- https://news.ycombinator.com/item?id=14468362[Hacker, Hack Thyself]
 - https://news.ycombinator.com/item?id=14469316[Show HN: StockNerd – A community for index fund investors]
 - http://miegakure.com/
 - https://news.ycombinator.com/item?id=14471931[4D Toys: a box of four-dimensional toys]
