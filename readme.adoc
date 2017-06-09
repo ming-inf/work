@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://www.lammertbies.nl/comm/info/ascii-characters.html[ASCII character map]
+- https://en.wikipedia.org/wiki/Collective_intelligence[Collective intelligence]
 - https://neil.fraser.name/writing/diff/[Diff Strategies]
 - https://www.jeffgeerling.com/blog/running-ansible-within-windows[Running Ansible within Windows]
 - https://news.ycombinator.com/item?id=14486964[An Advanced Intro to GnuPG]
