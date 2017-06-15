@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14558582[Show HN: Snips is a AI Voice Assistant platform 100% on-device and private]
 - https://news.ycombinator.com/item?id=14537299[Ask HN: Alternatives to Yubikey?]
 - https://tmsu.org/[tmsu]
 - https://github.com/StrumentiResistenti/Tagsistant[Tagsistant]
