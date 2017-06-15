@@ -1,0 +1,2 @@
+# https://stackoverflow.com/a/38331293
+printf "\e]11;red\e\\"
