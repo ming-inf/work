@@ -36,6 +36,14 @@ if [ -f ~/.zshrc.os ]; then
 fi
 
 () {print -Pn "\e]0;%n@%m:%~\a"}
+# https://superuser.com/a/622184
+function settitle() {
+    echo -ne "\033]2;"$1"\007"
+#	print -Pn "\e]0;%n@%m:%~\a"
+}
+function chpwd() {
+    settitle $(cygpath -m `pwd`)
+}
 
 setopt PROMPT_SUBST
 PROMPT='%# '
