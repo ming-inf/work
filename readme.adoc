@@ -1,6 +1,9 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14551330[Things that Idris improves things over Haskell]
+- http://nullprogram.com/blog/2017/03/12/[Why I've Retired My PGP Keys and What's Replaced It]
+- https://news.ycombinator.com/item?id=14567074[Switching to the Mutt Email Client]
 - https://news.ycombinator.com/item?id=14558582[Show HN: Snips is a AI Voice Assistant platform 100% on-device and private]
 - https://news.ycombinator.com/item?id=14537299[Ask HN: Alternatives to Yubikey?]
 - https://tmsu.org/[tmsu]
