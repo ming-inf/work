@@ -1,4 +1,4 @@
-export CYGWIN=winsymlinks:nativestrict
+export CYGWIN=winsymlinks:native
 alias open='cygstart'
 
 # gnu ls
