@@ -20,7 +20,7 @@
 . multitail
 . mosh
 . keychain
-. task
+. task (https://taskwarrior.org/)
 . duff, fdupes
 . convmv (filename encoding conversion)
 . cdargs (bookmarks for cd)
