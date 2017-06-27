@@ -1,6 +1,12 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14578380[Your own company? You can do it (2011)]
+- https://news.ycombinator.com/item?id=14585958[Horcrux: A Password Manager for Paranoids]
+- https://news.ycombinator.com/item?id=14586679[Show HN: GoldenLayout – build multi-screen webapps]
+- https://news.ycombinator.com/item?id=14612537[Netflix Originals: Production and Post-Production Requirements v2.1]
+- https://news.ycombinator.com/item?id=14634658[Efficient music players remain elusive]
+- https://news.ycombinator.com/item?id=14633576[KeePassXC 2.2.0 released with YubiKey and TOTP support]
 - https://news.ycombinator.com/item?id=14618239[Binary Puzzle]
 - https://news.ycombinator.com/item?id=14612680[Luna – Visual and textual functional programming language]
 - https://news.ycombinator.com/item?id=14609321[VisuAlgo – visualising data structures and algorithms through animation]
