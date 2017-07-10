@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14738173[Ask HN: What other career choices can one do with CS degree?]
 - http://p.migdal.pl/2017/01/06/king-man-woman-queen-why.html
 - https://news.ycombinator.com/item?id=14526344[Build a Modern Computer from First Principles: Nand to Tetris Part II]
 - https://cardgames.io/
