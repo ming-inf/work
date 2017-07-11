@@ -30,6 +30,9 @@ bindkey ' ' magic-space # remap space to perform history expansion
 [[ -f ~/.alias.tmux ]] && [[ -v TMUX_PANE ]] && source ~/.alias.tmux
 [[ -f ~/.functions.zsh ]] && source ~/.functions.zsh
 
+# case insensitive tab completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
 # os specific settings
 if [ -f ~/.zshrc.os ]; then
 	source ~/.zshrc.os

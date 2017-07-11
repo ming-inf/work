@@ -2,9 +2,6 @@
 alias l='ls -lG'
 alias ll='ls -alG'
 
-# case insensitive tab completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
 function nested_processes() {
 	typeset -a p
 	parentpid=$PPID
