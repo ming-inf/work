@@ -26,7 +26,7 @@ bindkey -v
 bindkey ' ' magic-space # remap space to perform history expansion
 
 [[ -f ~/.alias ]] && source ~/.alias
-[[ -f ~/.alias.zsh ]] && source ~/.alias.zsh
+[[ -f ~/.alias.zsh ]] && [[ -n $ZSH_VERSION ]] && source ~/.alias.zsh
 [[ -f ~/.alias.tmux ]] && [[ -v TMUX_PANE ]] && source ~/.alias.tmux
 [[ -f ~/.functions.zsh ]] && source ~/.functions.zsh
 
