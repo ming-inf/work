@@ -1,0 +1,4 @@
+# append
+path+=('/home/bin')
+# or prepend
+path=('/home/bin' $path)

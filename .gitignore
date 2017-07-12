@@ -1,6 +1,9 @@
 # mac
 .DS_Store
 
+# .zshenv local override
+.zshenv.local
+
 # vim swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
