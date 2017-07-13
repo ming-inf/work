@@ -99,6 +99,11 @@ outputs
 a.txt b.txt c.txt
 --
 
+=== ssh authentication attempts
+--
+grep 'authentication failures' /var/log/auth.log
+--
+
 === ssh key privacy
 --
     # Ignore SSH keys unless specified in Host subsection
