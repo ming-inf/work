@@ -55,12 +55,19 @@ set lazyredraw " redraw only when necessary
 
 set fileformats=unix " support only unix style files natively
 
+" https://vi.stackexchange.com/a/3456
+" fix blinking cursor when exiting vim in tmux
+if exists('$TMUX')
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\e[1 q\<Esc>\\"
+else
 " https://github.com/mintty/mintty/wiki/Tips#mode-dependent-cursor-in-vim
 " block cursor in normal mode, line cursor in insert mode
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
+	let &t_ti.="\e[1 q"
+	let &t_SI.="\e[5 q"
+	let &t_EI.="\e[1 q"
+	let &t_te.="\e[0 q"
+endif
 
 " local override
 if filereadable($HOME . "/.vimrc.local")

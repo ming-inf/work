@@ -9,3 +9,4 @@ Scrollbar=none
 ThemeFile=dracula.minttyrc
 Columns=150
 Rows=50
+AllowBlinking=yes
