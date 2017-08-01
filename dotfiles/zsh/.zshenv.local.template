@@ -2,3 +2,6 @@
 path+=('/home/bin')
 # or prepend
 path=('/home/bin' $path)
+
+# remove duplicate entries
+typeset -U path
