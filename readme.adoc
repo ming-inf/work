@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://sysgears.com/grain/[static site generator (asciidoc, md, rst)]
+- https://useiconic.com/
 - http://hamvocke.com/blog/remote-pair-programming-with-tmux/
 - https://news.ycombinator.com/item?id=14689752[Myers Diff Algorithm – Code and Interactive Visualization]
 - https://bronevichok.ru/ttygames/
