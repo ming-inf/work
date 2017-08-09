@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14945840[Knolling]
+- https://news.ycombinator.com/item?id=14947768[TFHE: Fast Fully-Homomorphic Encryption Over the Torus]
 - https://news.ycombinator.com/item?id=14928573[Building account systems]
 - https://news.ycombinator.com/item?id=14911372[Show HN: Bt – A full-featured BitTorrent library in Java 8]
 - https://sysgears.com/grain/[static site generator (asciidoc, md, rst)]
