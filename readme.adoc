@@ -1,6 +1,13 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=14989226[Why our outdated brains are making us unhappy]
+- https://news.ycombinator.com/item?id=14980212[Efficient Graph Algorithms in Neo4j]
+- https://en.wikipedia.org/wiki/Search_engine_indexing[Search engine indexing]
+- https://stackoverflow.com/questions/6039238/how-to-auto-tag-content-algorithms-and-suggestions-needed[How to auto-tag content, algorithms and suggestions needed]
+- https://stackoverflow.com/questions/1810356/how-to-implement-tag-system[How to implement tag system]
+- https://news.ycombinator.com/item?id=14917378[How I implemented my own crypto]
+- https://news.ycombinator.com/item?id=14976648[Learn Regex the Easy Way]
 - https://news.ycombinator.com/item?id=14945840[Knolling]
 - https://news.ycombinator.com/item?id=14947768[TFHE: Fast Fully-Homomorphic Encryption Over the Torus]
 - https://news.ycombinator.com/item?id=14928573[Building account systems]
