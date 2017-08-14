@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://github.com/mabe02/lanterna[Lanterna is a Java library allowing you to write easy semi-graphical user interfaces]
 - https://news.ycombinator.com/item?id=14989226[Why our outdated brains are making us unhappy]
 - https://news.ycombinator.com/item?id=14980212[Efficient Graph Algorithms in Neo4j]
 - https://en.wikipedia.org/wiki/Search_engine_indexing[Search engine indexing]
