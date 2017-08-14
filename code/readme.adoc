@@ -1,0 +1,16 @@
+= setup gradle
+. mkdir gradle-test
+. cd $_
+. gradle init --type java-application
+. copy gradle-4.0.2-bin.zip to gradle/wrapper/
+. change distributionUrl in gradle/wrapper/gradle-wrapper.properties to gradle-4.0.2-bin.zip
+. vi build.gradle
+--
+apply plugin: 'maven'
+
+repositories {
+	maven {
+		url uri('<user-home>/.m2/repository')
+	}
+}
+--
