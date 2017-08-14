@@ -17,3 +17,8 @@
 **/*.html
 
 .gradle/
+
+.classpath
+.gitignore
+.project
+.settings/
