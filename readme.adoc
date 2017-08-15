@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15017013[How do I modify a variable in Haskell?]
 - http://illegalargumentexception.blogspot.ca/2009/04/java-unicode-on-windows-command-line.html[Java: Unicode on the Windows command line]
 - http://illegalargumentexception.blogspot.ca/2010/09/java-systemconsole-ides-and-testing.html[Java: System.console(), IDEs and testing]
 - https://github.com/mabe02/lanterna[Lanterna is a Java library allowing you to write easy semi-graphical user interfaces]
