@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -25,12 +26,6 @@ public class App extends Application {
 		} else if (null != System.console()) {
 			char[] pass = System.console().readPassword("console: ");
 			for (char c : pass) {
-				System.out.println((int) c);
-			}
-		} else {
-			System.out.println("System.in: ");
-			int c;
-			while ((c = System.in.read()) != '\n') {
 				System.out.println(c);
 			}
 		}
@@ -54,7 +49,7 @@ public class App extends Application {
 			}
 		});
 
-		StackPane root = new StackPane();
+		Pane root = new StackPane();
 		root.getChildren().add(passwordField);
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
