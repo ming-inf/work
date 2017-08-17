@@ -1,6 +1,5 @@
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -9,7 +8,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.SafePasswordField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -62,21 +61,5 @@ public class App extends Application {
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
 		root.requestFocus();
-	}
-
-	public class SafePasswordField extends PasswordField {
-		public final char[] getPassword()
-				throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-			Content c = getContent();
-
-			Field fld = c.getClass().getDeclaredField("characters");
-			fld.setAccessible(true);
-
-			StringBuilder sb = (StringBuilder) fld.get(c);
-			char[] result = new char[sb.length()];
-			sb.getChars(0, sb.length(), result, 0);
-
-			return result;
-		}
 	}
 }
