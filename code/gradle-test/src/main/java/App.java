@@ -61,6 +61,7 @@ public class App extends Application {
 		root.getChildren().add(passwordField);
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
+		root.requestFocus();
 	}
 
 	public class SafePasswordField extends PasswordField {
