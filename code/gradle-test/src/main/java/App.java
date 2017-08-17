@@ -20,15 +20,19 @@ import javafx.stage.Stage;
 public class App extends Application {
 	ResourceBundle appBundle = ResourceBundle.getBundle("AppBundle", Locale.CANADA);
 
+	public String getString(RESOURCE resourceKey) {
+		return appBundle.getString(resourceKey.toString());
+	}
+
 	public String getGreeting() {
-		return appBundle.getString("greeting");
+		return getString(RESOURCE.GREETING);
 	}
 
 	public void run(String[] args) throws IOException {
 		if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
 			launch(args);
 		} else if (null != System.console()) {
-			char[] pass = System.console().readPassword(appBundle.getString("passwordPrompt"));
+			char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT));
 			for (char c : pass) {
 				System.out.println(c);
 			}
@@ -39,7 +43,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		SafePasswordField passwordField = new SafePasswordField();
-		passwordField.setPromptText(appBundle.getString("passwordLabel"));
+		passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
 		passwordField.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
