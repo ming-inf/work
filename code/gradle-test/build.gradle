@@ -33,6 +33,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir 'resources' 
+        }
+    }
+}
+
+
 // Define the main class for the application
 mainClassName = 'App'
 
