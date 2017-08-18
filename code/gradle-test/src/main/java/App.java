@@ -12,8 +12,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SafePasswordField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -72,10 +72,10 @@ public class App extends Application {
 			}
 		});
 
-		Pane root = new StackPane();
+		Pane root = new FlowPane();
 		root.getChildren().add(passwordField);
 		root.getChildren().add(toggleLocale);
-		primaryStage.setScene(new Scene(root, 300, 250));
+		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		root.requestFocus();
 	}
