@@ -13,12 +13,14 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SafePasswordField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class App extends Application {
 	ListProperty<Locale> localeList = new SimpleListProperty<Locale>();
@@ -73,7 +75,16 @@ public class App extends Application {
 			}
 		});
 
-		ComboBox<Locale> localesDropdown = new ComboBox<Locale>(localeList);
+		ComboBox<Locale> localesDropdown = new ComboBox<Locale>();
+		Callback<ListView<Locale>, ListCell<Locale>> cellFactory = new Callback<ListView<Locale>, ListCell<Locale>>() {
+			@Override
+			public ListCell<Locale> call(ListView<Locale> param) {
+				return new LocalesFormatCell();
+			}
+		};
+		localesDropdown.setButtonCell(cellFactory.call(null));
+		localesDropdown.setCellFactory(cellFactory);
+		localesDropdown.setItems(localeList);
 		localesDropdown.getSelectionModel().selectFirst();
 		currentLocale.bind(localesDropdown.getSelectionModel().selectedItemProperty());
 
@@ -83,5 +94,18 @@ public class App extends Application {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		root.requestFocus();
+	}
+}
+
+class LocalesFormatCell extends ListCell<Locale> {
+	@Override
+	protected void updateItem(Locale item, boolean empty) {
+		super.updateItem(item, empty);
+
+		if (Locale.ROOT == item) {
+			setText("default");
+		} else if (null != item) {
+			setText(item.toString());
+		}
 	}
 }
