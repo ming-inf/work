@@ -6,14 +6,9 @@ import java.util.concurrent.Callable;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SafePasswordField;
@@ -28,13 +23,9 @@ public class App extends Application {
 	public App() {
 		super();
 
-		currentLocale.addListener(new ChangeListener<Locale>() {
-			@Override
-			public void changed(ObservableValue<? extends Locale> observable, Locale oldValue, Locale newValue) {
-				appBundle.set(ResourceBundle.getBundle("AppBundle", newValue));
-			}
+		currentLocale.addListener((observable, oldValue, newValue) -> {
+			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue));
 		});
-
 		currentLocale.set(Locale.ROOT);
 	}
 
@@ -65,26 +56,19 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Button toggleLocale = new Button(getString(RESOURCE.ROOT_LABEL));
-		toggleLocale.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Locale l = currentLocale.get();
-				currentLocale.setValue(Locale.ROOT == l ? Locale.CANADA : Locale.ROOT);
-			}
+		toggleLocale.setOnAction(event -> {
+			Locale newLocale = Locale.ROOT == currentLocale.get() ? Locale.CANADA : Locale.ROOT;
+			currentLocale.setValue(newLocale);
 		});
 
 		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
-		passwordField.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				try {
-					System.out.println(passwordField.getPassword());
-				} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
-						| IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		passwordField.setOnAction(event -> {
+			try {
+				System.out.println(passwordField.getPassword());
+			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		});
 
