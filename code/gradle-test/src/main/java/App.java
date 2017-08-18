@@ -23,9 +23,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class App extends Application {
-	ListProperty<Locale> localeList = new SimpleListProperty<Locale>();
-	ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<Locale>();
-	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<ResourceBundle>();
+	ListProperty<Locale> localeList = new SimpleListProperty<>();
+	ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<>();
+	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
 	public App() {
 		super();
@@ -75,7 +75,7 @@ public class App extends Application {
 			}
 		});
 
-		ComboBox<Locale> localesDropdown = new ComboBox<Locale>();
+		ComboBox<Locale> localesDropdown = new ComboBox<>();
 		Callback<ListView<Locale>, ListCell<Locale>> cellFactory = new Callback<ListView<Locale>, ListCell<Locale>>() {
 			@Override
 			public ListCell<Locale> call(ListView<Locale> param) {
