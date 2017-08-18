@@ -1,8 +1,14 @@
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
+
+import com.ibm.icu.util.ULocale;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -94,6 +100,14 @@ public class App extends Application {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		root.requestFocus();
+	}
+
+	public void printAvailableLocales() {
+		Set<String> locales = Arrays.stream(ULocale.getAvailableLocales())
+			.filter(l -> {return !l.getCountry().isEmpty();})
+			.map(l -> {return String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l), l.getDisplayCountry(l));})
+			.collect(Collectors.toCollection(TreeSet::new));
+		locales.forEach(System.out::println);
 	}
 }
 
