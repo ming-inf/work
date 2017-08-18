@@ -2,9 +2,12 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -39,6 +42,10 @@ public class App extends Application {
 		return appBundle.getValue().getString(resourceKey.toString());
 	}
 
+	public Callable<String> getCallableString(RESOURCE resourceKey) {
+		return () -> getString(resourceKey);
+	}
+
 	public String getGreeting() {
 		return getString(RESOURCE.GREETING);
 	}
@@ -67,13 +74,7 @@ public class App extends Application {
 		});
 
 		SafePasswordField passwordField = new SafePasswordField();
-		passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
-		currentLocale.addListener(new ChangeListener<Locale>() {
-			@Override
-			public void changed(ObservableValue<? extends Locale> observable, Locale oldValue, Locale newValue) {
-				passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
-			}
-		});
+		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
