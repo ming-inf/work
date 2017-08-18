@@ -5,19 +5,38 @@ import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.SafePasswordField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
-	ResourceBundle appBundle = ResourceBundle.getBundle("AppBundle", Locale.CANADA);
+	ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<Locale>();
+	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<ResourceBundle>();
+
+	public App() {
+		super();
+
+		currentLocale.addListener(new ChangeListener<Locale>() {
+			@Override
+			public void changed(ObservableValue<? extends Locale> observable, Locale oldValue, Locale newValue) {
+				appBundle.set(ResourceBundle.getBundle("AppBundle", newValue));
+			}
+		});
+
+		currentLocale.set(Locale.ROOT);
+	}
 
 	public String getString(RESOURCE resourceKey) {
-		return appBundle.getString(resourceKey.toString());
+		return appBundle.getValue().getString(resourceKey.toString());
 	}
 
 	public String getGreeting() {
@@ -38,8 +57,23 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Button toggleLocale = new Button(getString(RESOURCE.ROOT_LABEL));
+		toggleLocale.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Locale l = currentLocale.get();
+				currentLocale.setValue(Locale.ROOT == l ? Locale.CANADA : Locale.ROOT);
+			}
+		});
+
 		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
+		currentLocale.addListener(new ChangeListener<Locale>() {
+			@Override
+			public void changed(ObservableValue<? extends Locale> observable, Locale oldValue, Locale newValue) {
+				passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
+			}
+		});
 		passwordField.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -55,6 +89,7 @@ public class App extends Application {
 
 		Pane root = new StackPane();
 		root.getChildren().add(passwordField);
+		root.getChildren().add(toggleLocale);
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
 		root.requestFocus();
