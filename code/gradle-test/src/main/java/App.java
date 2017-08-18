@@ -7,21 +7,28 @@ import java.util.concurrent.Callable;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.SafePasswordField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class App extends Application {
+	ListProperty<Locale> localeList = new SimpleListProperty<Locale>();
 	ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<Locale>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<ResourceBundle>();
 
 	public App() {
 		super();
+
+		localeList.set(FXCollections.observableArrayList(Locale.ROOT, Locale.CANADA));
 
 		currentLocale.addListener((observable, oldValue, newValue) -> {
 			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue));
@@ -55,12 +62,6 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Button toggleLocale = new Button(getString(RESOURCE.ROOT_LABEL));
-		toggleLocale.setOnAction(event -> {
-			Locale newLocale = Locale.ROOT == currentLocale.get() ? Locale.CANADA : Locale.ROOT;
-			currentLocale.setValue(newLocale);
-		});
-
 		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
@@ -72,9 +73,13 @@ public class App extends Application {
 			}
 		});
 
+		ComboBox<Locale> localesDropdown = new ComboBox<Locale>(localeList);
+		localesDropdown.getSelectionModel().selectFirst();
+		currentLocale.bind(localesDropdown.getSelectionModel().selectedItemProperty());
+
 		Pane root = new FlowPane();
 		root.getChildren().add(passwordField);
-		root.getChildren().add(toggleLocale);
+		root.getChildren().add(localesDropdown);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 		root.requestFocus();
