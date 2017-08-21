@@ -20,3 +20,7 @@ function nested_processes() {
 	done
 	echo ${(j: > :)p}' ' # join strings with ' > '
 }
+
+function chpwd() {
+	settitle $(cygpath -m `pwd`)
+}

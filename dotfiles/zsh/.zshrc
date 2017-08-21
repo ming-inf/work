@@ -44,9 +44,6 @@ function settitle() {
     echo -ne "\033]2;"$1"\007"
 #	print -Pn "\e]0;%n@%m:%~\a"
 }
-function chpwd() {
-    settitle $(cygpath -m `pwd`)
-}
 
 setopt PROMPT_SUBST
 PROMPT='%# '
