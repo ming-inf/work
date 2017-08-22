@@ -1,7 +1,6 @@
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,19 +28,19 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class App extends Application {
-	ListProperty<Locale> localeList = new SimpleListProperty<>();
-	ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<>();
+	ListProperty<ULocale> localeList = new SimpleListProperty<>();
+	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
 	public App() {
 		super();
 
-		localeList.set(FXCollections.observableArrayList(Locale.ROOT, Locale.CANADA));
+		localeList.set(FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA));
 
 		currentLocale.addListener((observable, oldValue, newValue) -> {
-			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue));
+			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
 		});
-		currentLocale.set(Locale.ROOT);
+		currentLocale.set(ULocale.ROOT);
 	}
 
 	public String getString(RESOURCE resourceKey) {
@@ -81,10 +80,10 @@ public class App extends Application {
 			}
 		});
 
-		ComboBox<Locale> localesDropdown = new ComboBox<>();
-		Callback<ListView<Locale>, ListCell<Locale>> cellFactory = new Callback<ListView<Locale>, ListCell<Locale>>() {
+		ComboBox<ULocale> localesDropdown = new ComboBox<>();
+		Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = new Callback<ListView<ULocale>, ListCell<ULocale>>() {
 			@Override
-			public ListCell<Locale> call(ListView<Locale> param) {
+			public ListCell<ULocale> call(ListView<ULocale> param) {
 				return new LocalesFormatCell();
 			}
 		};
@@ -111,12 +110,12 @@ public class App extends Application {
 	}
 }
 
-class LocalesFormatCell extends ListCell<Locale> {
+class LocalesFormatCell extends ListCell<ULocale> {
 	@Override
-	protected void updateItem(Locale item, boolean empty) {
+	protected void updateItem(ULocale item, boolean empty) {
 		super.updateItem(item, empty);
 
-		if (Locale.ROOT == item) {
+		if (ULocale.ROOT == item) {
 			setText("default");
 		} else if (null != item) {
 			setText(item.toString());
