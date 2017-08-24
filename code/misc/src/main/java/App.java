@@ -59,7 +59,7 @@ public class App extends Application {
 		if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
 			launch(args);
 		} else if (null != System.console()) {
-			char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT));
+			char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT) + " ");
 			for (char c : pass) {
 				System.out.println(c);
 			}
