@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15131611[How Not to Sort by Average Rating (2009)]
+- https://news.ycombinator.com/item?id=15095078[Clarity Icons: open source icons]
 - https://news.ycombinator.com/item?id=15089916[Feather: Beautiful open-source icons]
 - https://www.reddit.com/r/PersonalFinanceCanada/comments/3ziw9p/wealthsimple_wealthbar_or_big_bank_etf/[WealthSimple, WealthBar, or Big Bank ETF]
 - https://github.com/achariam/elyxel/blob/master/web/static/css/home/home.css[nice color theme]
