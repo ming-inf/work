@@ -39,9 +39,11 @@ public class SinglyLinkedList<S> {
 		boolean isHeadDeleted = null == previous;
 		boolean isRestOfListDeleted = null != current;
 		if (isHeadDeleted) {
+			head.clear();
 			head = current.getNext();
 		} else if (isRestOfListDeleted) {
 			previous.setNext(current.getNext());
+			current.clear();
 		}
 		return isHeadDeleted || isRestOfListDeleted;
 	}
@@ -114,6 +116,10 @@ public class SinglyLinkedList<S> {
 
 		public Node<T> getNext() {
 			return next;
+		}
+
+		public void clear() {
+			next = null;
 		}
 	}
 }
