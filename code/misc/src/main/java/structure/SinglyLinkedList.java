@@ -37,14 +37,14 @@ public class SinglyLinkedList<S> {
 			current = current.getNext();
 		}
 
-		boolean isPreviousNull = null == previous;
-		boolean isCurrentNotNull = null != current;
-		if (isPreviousNull) {
+		boolean isHeadDeleted = null == previous;
+		boolean isRestOfListDeleted = null != current;
+		if (isHeadDeleted) {
 			head = current.getNext();
-		} else if (isCurrentNotNull) {
+		} else if (isRestOfListDeleted) {
 			previous.setNext(current.getNext());
 		}
-		return isPreviousNull || isCurrentNotNull;
+		return isHeadDeleted || isRestOfListDeleted;
 	}
 
 	public List<S> traverse() {
