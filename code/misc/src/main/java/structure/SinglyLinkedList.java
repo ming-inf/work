@@ -1,5 +1,10 @@
 package structure;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 public class SinglyLinkedList<S> {
 	private Node<S> head;
 
@@ -39,6 +44,40 @@ public class SinglyLinkedList<S> {
 			previous.setNext(current.getNext());
 		}
 		return null != previous;
+	}
+
+	public List<S> traverse() {
+		List<S> list = new ArrayList<>();
+		Node<S> current = head;
+
+		while (null != current) {
+			list.add(current.getValue());
+			current = current.getNext();
+		}
+
+		return list;
+	}
+
+	public List<S> reverseTraverse() {
+		List<S> list = new ArrayList<>();
+		Node<S> previous = head;
+		Node<S> current = head;
+		while (null != current.getNext()) {
+			current = current.getNext();
+		}
+
+		while (head != current) {
+			list.add(current.getValue());
+
+			previous = head;
+			while (previous.getNext() != current) {
+				previous = previous.getNext();
+			}
+			current = previous;
+		}
+		list.add(current.getValue());
+
+		return list;
 	}
 
 	public String toString() {
