@@ -1,9 +1,7 @@
 package structure;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<S> {
 	private Node<S> head;
@@ -38,12 +36,15 @@ public class SinglyLinkedList<S> {
 			previous = current;
 			current = current.getNext();
 		}
-		if (null == previous) {
+
+		boolean isPreviousNull = null == previous;
+		boolean isCurrentNotNull = null != current;
+		if (isPreviousNull) {
 			head = current.getNext();
-		} else {
+		} else if (isCurrentNotNull) {
 			previous.setNext(current.getNext());
 		}
-		return null != previous;
+		return isPreviousNull || isCurrentNotNull;
 	}
 
 	public List<S> traverse() {

@@ -17,25 +17,35 @@ public class SinglyLinkedListTest {
 	}
 
 	@Test
-	public void test() {
+	public void testSearchNotFound() {
+		Assert.assertFalse(objectUnderTest.search(-1));
 		Assert.assertFalse(objectUnderTest.search(0));
+		Assert.assertFalse(objectUnderTest.search(1));
+		Assert.assertFalse(objectUnderTest.search(5742));
+	}
 
+	@Test
+	public void testInsert() {
 		objectUnderTest.insert(0);
 
+		Assert.assertFalse(objectUnderTest.search(-1));
 		Assert.assertTrue(objectUnderTest.search(0));
 		Assert.assertFalse(objectUnderTest.search(1));
-
-		objectUnderTest.insert(1);
-
-		Assert.assertTrue(objectUnderTest.search(0));
-		Assert.assertTrue(objectUnderTest.search(1));
-
-		objectUnderTest.delete(0);
-
-		Assert.assertFalse(objectUnderTest.search(0));
-		Assert.assertTrue(objectUnderTest.search(1));
-
 		Assert.assertFalse(objectUnderTest.search(5742));
+	}
+
+	@Test
+	public void testDeleteNotFound() {
+		objectUnderTest.insert(0);
+
+		Assert.assertFalse(objectUnderTest.delete(1));
+	}
+
+	@Test
+	public void testDeleteFound() {
+		objectUnderTest.insert(0);
+
+		Assert.assertTrue(objectUnderTest.delete(0));
 	}
 
 	@Test
