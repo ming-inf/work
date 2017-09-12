@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15226122[Build a fast, secured and free static site in less than three hours]
+- https://news.ycombinator.com/item?id=15200413[Course Notes – J.S. Milne]
 - https://news.ycombinator.com/item?id=15131611[How Not to Sort by Average Rating (2009)]
 - https://news.ycombinator.com/item?id=15095078[Clarity Icons: open source icons]
 - https://news.ycombinator.com/item?id=15089916[Feather: Beautiful open-source icons]
