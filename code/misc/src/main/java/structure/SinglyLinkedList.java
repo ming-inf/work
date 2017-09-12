@@ -21,8 +21,7 @@ public class SinglyLinkedList<S> {
 		if (null == value) {
 			return;
 		}
-		Node<S> newNode = new Node<>(value);
-		newNode.setNext(head);
+		Node<S> newNode = new Node<>(value, head);
 		head = newNode;
 	}
 
