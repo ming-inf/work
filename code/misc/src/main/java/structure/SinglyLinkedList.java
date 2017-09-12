@@ -1,6 +1,6 @@
 package structure;
 
-public class LinkedList<S> {
+public class SinglyLinkedList<S> {
 	private Node<S> head;
 
 	public boolean search(S value) {

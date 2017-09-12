@@ -3,10 +3,10 @@ package structure;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LinkedListTest {
+public class SinglyLinkedListTest {
 	@Test
 	public void test() {
-		LinkedList<Integer> list = new LinkedList<>();
+		SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
 
 		Assert.assertFalse(list.search(0));
 
