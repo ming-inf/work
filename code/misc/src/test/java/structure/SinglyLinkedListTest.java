@@ -49,7 +49,7 @@ public class SinglyLinkedListTest {
 	}
 
 	@Test
-	public void testIterator() {
+	public void testTraverse() {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
 		List<Integer> ints = Arrays.asList(intArray);
 
@@ -64,7 +64,7 @@ public class SinglyLinkedListTest {
 	}
 
 	@Test
-	public void testReverseIterator() {
+	public void testReverseTraverse() {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
 		List<Integer> ints = Arrays.asList(intArray);
 
