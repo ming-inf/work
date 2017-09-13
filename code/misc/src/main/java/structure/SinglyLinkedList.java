@@ -36,7 +36,7 @@ public class SinglyLinkedList<S> {
 	}
 
 	public boolean delete(S value) {
-		if (isNull(value) || isNull(head) || isNull(last)) {
+		if (isNull(value) || isNull(head)) {
 			return false;
 		}
 		Node<S> previous = null;
@@ -48,16 +48,19 @@ public class SinglyLinkedList<S> {
 
 		boolean isFound = nonNull(current);
 		if (isFound) {
-			boolean isHeadDeleted = isNull(previous);
-			if (isHeadDeleted) {
-				head = current.getNext();
+			Node<S> prev = previous;
+			Node<S> next = current.getNext();
+			boolean isHeadDeleted = isNull(prev);
+			boolean isLastDeleted = isNull(next);
+			if (head.equals(last)) {
+				head = last = null;
+			} else if (isHeadDeleted) {
+				head = next;
+			} else if (isLastDeleted) {
+				last = prev;
+				prev.setNext(null);
 			} else {
-				previous.setNext(current.getNext());
-			}
-
-			boolean isLastDeleted = nonNull(current) && isNull(current.getNext());
-			if (isLastDeleted) {
-				last = previous;
+				prev.setNext(next);
 			}
 
 			current.clear();
@@ -134,6 +137,7 @@ public class SinglyLinkedList<S> {
 		}
 
 		public void clear() {
+			value = null;
 			next = null;
 		}
 	}
