@@ -1,5 +1,8 @@
 package structure;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,18 +10,18 @@ public class SinglyLinkedList<S> {
 	private Node<S> head;
 
 	public boolean search(S value) {
-		if (null == value) {
+		if (isNull(value)) {
 			return false;
 		}
 		Node<S> current = head;
-		while (null != current && !value.equals(current.getValue())) {
+		while (nonNull(current) && !value.equals(current.getValue())) {
 			current = current.getNext();
 		}
-		return null != current;
+		return nonNull(current);
 	}
 
 	public void insert(S value) {
-		if (null == value) {
+		if (isNull(value)) {
 			return;
 		}
 		Node<S> newNode = new Node<>(value, head);
@@ -26,18 +29,18 @@ public class SinglyLinkedList<S> {
 	}
 
 	public boolean delete(S value) {
-		if (null == value) {
+		if (isNull(value)) {
 			return false;
 		}
 		Node<S> previous = null;
 		Node<S> current = head;
-		while (null != current && !value.equals(current.getValue())) {
+		while (nonNull(current) && !value.equals(current.getValue())) {
 			previous = current;
 			current = current.getNext();
 		}
 
-		boolean isHeadDeleted = null == previous;
-		boolean isRestOfListDeleted = null != current;
+		boolean isHeadDeleted = isNull(previous);
+		boolean isRestOfListDeleted = nonNull(current);
 		if (isHeadDeleted) {
 			head.clear();
 			head = current.getNext();
@@ -52,7 +55,7 @@ public class SinglyLinkedList<S> {
 		List<S> list = new ArrayList<>();
 		Node<S> current = head;
 
-		while (null != current) {
+		while (nonNull(current)) {
 			list.add(current.getValue());
 			current = current.getNext();
 		}
@@ -64,7 +67,7 @@ public class SinglyLinkedList<S> {
 		List<S> list = new ArrayList<>();
 		Node<S> previous = head;
 		Node<S> current = head;
-		while (null != current.getNext()) {
+		while (nonNull(current.getNext())) {
 			current = current.getNext();
 		}
 
@@ -85,7 +88,7 @@ public class SinglyLinkedList<S> {
 	public String toString() {
 		Node<S> current = head;
 		StringBuffer sb = new StringBuffer();
-		while (null != current) {
+		while (nonNull(current)) {
 			sb.append(current.getValue() + ", ");
 			current = current.getNext();
 		}

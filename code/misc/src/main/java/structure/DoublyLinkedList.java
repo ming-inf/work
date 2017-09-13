@@ -1,5 +1,8 @@
 package structure;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,48 +10,48 @@ public class DoublyLinkedList<S> {
 	private Node<S> head;
 
 	public boolean search(S value) {
-		if (null == value) {
+		if (isNull(value)) {
 			return false;
 		}
 		Node<S> current = head;
-		while (null != current && !value.equals(current.getValue())) {
+		while (nonNull(current) && !value.equals(current.getValue())) {
 			current = current.getNext();
 		}
 		return null != current;
 	}
 
 	public void insert(S value) {
-		if (null == value) {
+		if (isNull(value)) {
 			return;
 		}
 		Node<S> newNode = new Node<>(value, null, head);
 		head = newNode;
-		if (null != head.getNext()) {
+		if (nonNull(head.getNext())) {
 			head.getNext().setPrev(head);
 		}
 	}
 
 	public boolean delete(S value) {
-		if (null == value || null == head) {
+		if (isNull(value) || isNull(head)) {
 			return false;
 		}
 		Node<S> current = head;
-		while (null != current && !value.equals(current.getValue())) {
+		while (nonNull(current) && !value.equals(current.getValue())) {
 			current = current.getNext();
 		}
 
-		boolean isFound = null != current;
+		boolean isFound = nonNull(current);
 		if (isFound) {
-			boolean isHeadDeleted = null == current.getPrev();
-			boolean isTailDeleted = null == current.getNext();
+			boolean isHeadDeleted = isNull(current.getPrev());
+			boolean isTailDeleted = isNull(current.getNext());
 			if (isHeadDeleted) {
 				head = current.getNext();
-				if (null != head) {
+				if (nonNull(head)) {
 					head.setPrev(null);
 				}
 			} else if (isTailDeleted) {
 				Node<S> prev = current.getPrev();
-				if (null != prev) {
+				if (nonNull(prev)) {
 					prev.setNext(null);
 				}
 			} else if (isFound) {
@@ -66,7 +69,7 @@ public class DoublyLinkedList<S> {
 		List<S> list = new ArrayList<>();
 		Node<S> current = head;
 
-		while (null != current) {
+		while (nonNull(current)) {
 			list.add(current.getValue());
 			current = current.getNext();
 		}
@@ -77,11 +80,11 @@ public class DoublyLinkedList<S> {
 	public List<S> reverseTraverse() {
 		List<S> list = new ArrayList<>();
 		Node<S> current = head;
-		while (null != current.getNext()) {
+		while (nonNull(current.getNext())) {
 			current = current.getNext();
 		}
 
-		while (null != current) {
+		while (nonNull(current)) {
 			list.add(current.getValue());
 			current = current.getPrev();
 		}
@@ -92,7 +95,7 @@ public class DoublyLinkedList<S> {
 	public String toString() {
 		Node<S> current = head;
 		StringBuffer sb = new StringBuffer();
-		while (null != current) {
+		while (nonNull(current)) {
 			sb.append(current.getValue() + ", ");
 			current = current.getNext();
 		}
