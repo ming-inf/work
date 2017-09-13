@@ -46,21 +46,24 @@ public class SinglyLinkedList<S> {
 			current = current.getNext();
 		}
 
-		boolean isHeadDeleted = isNull(previous);
-		boolean isRestOfListDeleted = nonNull(current);
-		boolean isLastDeleted = nonNull(current) && isNull(current.getNext());
-		if (isHeadDeleted) {
-			head.clear();
-			head = current.getNext();
-		} else if (isRestOfListDeleted) {
+		boolean isFound = nonNull(current);
+		if (isFound) {
+			boolean isHeadDeleted = isNull(previous);
+			if (isHeadDeleted) {
+				head = current.getNext();
+			} else {
+				previous.setNext(current.getNext());
+			}
+
+			boolean isLastDeleted = nonNull(current) && isNull(current.getNext());
 			if (isLastDeleted) {
 				last = previous;
 			}
 
-			previous.setNext(current.getNext());
 			current.clear();
 		}
-		return isHeadDeleted || isRestOfListDeleted;
+
+		return isFound;
 	}
 
 	public List<S> traverse() {
