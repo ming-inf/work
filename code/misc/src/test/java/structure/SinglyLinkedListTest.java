@@ -49,6 +49,20 @@ public class SinglyLinkedListTest {
 	}
 
 	@Test
+	public void testDeleteThenInsert() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
+
+		Assert.assertTrue(objectUnderTest.delete(1));
+
+		objectUnderTest.insert(2);
+
+		Assert.assertTrue(objectUnderTest.search(0));
+		Assert.assertFalse(objectUnderTest.search(1));
+		Assert.assertTrue(objectUnderTest.search(2));
+	}
+
+	@Test
 	public void testTraverse() {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
 		List<Integer> ints = Arrays.asList(intArray);
@@ -59,7 +73,6 @@ public class SinglyLinkedListTest {
 
 		List<Integer> actualIntArray = objectUnderTest.traverse();
 
-		Collections.reverse(actualIntArray);
 		Assert.assertEquals(ints, actualIntArray);
 	}
 
@@ -74,6 +87,7 @@ public class SinglyLinkedListTest {
 
 		List<Integer> actualIntArray = objectUnderTest.reverseTraverse();
 
+		Collections.reverse(actualIntArray);
 		Assert.assertEquals(ints, actualIntArray);
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class SinglyLinkedList<S> {
 	private Node<S> head;
+	private Node<S> last;
 
 	public boolean search(S value) {
 		if (isNull(value)) {
@@ -24,8 +25,14 @@ public class SinglyLinkedList<S> {
 		if (isNull(value)) {
 			return;
 		}
-		Node<S> newNode = new Node<>(value, head);
-		head = newNode;
+		Node<S> newNode = new Node<>(value);
+
+		if (isNull(head)) {
+			head = last = newNode;
+		} else {
+			last.setNext(newNode);
+			last = newNode;
+		}
 	}
 
 	public boolean delete(S value) {
@@ -41,10 +48,15 @@ public class SinglyLinkedList<S> {
 
 		boolean isHeadDeleted = isNull(previous);
 		boolean isRestOfListDeleted = nonNull(current);
+		boolean isLastDeleted = nonNull(current) && isNull(current.getNext());
 		if (isHeadDeleted) {
 			head.clear();
 			head = current.getNext();
 		} else if (isRestOfListDeleted) {
+			if (isLastDeleted) {
+				last = previous;
+			}
+
 			previous.setNext(current.getNext());
 			current.clear();
 		}
@@ -66,10 +78,7 @@ public class SinglyLinkedList<S> {
 	public List<S> reverseTraverse() {
 		List<S> list = new ArrayList<>();
 		Node<S> previous = head;
-		Node<S> current = head;
-		while (nonNull(current.getNext())) {
-			current = current.getNext();
-		}
+		Node<S> current = last;
 
 		while (head != current) {
 			list.add(current.getValue());
