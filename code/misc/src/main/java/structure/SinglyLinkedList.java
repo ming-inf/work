@@ -36,7 +36,7 @@ public class SinglyLinkedList<S> {
 	}
 
 	public boolean delete(S value) {
-		if (isNull(value)) {
+		if (isNull(value) || isNull(head) || isNull(last)) {
 			return false;
 		}
 		Node<S> previous = null;

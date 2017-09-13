@@ -35,6 +35,11 @@ public class SinglyLinkedListTest {
 	}
 
 	@Test
+	public void testDeleteEmpty() {
+		Assert.assertFalse(objectUnderTest.delete(1));
+	}
+
+	@Test
 	public void testDeleteNotFound() {
 		objectUnderTest.insert(0);
 
