@@ -51,17 +51,18 @@ public class DoublyLinkedList<S> {
 			Node<S> next = current.getNext();
 			boolean isHeadDeleted = isNull(prev);
 			boolean isLastDeleted = isNull(next);
-			if (head.equals(last)) {
-				head = last = null;
-			} else if (isHeadDeleted) {
+			if (isHeadDeleted) {
 				head = next;
-				head.setPrev(null);
-			} else if (isLastDeleted) {
-				last = prev;
-				last.setNext(null);
 			} else {
 				prev.setNext(next);
+				prev.setPrev(null);
+			}
+
+			if (isLastDeleted) {
+				last = prev;
+			} else {
 				next.setPrev(prev);
+				next.setNext(null);
 			}
 
 			current.clear();

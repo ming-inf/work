@@ -52,15 +52,14 @@ public class SinglyLinkedList<S> {
 			Node<S> next = current.getNext();
 			boolean isHeadDeleted = isNull(prev);
 			boolean isLastDeleted = isNull(next);
-			if (head.equals(last)) {
-				head = last = null;
-			} else if (isHeadDeleted) {
+			if (isHeadDeleted) {
 				head = next;
-			} else if (isLastDeleted) {
-				last = prev;
-				prev.setNext(null);
 			} else {
 				prev.setNext(next);
+			}
+
+			if (isLastDeleted) {
+				last = prev;
 			}
 
 			current.clear();
