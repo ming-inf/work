@@ -15,8 +15,8 @@ public class SinglyLinkedList<S> {
 			return false;
 		}
 		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.getValue())) {
-			current = current.getNext();
+		while (nonNull(current) && !value.equals(current.value)) {
+			current = current.next;
 		}
 		return nonNull(current);
 	}
@@ -30,7 +30,7 @@ public class SinglyLinkedList<S> {
 		if (isNull(head)) {
 			head = last = newNode;
 		} else {
-			last.setNext(newNode);
+			last.next = newNode;
 			last = newNode;
 		}
 	}
@@ -41,21 +41,21 @@ public class SinglyLinkedList<S> {
 		}
 		Node<S> previous = null;
 		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.getValue())) {
+		while (nonNull(current) && !value.equals(current.value)) {
 			previous = current;
-			current = current.getNext();
+			current = current.next;
 		}
 
 		boolean isFound = nonNull(current);
 		if (isFound) {
 			Node<S> prev = previous;
-			Node<S> next = current.getNext();
+			Node<S> next = current.next;
 			boolean isHeadDeleted = isNull(prev);
 			boolean isLastDeleted = isNull(next);
 			if (isHeadDeleted) {
 				head = next;
 			} else {
-				prev.setNext(next);
+				prev.next = next;
 			}
 
 			if (isLastDeleted) {
@@ -73,8 +73,8 @@ public class SinglyLinkedList<S> {
 		Node<S> current = head;
 
 		while (nonNull(current)) {
-			list.add(current.getValue());
-			current = current.getNext();
+			list.add(current.value);
+			current = current.next;
 		}
 
 		return list;
@@ -86,15 +86,15 @@ public class SinglyLinkedList<S> {
 		Node<S> current = last;
 
 		while (head != current) {
-			list.add(current.getValue());
+			list.add(current.value);
 
 			previous = head;
-			while (previous.getNext() != current) {
-				previous = previous.getNext();
+			while (previous.next != current) {
+				previous = previous.next;
 			}
 			current = previous;
 		}
-		list.add(current.getValue());
+		list.add(current.value);
 
 		return list;
 	}
@@ -103,15 +103,15 @@ public class SinglyLinkedList<S> {
 		Node<S> current = head;
 		StringBuffer sb = new StringBuffer();
 		while (nonNull(current)) {
-			sb.append(current.getValue() + ", ");
-			current = current.getNext();
+			sb.append(current.value + ", ");
+			current = current.next;
 		}
 		return sb.toString();
 	}
 
-	class Node<T> {
-		private T value;
-		private Node<T> next;
+	private static class Node<T> {
+		final T value;
+		Node<T> next;
 
 		public Node(T value) {
 			this(value, null);
@@ -122,21 +122,7 @@ public class SinglyLinkedList<S> {
 			this.next = next;
 		}
 
-		public T getValue() {
-			return value;
-		}
-
-		public Node<T> setNext(Node<T> next) {
-			this.next = next;
-			return this;
-		}
-
-		public Node<T> getNext() {
-			return next;
-		}
-
 		public void clear() {
-			value = null;
 			next = null;
 		}
 	}
