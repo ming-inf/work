@@ -14,17 +14,14 @@ public class SinglyLinkedList<S> {
 		if (isNull(value)) {
 			return false;
 		}
-		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.value)) {
-			current = current.next;
-		}
-		return nonNull(current);
+		return nonNull(find(value).y);
 	}
 
 	public void insert(S value) {
 		if (isNull(value)) {
 			return;
 		}
+
 		Node<S> newNode = new Node<>(value);
 
 		if (isNull(head)) {
@@ -39,74 +36,74 @@ public class SinglyLinkedList<S> {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
-		Node<S> previous = null;
-		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.value)) {
-			previous = current;
-			current = current.next;
+
+		Tuple<Node<S>, Node<S>> previousCurrent = find(value);
+		if (isNull(previousCurrent.y)) {
+			return false;
 		}
 
-		boolean isFound = nonNull(current);
-		if (isFound) {
-			Node<S> prev = previous;
-			Node<S> next = current.next;
-			boolean isHeadDeleted = isNull(prev);
-			boolean isLastDeleted = isNull(next);
-			if (isHeadDeleted) {
-				head = next;
-			} else {
-				prev.next = next;
-			}
+		Node<S> prev = previousCurrent.x;
+		Node<S> target = previousCurrent.y;
+		Node<S> next = previousCurrent.y.next;
 
-			if (isLastDeleted) {
-				last = prev;
-			}
-
-			current.clear();
+		boolean isHeadDeleted = isNull(prev);
+		boolean isLastDeleted = isNull(next);
+		if (isHeadDeleted) {
+			head = next;
+		} else {
+			prev.next = next;
 		}
 
-		return isFound;
+		if (isLastDeleted) {
+			last = prev;
+		}
+
+		target.clear();
+
+		return true;
 	}
 
 	public List<S> traverse() {
-		List<S> list = new ArrayList<>();
-		Node<S> current = head;
+		List<S> result = new ArrayList<>();
 
+		Node<S> current = head;
 		while (nonNull(current)) {
-			list.add(current.value);
+			result.add(current.value);
 			current = current.next;
 		}
 
-		return list;
+		return result;
 	}
 
 	public List<S> reverseTraverse() {
-		List<S> list = new ArrayList<>();
-		Node<S> previous = head;
+		List<S> result = new ArrayList<>();
+
 		Node<S> current = last;
-
-		while (head != current) {
-			list.add(current.value);
-
-			previous = head;
-			while (previous.next != current) {
-				previous = previous.next;
-			}
-			current = previous;
+		while (nonNull(current)) {
+			result.add(current.value);
+			current = find(current.value).x;
 		}
-		list.add(current.value);
 
-		return list;
+		return result;
 	}
 
 	public String toString() {
-		Node<S> current = head;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(head.value.toString());
+		Node<S> current = head.next;
 		while (nonNull(current)) {
 			sb.append(current.value + ", ");
 			current = current.next;
 		}
 		return sb.toString();
+	}
+
+	private Tuple<Node<S>, Node<S>> find(S value) {
+		Tuple<Node<S>, Node<S>> result = new Tuple<>(null, head);
+		while (nonNull(result.y) && !value.equals(result.y.value)) {
+			result.x = result.y;
+			result.y = result.y.next;
+		}
+		return result;
 	}
 
 	private static class Node<T> {
@@ -124,6 +121,16 @@ public class SinglyLinkedList<S> {
 
 		public void clear() {
 			next = null;
+		}
+	}
+
+	private static class Tuple<X, Y> {
+		public X x;
+		public Y y;
+
+		public Tuple(X x, Y y) {
+			this.x = x;
+			this.y = y;
 		}
 	}
 }

@@ -14,24 +14,21 @@ public class DoublyLinkedList<S> {
 		if (isNull(value)) {
 			return false;
 		}
-		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.value)) {
-			current = current.next;
-		}
-		return null != current;
+		return nonNull(find(value));
 	}
 
 	public void insert(S value) {
 		if (isNull(value)) {
 			return;
 		}
+
 		Node<S> newNode = new Node<>(value);
 
 		if (isNull(head)) {
 			head = last = newNode;
 		} else {
 			last.next = newNode;
-			newNode.prev=last;
+			newNode.prev = last;
 			last = newNode;
 		}
 	}
@@ -40,40 +37,41 @@ public class DoublyLinkedList<S> {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
-		Node<S> current = head;
-		while (nonNull(current) && !value.equals(current.value)) {
-			current = current.next;
+
+		Node<S> current = find(value);
+
+		if (isNull(current)) {
+			return false;
 		}
 
-		boolean isFound = nonNull(current);
-		if (isFound) {
-			Node<S> prev = current.prev;
-			Node<S> next = current.next;
-			boolean isHeadDeleted = isNull(prev);
-			boolean isLastDeleted = isNull(next);
-			if (isHeadDeleted) {
-				head = next;
-			} else {
-				prev.next = next;
-				prev.prev=null;
-			}
+		Node<S> prev = current.prev;
+		Node<S> next = current.next;
 
-			if (isLastDeleted) {
-				last = prev;
-			} else {
-				next.prev=prev;
-				next.next = null;
-			}
-
-			current.clear();
+		boolean isHeadDeleted = isNull(prev);
+		boolean isLastDeleted = isNull(next);
+		if (isHeadDeleted) {
+			head = next;
+		} else {
+			prev.next = next;
+			prev.prev = null;
 		}
-		return isFound;
+
+		if (isLastDeleted) {
+			last = prev;
+		} else {
+			next.prev = prev;
+			next.next = null;
+		}
+
+		current.clear();
+
+		return true;
 	}
 
 	public List<S> traverse() {
 		List<S> list = new ArrayList<>();
-		Node<S> current = head;
 
+		Node<S> current = head;
 		while (nonNull(current)) {
 			list.add(current.value);
 			current = current.next;
@@ -84,11 +82,8 @@ public class DoublyLinkedList<S> {
 
 	public List<S> reverseTraverse() {
 		List<S> list = new ArrayList<>();
-		Node<S> current = head;
-		while (nonNull(current.next)) {
-			current = current.next;
-		}
 
+		Node<S> current = last;
 		while (nonNull(current)) {
 			list.add(current.value);
 			current = current.prev;
@@ -98,13 +93,21 @@ public class DoublyLinkedList<S> {
 	}
 
 	public String toString() {
-		Node<S> current = head;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(head.value.toString());
+		Node<S> current = head.next;
 		while (nonNull(current)) {
 			sb.append(current.value + ", ");
 			current = current.next;
 		}
 		return sb.toString();
+	}
+
+	private Node<S> find(S value) {
+		Node<S> result = head;
+		while (nonNull(result) && !value.equals(result.value)) {
+			result = result.next;
+		}
+		return result;
 	}
 
 	private static class Node<T> {
