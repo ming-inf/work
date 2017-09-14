@@ -35,17 +35,62 @@ public class DoublyLinkedListTest {
 	}
 
 	@Test
+	public void testDeleteEmpty() {
+		Assert.assertFalse(objectUnderTest.search(1));
+		Assert.assertFalse(objectUnderTest.delete(1));
+		Assert.assertFalse(objectUnderTest.search(1));
+	}
+
+	@Test
 	public void testDeleteNotFound() {
 		objectUnderTest.insert(0);
 
+		Assert.assertFalse(objectUnderTest.search(1));
 		Assert.assertFalse(objectUnderTest.delete(1));
+		Assert.assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
 	public void testDeleteFound() {
 		objectUnderTest.insert(0);
 
+		Assert.assertTrue(objectUnderTest.search(0));
 		Assert.assertTrue(objectUnderTest.delete(0));
+		Assert.assertFalse(objectUnderTest.search(0));
+	}
+
+	@Test
+	public void testDeleteFoundHead() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
+
+		Assert.assertTrue(objectUnderTest.search(0));
+		Assert.assertTrue(objectUnderTest.delete(0));
+		Assert.assertFalse(objectUnderTest.search(0));
+	}
+
+	@Test
+	public void testDeleteFoundLast() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
+
+		Assert.assertTrue(objectUnderTest.search(1));
+		Assert.assertTrue(objectUnderTest.delete(1));
+		Assert.assertFalse(objectUnderTest.search(1));
+	}
+
+	@Test
+	public void testDeleteThenInsert() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
+
+		Assert.assertTrue(objectUnderTest.delete(1));
+
+		objectUnderTest.insert(2);
+
+		Assert.assertTrue(objectUnderTest.search(0));
+		Assert.assertFalse(objectUnderTest.search(1));
+		Assert.assertTrue(objectUnderTest.search(2));
 	}
 
 	@Test
@@ -59,7 +104,6 @@ public class DoublyLinkedListTest {
 
 		List<Integer> actualIntArray = objectUnderTest.traverse();
 
-		Collections.reverse(actualIntArray);
 		Assert.assertEquals(ints, actualIntArray);
 	}
 
@@ -74,6 +118,7 @@ public class DoublyLinkedListTest {
 
 		List<Integer> actualIntArray = objectUnderTest.reverseTraverse();
 
+		Collections.reverse(actualIntArray);
 		Assert.assertEquals(ints, actualIntArray);
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DoublyLinkedList<S> {
 	private Node<S> head;
+	private Node<S> last;
 
 	public boolean search(S value) {
 		if (isNull(value)) {
@@ -24,10 +25,14 @@ public class DoublyLinkedList<S> {
 		if (isNull(value)) {
 			return;
 		}
-		Node<S> newNode = new Node<>(value, null, head);
-		head = newNode;
-		if (nonNull(head.getNext())) {
-			head.getNext().setPrev(head);
+		Node<S> newNode = new Node<>(value);
+
+		if (isNull(head)) {
+			head = last = newNode;
+		} else {
+			last.setNext(newNode);
+			newNode.setPrev(last);
+			last = newNode;
 		}
 	}
 
@@ -42,25 +47,24 @@ public class DoublyLinkedList<S> {
 
 		boolean isFound = nonNull(current);
 		if (isFound) {
-			boolean isHeadDeleted = isNull(current.getPrev());
-			boolean isTailDeleted = isNull(current.getNext());
-			if (isHeadDeleted) {
-				head = current.getNext();
-				if (nonNull(head)) {
-					head.setPrev(null);
-				}
-			} else if (isTailDeleted) {
-				Node<S> prev = current.getPrev();
-				if (nonNull(prev)) {
-					prev.setNext(null);
-				}
-			} else if (isFound) {
-				Node<S> prev = current.getPrev();
-				Node<S> next = current.getNext();
-				current.clear();
+			Node<S> prev = current.getPrev();
+			Node<S> next = current.getNext();
+			boolean isHeadDeleted = isNull(prev);
+			boolean isLastDeleted = isNull(next);
+			if (head.equals(last)) {
+				head = last = null;
+			} else if (isHeadDeleted) {
+				head = next;
+				head.setPrev(null);
+			} else if (isLastDeleted) {
+				last = prev;
+				last.setNext(null);
+			} else {
 				prev.setNext(next);
 				next.setPrev(prev);
 			}
+
+			current.clear();
 		}
 		return isFound;
 	}
@@ -140,6 +144,7 @@ public class DoublyLinkedList<S> {
 		}
 
 		public void clear() {
+			value = null;
 			next = null;
 			prev = null;
 		}
