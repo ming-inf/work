@@ -17,11 +17,21 @@ public class DoublyLinkedListTest {
 	}
 
 	@Test
-	public void testSearchNotFound() {
+	public void testSearchNull() {
+		Assert.assertFalse(objectUnderTest.search(null));
+	}
+
+	@Test
+	public void testSearchEmpty() {
 		Assert.assertFalse(objectUnderTest.search(-1));
 		Assert.assertFalse(objectUnderTest.search(0));
 		Assert.assertFalse(objectUnderTest.search(1));
 		Assert.assertFalse(objectUnderTest.search(5742));
+	}
+
+	@Test
+	public void testInsertNull() {
+		objectUnderTest.insert(null);
 	}
 
 	@Test
@@ -32,6 +42,11 @@ public class DoublyLinkedListTest {
 		Assert.assertTrue(objectUnderTest.search(0));
 		Assert.assertFalse(objectUnderTest.search(1));
 		Assert.assertFalse(objectUnderTest.search(5742));
+	}
+
+	@Test
+	public void testDeleteNull() {
+		Assert.assertFalse(objectUnderTest.delete(null));
 	}
 
 	@Test
