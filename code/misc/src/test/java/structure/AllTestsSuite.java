@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	SinglyLinkedListTest.class
 	, DoublyLinkedListTest.class
+	, BinarySearchTreeTest.class
 })
 
 public class AllTestsSuite {
