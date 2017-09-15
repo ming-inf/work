@@ -40,8 +40,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	private void insertNode(Node<T> root, Node<T> value) {
-		Node<T> current = root;
+	private void insertNode(Node<T> current, Node<T> value) {
 		if (-1 == value.compareTo(current)) {
 			if (isNull(current.left)) {
 				current.left = value;
