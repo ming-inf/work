@@ -13,6 +13,11 @@ public class BinarySearchTreeTest {
 	}
 
 	@Test
+	public void testSearchNull() {
+		Assert.assertFalse(objectUnderTest.search(null));
+	}
+
+	@Test
 	public void testSearchNotFoundEmpty() {
 		Assert.assertFalse(objectUnderTest.search(0));
 	}
@@ -54,6 +59,11 @@ public class BinarySearchTreeTest {
 		objectUnderTest.insert(1);
 
 		Assert.assertFalse(objectUnderTest.search(-2));
+	}
+
+	@Test
+	public void testInsertNull() {
+		objectUnderTest.insert(null);
 	}
 
 	@Test

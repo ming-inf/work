@@ -7,6 +7,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	private Node<T> root;
 
 	public boolean search(T value) {
+		if (isNull(value)) {
+			return false;
+		}
 		return nonNull(searchNode(null, root, new Node<>(value)).y);
 	}
 
@@ -25,6 +28,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	public void insert(T value) {
+		if (isNull(value)) {
+			return;
+		}
+
 		Node<T> newNode = new Node<>(value);
 		if (isNull(root)) {
 			root = newNode;
@@ -51,6 +58,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	public boolean delete(T value) {
+		if (isNull(value) || isNull(root)) {
+			return false;
+		}
+
 		Tuple<Node<T>, Node<T>> parentCurrent = searchNode(null, root, new Node<>(value));
 		Node<T> parent = parentCurrent.x;
 		Node<T> target = parentCurrent.y;
