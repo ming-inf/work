@@ -58,48 +58,50 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			return false;
 		}
 
-		if (isNull(target.right)) {
-			if (isNull(target.left)) {
-				if (nonNull(parent)) {
+		Node<T> left = target.left;
+		Node<T> right = target.right;
+		if (isNull(right)) {
+			if (isNull(left)) {
+				if (isNull(parent)) {
+					root = null;
+				} else {
 					if (parent.left == target) {
 						parent.left = null;
 					} else {
 						parent.right = null;
 					}
-				} else {
-					root = null;
 				}
 			} else {
-				if (nonNull(parent)) {
-					if (parent.left == target) {
-						parent.left = target.left;
-					} else {
-						parent.right = target.left;
-					}
+				if (isNull(parent)) {
+					root.value = left.value;
+					left = null;
 				} else {
-					root.value = target.left.value;
-					target.left = null;
+					if (parent.left == target) {
+						parent.left = left;
+					} else {
+						parent.right = left;
+					}
 				}
 			}
 		} else {
-			if (isNull(target.left)) {
-				if (nonNull(parent)) {
-					if (parent.left == target) {
-						parent.left = target.right;
-					} else {
-						parent.right = target.right;
-					}
+			if (isNull(left)) {
+				if (isNull(parent)) {
+					root.value = right.value;
+					right = null;
 				} else {
-					root.value = target.right.value;
-					target.right = null;
+					if (parent.left == target) {
+						parent.left = right;
+					} else {
+						parent.right = right;
+					}
 				}
 			} else {
-				Node<T> largest = target.left;
+				Node<T> largest = left;
 				while (nonNull(largest.right)) {
 					largest = largest.right;
 				}
 				Node<T> largestParent = searchNode(target, target.left, largest).x;
-				if (!largestParent.equals(target)) {
+				if (largestParent != target) {
 					largestParent.right = null;
 				}
 				target.value = largest.value;
