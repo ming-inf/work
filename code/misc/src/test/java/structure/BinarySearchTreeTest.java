@@ -1,5 +1,8 @@
 package structure;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -230,5 +233,64 @@ public class BinarySearchTreeTest {
 		Assert.assertFalse(objectUnderTest.search(-5));
 		Assert.assertTrue(objectUnderTest.search(-8));
 		Assert.assertTrue(objectUnderTest.search(-7));
+	}
+
+	@Test
+	public void testTraversePreorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> actualIntArray = objectUnderTest.preorder();
+
+		Assert.assertEquals(ints, actualIntArray);
+	}
+
+	@Test
+	public void testTraversePostorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(9, 7, 17, 14, 31, 23);
+		List<Integer> actualIntArray = objectUnderTest.postorder();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraverseInorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(7, 9, 14, 17, 23, 31);
+		List<Integer> actualIntArray = objectUnderTest.inorder();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraverseBreadthFirst() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(23, 14, 31, 7, 17, 9);
+		List<Integer> actualIntArray = objectUnderTest.breadthFirst();
+
+		Assert.assertEquals(expected, actualIntArray);
 	}
 }

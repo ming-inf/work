@@ -3,6 +3,14 @@ package structure;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+
+import com.google.common.collect.Lists;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 	private Node<T> root;
 
@@ -10,7 +18,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		if (isNull(value)) {
 			return false;
 		}
-		return nonNull(searchNode(null, root, new Node<>(value)).y);
+		return nonNull(searchNode(null, root, new Node<>(value)).target);
 	}
 
 	private Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
@@ -62,62 +70,139 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 
 		Tuple<Node<T>, Node<T>> parentCurrent = searchNode(null, root, new Node<>(value));
-		Node<T> parent = parentCurrent.x;
-		Node<T> target = parentCurrent.y;
+		Node<T> parent = parentCurrent.parent;
+		Node<T> target = parentCurrent.target;
 		if (isNull(target)) {
 			return false;
 		}
 
 		Node<T> left = target.left;
 		Node<T> right = target.right;
-		if (isNull(right)) {
-			if (isNull(left)) {
-				if (isNull(parent)) {
-					root = null;
-				} else {
-					if (parent.left == target) {
-						parent.left = null;
-					} else {
-						parent.right = null;
-					}
-				}
+
+		boolean isParentNull = isNull(parent);
+		boolean isBothNull = isNull(left) && isNull(right);
+		boolean isLeftOnly = nonNull(left) && isNull(right);
+		boolean isRightOnly = isNull(left) && nonNull(right);
+		boolean isBothNonNull = nonNull(left) && nonNull(right);
+
+		if (!isParentNull) {
+			boolean isLeftChild = parent.left == target;
+			Node<T> newChild;
+			if (isBothNull) {
+				newChild = null;
+			} else if (isLeftOnly) {
+				newChild = left;
+			} else if (isRightOnly) {
+				newChild = right;
 			} else {
-				if (isNull(parent)) {
-					root.value = left.value;
-					left = null;
-				} else {
-					if (parent.left == target) {
-						parent.left = left;
-					} else {
-						parent.right = left;
-					}
-				}
+				newChild = isLeftChild ? parent.left : parent.right;
+			}
+
+			if (isLeftChild) {
+				parent.left = newChild;
+			} else {
+				parent.right = newChild;
 			}
 		} else {
-			if (isNull(left)) {
-				if (isNull(parent)) {
-					root.value = right.value;
-					right = null;
-				} else {
-					if (parent.left == target) {
-						parent.left = right;
-					} else {
-						parent.right = right;
-					}
-				}
-			} else {
-				Node<T> largest = left;
-				while (nonNull(largest.right)) {
-					largest = largest.right;
-				}
-				Node<T> largestParent = searchNode(target, target.left, largest).x;
-				if (largestParent != target) {
-					largestParent.right = null;
-				}
-				target.value = largest.value;
+			if (isBothNull) {
+				root = null;
+			} else if (isLeftOnly) {
+				root.value = left.value;
+				left = null;
+			} else if (isRightOnly) {
+				root.value = right.value;
+				right = null;
 			}
 		}
+
+		if (isBothNonNull) {
+			Node<T> largest = left;
+			while (nonNull(largest.right)) {
+				largest = largest.right;
+			}
+			Node<T> largestParent = searchNode(target, target.left, largest).parent;
+			if (largestParent != target) {
+				largestParent.right = null;
+			}
+			target.value = largest.value;
+		}
+
 		return true;
+	}
+
+	public List<T> traverse() {
+		return preorder(root);
+	}
+
+	public List<T> preorder() {
+		return preorder(root);
+	}
+
+	private List<T> preorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.add(current.value);
+		l.addAll(preorder(current.left));
+		l.addAll(preorder(current.right));
+		return l;
+	}
+
+	public List<T> postorder() {
+		return postorder(root);
+	}
+
+	private List<T> postorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.addAll(postorder(current.left));
+		l.addAll(postorder(current.right));
+		l.add(current.value);
+		return l;
+	}
+
+	public List<T> inorder() {
+		return inorder(root);
+	}
+
+	private List<T> inorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.addAll(inorder(current.left));
+		l.add(current.value);
+		l.addAll(inorder(current.right));
+		return l;
+	}
+
+	public List<T> breadthFirst() {
+		return breadthFirst(root);
+	}
+
+	private List<T> breadthFirst(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+
+		Queue<Node<T>> q = new ArrayBlockingQueue<>(4);
+		q.add(current);
+		while (!q.isEmpty()) {
+			Node<T> n = q.remove();
+			l.add(n.value);
+			if (nonNull(n.left)) q.add(n.left);
+			if (nonNull(n.right)) q.add(n.right);
+		}
+
+		return l;
 	}
 
 	private static class Node<S extends Comparable<S>> implements Comparable<Node<S>> {
@@ -147,12 +232,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	private static class Tuple<X, Y> {
-		public X x;
-		public Y y;
+		public X parent;
+		public Y target;
 
 		public Tuple(X x, Y y) {
-			this.x = x;
-			this.y = y;
+			this.parent = x;
+			this.target = y;
 		}
 	}
 }
