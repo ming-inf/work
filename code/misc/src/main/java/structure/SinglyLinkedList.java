@@ -14,7 +14,7 @@ public class SinglyLinkedList<S> {
 		if (isNull(value)) {
 			return false;
 		}
-		return nonNull(find(value).y);
+		return nonNull(find(value).target);
 	}
 
 	public void insert(S value) {
@@ -38,13 +38,13 @@ public class SinglyLinkedList<S> {
 		}
 
 		Tuple<Node<S>, Node<S>> previousCurrent = find(value);
-		if (isNull(previousCurrent.y)) {
+		if (isNull(previousCurrent.target)) {
 			return false;
 		}
 
-		Node<S> prev = previousCurrent.x;
-		Node<S> target = previousCurrent.y;
-		Node<S> next = previousCurrent.y.next;
+		Node<S> prev = previousCurrent.previous;
+		Node<S> target = previousCurrent.target;
+		Node<S> next = previousCurrent.target.next;
 
 		boolean isHeadDeleted = isNull(prev);
 		boolean isLastDeleted = isNull(next);
@@ -81,7 +81,7 @@ public class SinglyLinkedList<S> {
 		Node<S> current = last;
 		while (nonNull(current)) {
 			result.add(current.value);
-			current = find(current.value).x;
+			current = find(current.value).previous;
 		}
 
 		return result;
@@ -99,9 +99,9 @@ public class SinglyLinkedList<S> {
 
 	private Tuple<Node<S>, Node<S>> find(S value) {
 		Tuple<Node<S>, Node<S>> result = new Tuple<>(null, head);
-		while (nonNull(result.y) && !value.equals(result.y.value)) {
-			result.x = result.y;
-			result.y = result.y.next;
+		while (nonNull(result.target) && !value.equals(result.target.value)) {
+			result.previous = result.target;
+			result.target = result.target.next;
 		}
 		return result;
 	}
@@ -125,12 +125,12 @@ public class SinglyLinkedList<S> {
 	}
 
 	private static class Tuple<X, Y> {
-		public X x;
-		public Y y;
+		public X previous;
+		public Y target;
 
 		public Tuple(X x, Y y) {
-			this.x = x;
-			this.y = y;
+			this.previous = x;
+			this.target = y;
 		}
 	}
 }
