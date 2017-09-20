@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
 	SinglyLinkedListTest.class
 	, DoublyLinkedListTest.class
 	, BinarySearchTreeTest.class
+	, HeapTest.class
 })
 
 public class AllTestsSuite {
