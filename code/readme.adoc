@@ -14,3 +14,12 @@ repositories {
 	}
 }
 --
+
+== data structure axis
+- contiguous vs non contiguous (references)
+- ordered vs unordered
+- fifo vs lifo
+- distinct vs non distinct
+- mutable vs immutable (concurrency)
+- known maximum vs large dataset (serialization)
+- recursive vs imperative
