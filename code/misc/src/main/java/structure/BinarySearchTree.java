@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import com.google.common.collect.Lists;
-
 public class BinarySearchTree<T extends Comparable<T>> {
 	private Node<T> root;
 
