@@ -10,6 +10,7 @@ import org.junit.runners.Suite;
 	, DoublyLinkedListTest.class
 	, BinarySearchTreeTest.class
 	, HeapTest.class
+	, AVLTreeTest.class
 })
 
 public class AllTestsSuite {
