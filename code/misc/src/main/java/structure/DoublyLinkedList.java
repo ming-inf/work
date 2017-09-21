@@ -6,23 +6,23 @@ import static java.util.Objects.nonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoublyLinkedList<S> {
-	private Node<S> head;
-	private Node<S> last;
+public class DoublyLinkedList<T> {
+	private Node<T> head;
+	private Node<T> last;
 
-	public boolean search(S value) {
+	public boolean search(T value) {
 		if (isNull(value)) {
 			return false;
 		}
 		return nonNull(find(value));
 	}
 
-	public void insert(S value) {
+	public void insert(T value) {
 		if (isNull(value)) {
 			return;
 		}
 
-		Node<S> newNode = new Node<>(value);
+		Node<T> newNode = new Node<>(value);
 
 		if (isNull(head)) {
 			head = last = newNode;
@@ -33,19 +33,19 @@ public class DoublyLinkedList<S> {
 		}
 	}
 
-	public boolean delete(S value) {
+	public boolean delete(T value) {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
 
-		Node<S> current = find(value);
+		Node<T> current = find(value);
 
 		if (isNull(current)) {
 			return false;
 		}
 
-		Node<S> prev = current.prev;
-		Node<S> next = current.next;
+		Node<T> prev = current.prev;
+		Node<T> next = current.next;
 
 		boolean isHeadDeleted = isNull(prev);
 		boolean isLastDeleted = isNull(next);
@@ -68,10 +68,10 @@ public class DoublyLinkedList<S> {
 		return true;
 	}
 
-	public List<S> traverse() {
-		List<S> list = new ArrayList<>();
+	public List<T> traverse() {
+		List<T> list = new ArrayList<>();
 
-		Node<S> current = head;
+		Node<T> current = head;
 		while (nonNull(current)) {
 			list.add(current.value);
 			current = current.next;
@@ -80,10 +80,10 @@ public class DoublyLinkedList<S> {
 		return list;
 	}
 
-	public List<S> reverseTraverse() {
-		List<S> list = new ArrayList<>();
+	public List<T> reverseTraverse() {
+		List<T> list = new ArrayList<>();
 
-		Node<S> current = last;
+		Node<T> current = last;
 		while (nonNull(current)) {
 			list.add(current.value);
 			current = current.prev;
@@ -94,7 +94,7 @@ public class DoublyLinkedList<S> {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer(head.value.toString());
-		Node<S> current = head.next;
+		Node<T> current = head.next;
 		while (nonNull(current)) {
 			sb.append(current.value + ", ");
 			current = current.next;
@@ -102,8 +102,8 @@ public class DoublyLinkedList<S> {
 		return sb.toString();
 	}
 
-	private Node<S> find(S value) {
-		Node<S> result = head;
+	private Node<T> find(T value) {
+		Node<T> result = head;
 		while (nonNull(result) && !value.equals(result.value)) {
 			result = result.next;
 		}

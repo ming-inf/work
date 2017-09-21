@@ -6,23 +6,23 @@ import static java.util.Objects.nonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SinglyLinkedList<S> {
-	private Node<S> head;
-	private Node<S> last;
+public class SinglyLinkedList<T> {
+	private Node<T> head;
+	private Node<T> last;
 
-	public boolean search(S value) {
+	public boolean search(T value) {
 		if (isNull(value)) {
 			return false;
 		}
 		return nonNull(find(value).target);
 	}
 
-	public void insert(S value) {
+	public void insert(T value) {
 		if (isNull(value)) {
 			return;
 		}
 
-		Node<S> newNode = new Node<>(value);
+		Node<T> newNode = new Node<>(value);
 
 		if (isNull(head)) {
 			head = last = newNode;
@@ -32,19 +32,19 @@ public class SinglyLinkedList<S> {
 		}
 	}
 
-	public boolean delete(S value) {
+	public boolean delete(T value) {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
 
-		Tuple<Node<S>, Node<S>> previousCurrent = find(value);
+		Tuple<Node<T>, Node<T>> previousCurrent = find(value);
 		if (isNull(previousCurrent.target)) {
 			return false;
 		}
 
-		Node<S> prev = previousCurrent.previous;
-		Node<S> target = previousCurrent.target;
-		Node<S> next = previousCurrent.target.next;
+		Node<T> prev = previousCurrent.previous;
+		Node<T> target = previousCurrent.target;
+		Node<T> next = previousCurrent.target.next;
 
 		boolean isHeadDeleted = isNull(prev);
 		boolean isLastDeleted = isNull(next);
@@ -63,10 +63,10 @@ public class SinglyLinkedList<S> {
 		return true;
 	}
 
-	public List<S> traverse() {
-		List<S> result = new ArrayList<>();
+	public List<T> traverse() {
+		List<T> result = new ArrayList<>();
 
-		Node<S> current = head;
+		Node<T> current = head;
 		while (nonNull(current)) {
 			result.add(current.value);
 			current = current.next;
@@ -75,10 +75,10 @@ public class SinglyLinkedList<S> {
 		return result;
 	}
 
-	public List<S> reverseTraverse() {
-		List<S> result = new ArrayList<>();
+	public List<T> reverseTraverse() {
+		List<T> result = new ArrayList<>();
 
-		Node<S> current = last;
+		Node<T> current = last;
 		while (nonNull(current)) {
 			result.add(current.value);
 			current = find(current.value).previous;
@@ -89,7 +89,7 @@ public class SinglyLinkedList<S> {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer(head.value.toString());
-		Node<S> current = head.next;
+		Node<T> current = head.next;
 		while (nonNull(current)) {
 			sb.append(current.value + ", ");
 			current = current.next;
@@ -97,8 +97,8 @@ public class SinglyLinkedList<S> {
 		return sb.toString();
 	}
 
-	private Tuple<Node<S>, Node<S>> find(S value) {
-		Tuple<Node<S>, Node<S>> result = new Tuple<>(null, head);
+	private Tuple<Node<T>, Node<T>> find(T value) {
+		Tuple<Node<T>, Node<T>> result = new Tuple<>(null, head);
 		while (nonNull(result.target) && !value.equals(result.target.value)) {
 			result.previous = result.target;
 			result.target = result.target.next;
