@@ -35,13 +35,15 @@ public class AVLTree<T extends Comparable<T>> {
 			return new Tuple3<>(null, null, null);
 		}
 
-		path.add(current);
 		if (0 == current.compareTo(value)) {
 			return new Tuple3<>(parent, current, path);
-		} else if (-1 == value.compareTo(current)) {
-			return searchNodeWithPath(current, current.left, value, path);
 		} else {
-			return searchNodeWithPath(current, current.right, value, path);
+			path.add(current);
+			if (-1 == value.compareTo(current)) {
+				return searchNodeWithPath(current, current.left, value, path);
+			} else {
+				return searchNodeWithPath(current, current.right, value, path);
+			}
 		}
 	}
 
@@ -251,8 +253,8 @@ public class AVLTree<T extends Comparable<T>> {
 
 		@Override
 		public String toString() {
-			return "value=" + value + ", height=" + height + ", left=" + (nonNull(left) ? left.value : "") + ", right=" + (nonNull(right) ? right.value : "") + "]\n"
-					+ (nonNull(left) ? left : "") + (nonNull(right) ? right : "");
+			return "value=" + value + ", height=" + height + ", left=" + (nonNull(left) ? left.value : "") + ", right=" + (nonNull(right) ? right.value : "")
+					+ "]\n" + (nonNull(left) ? left : "") + (nonNull(right) ? right : "");
 		}
 	}
 

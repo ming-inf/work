@@ -76,23 +76,25 @@ public class AVLTreeTest {
 	}
 
 	@Test
-	public void testInsertAvl() {
+	public void testInsertAvlLeftRotate() {
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(3);
 		objectUnderTest.insert(4);
 		objectUnderTest.insert(5);
+		objectUnderTest.insert(6);
 
 		Assert.assertEquals(3, objectUnderTest.height());
 	}
 
 	@Test
-	public void testInsertAvl2() {
-		objectUnderTest.insert(1);
+	public void testInsertAvlRightRotate() {
+		objectUnderTest.insert(6);
 		objectUnderTest.insert(5);
 		objectUnderTest.insert(4);
 		objectUnderTest.insert(3);
 		objectUnderTest.insert(2);
+		objectUnderTest.insert(1);
 
 		Assert.assertEquals(3, objectUnderTest.height());
 	}
@@ -164,6 +166,7 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootLeftWithLeft() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
 		objectUnderTest.insert(-1);
 		objectUnderTest.insert(-2);
 
@@ -175,6 +178,7 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootLeftWithRight() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
 		objectUnderTest.insert(-2);
 		objectUnderTest.insert(-1);
 
@@ -186,9 +190,10 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootLeftWithBoth() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
 		objectUnderTest.insert(-2);
-		objectUnderTest.insert(-3);
 		objectUnderTest.insert(-1);
+		objectUnderTest.insert(-3);
 
 		Assert.assertTrue(objectUnderTest.delete(-2));
 		Assert.assertFalse(objectUnderTest.search(-2));
@@ -208,6 +213,7 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootRightWithLeft() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(-1);
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(1);
 
@@ -219,6 +225,7 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootRightWithRight() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(-1);
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(2);
 
@@ -230,6 +237,7 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootRightWithBoth() {
 		objectUnderTest.insert(0);
+		objectUnderTest.insert(-1);
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(3);
@@ -243,14 +251,38 @@ public class AVLTreeTest {
 	@Test
 	public void testDeleteNonRootLeft() {
 		objectUnderTest.insert(0);
-		objectUnderTest.insert(-5);
-		objectUnderTest.insert(-8);
-		objectUnderTest.insert(-7);
+		objectUnderTest.insert(1);
+		objectUnderTest.insert(-2);
+		objectUnderTest.insert(2);
+		objectUnderTest.insert(-1);
 		objectUnderTest.insert(-4);
+		objectUnderTest.insert(-3);
 
-		Assert.assertTrue(objectUnderTest.delete(-5));
-		Assert.assertFalse(objectUnderTest.search(-5));
-		Assert.assertTrue(objectUnderTest.search(-8));
-		Assert.assertTrue(objectUnderTest.search(-7));
+		Assert.assertTrue(objectUnderTest.delete(-2));
+		Assert.assertFalse(objectUnderTest.search(-2));
+		Assert.assertTrue(objectUnderTest.search(-4));
+		Assert.assertTrue(objectUnderTest.search(-3));
+	}
+
+	@Test
+	public void testLeftRightRotation() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(1);
+		objectUnderTest.insert(-2);
+		objectUnderTest.insert(-1);
+
+		Assert.assertTrue(objectUnderTest.delete(1));
+		Assert.assertFalse(objectUnderTest.search(1));
+	}
+
+	@Test
+	public void testRightLeftRotation() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(-1);
+		objectUnderTest.insert(2);
+		objectUnderTest.insert(1);
+
+		Assert.assertTrue(objectUnderTest.delete(-1));
+		Assert.assertFalse(objectUnderTest.search(-1));
 	}
 }
