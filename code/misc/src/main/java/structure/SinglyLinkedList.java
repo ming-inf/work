@@ -99,14 +99,14 @@ public class SinglyLinkedList<T> {
 
 	@SuppressWarnings("unchecked")
 	private T[] convert(List<T> from, Class<T> clazz) {
-		T[] transformedArray = (T[]) java.lang.reflect.Array.newInstance(clazz, from.size());
+		T[] newArrayInstance = (T[]) java.lang.reflect.Array.newInstance(clazz, from.size());
 
 		int index = 0;
 		for (T fromObject : from) {
-			transformedArray[index] = fromObject;
+			newArrayInstance[index] = fromObject;
 			index++;
 		}
-		return transformedArray;
+		return newArrayInstance;
 	}
 
 	private Tuple<Node<T>, Node<T>> find(T value) {
