@@ -63,7 +63,7 @@ public class SinglyLinkedList<T> {
 		return true;
 	}
 
-	public List<T> traverse() {
+	public T[] traverse(Class<T> clazz) {
 		List<T> result = new ArrayList<>();
 
 		Node<T> current = head;
@@ -72,10 +72,10 @@ public class SinglyLinkedList<T> {
 			current = current.next;
 		}
 
-		return result;
+		return convert(result, clazz);
 	}
 
-	public List<T> reverseTraverse() {
+	public T[] reverseTraverse(Class<T> clazz) {
 		List<T> result = new ArrayList<>();
 
 		Node<T> current = last;
@@ -84,7 +84,7 @@ public class SinglyLinkedList<T> {
 			current = find(current.value).previous;
 		}
 
-		return result;
+		return convert(result, clazz);
 	}
 
 	public String toString() {
@@ -95,6 +95,18 @@ public class SinglyLinkedList<T> {
 			current = current.next;
 		}
 		return sb.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	private T[] convert(List<T> from, Class<T> clazz) {
+		T[] transformedArray = (T[]) java.lang.reflect.Array.newInstance(clazz, from.size());
+
+		int index = 0;
+		for (T fromObject : from) {
+			transformedArray[index] = fromObject;
+			index++;
+		}
+		return transformedArray;
 	}
 
 	private Tuple<Node<T>, Node<T>> find(T value) {
