@@ -1,6 +1,11 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=12793624[Applying the Linus Torvalds “Good Taste” Coding Requirement]
+- https://news.ycombinator.com/item?id=15175786[The Myths and Realities of Studying Computer Science]
+- https://news.ycombinator.com/item?id=15240713[ASCII and Unicode quotation marks]
+- https://news.ycombinator.com/item?id=15244931[Wilson’s Algorithm]
+- https://news.ycombinator.com/item?id=15346580[A Guide to Parsing: Algorithms and Terminology]
 - https://news.ycombinator.com/item?id=15326480[A Coloring Book about Group Theory]
 - https://news.ycombinator.com/item?id=15328247[30-Day Timelapse at Sea [video\]]
 - https://news.ycombinator.com/item?id=15324954[Scenic Tram Simulator]
