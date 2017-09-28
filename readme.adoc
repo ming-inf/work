@@ -1,6 +1,13 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15326480[A Coloring Book about Group Theory]
+- https://news.ycombinator.com/item?id=15328247[30-Day Timelapse at Sea [video\]]
+- https://news.ycombinator.com/item?id=15324954[Scenic Tram Simulator]
+- https://news.ycombinator.com/item?id=15328680[Show HN: Plan your week and increase productivity]
+- https://news.ycombinator.com/item?id=15327837[The Mathematics of 2048: Counting States with Combinatorics]
+- https://news.ycombinator.com/item?id=15328516[An Intuitive Explanation of Convolutional Neural Networks (2016)]
+- https://news.ycombinator.com/item?id=15347519[The Great Tree-List Recursion Problem (2000)]
 - https://news.ycombinator.com/item?id=15255523[Hack – A typeface designed for source code]
 - https://news.ycombinator.com/item?id=15226122[Build a fast, secured and free static site in less than three hours]
 - https://news.ycombinator.com/item?id=15200413[Course Notes – J.S. Milne]
