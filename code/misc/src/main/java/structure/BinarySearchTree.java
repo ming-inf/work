@@ -196,8 +196,13 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		while (!q.isEmpty()) {
 			Node<T> n = q.remove();
 			l.add(n.value);
-			if (nonNull(n.left)) q.add(n.left);
-			if (nonNull(n.right)) q.add(n.right);
+			if (nonNull(n.left)) {
+				q.add(n.left);
+			}
+
+			if (nonNull(n.right)) {
+				q.add(n.right);
+			}
 		}
 
 		return l;
