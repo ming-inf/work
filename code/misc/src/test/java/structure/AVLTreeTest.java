@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AVLTreeTest {
-	AVLTree<Integer> objectUnderTest;
+	Tree<Integer> objectUnderTest;
 
 	@Before
 	public void setup() {

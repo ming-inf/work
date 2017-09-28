@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Heap<T extends Comparable<T>> {
+public class Heap<T extends Comparable<T>> implements Set<T>, Collection<T> {
 	List<T> heap = new ArrayList<>();
 
 	public boolean search(T value) {
@@ -64,6 +64,11 @@ public class Heap<T extends Comparable<T>> {
 
 	private int right(int i) {
 		return i * 2 + 2;
+	}
+
+	@Override
+	public boolean delete(T value) {
+		throw new UnsupportedOperationException("not implemented yet");
 	}
 
 	public boolean delete() {

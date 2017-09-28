@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BinarySearchTreeTest {
-	BinarySearchTree<Integer> objectUnderTest;
+	Tree<Integer> objectUnderTest;
 
 	@Before
 	public void setup() {
@@ -292,5 +292,18 @@ public class BinarySearchTreeTest {
 		List<Integer> actualIntArray = objectUnderTest.breadthFirst();
 
 		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testHeight() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(-2);
+		objectUnderTest.insert(-1);
+		objectUnderTest.insert(-3);
+		objectUnderTest.insert(2);
+		objectUnderTest.insert(1);
+		objectUnderTest.insert(3);
+
+		Assert.assertEquals(3, objectUnderTest.height());
 	}
 }

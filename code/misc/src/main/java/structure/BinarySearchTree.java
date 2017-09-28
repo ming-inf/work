@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	private Node<T> root;
 
 	public boolean search(T value) {
@@ -236,6 +236,19 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		public Tuple(X x, Y y) {
 			this.parent = x;
 			this.target = y;
+		}
+	}
+
+	@Override
+	public int height() {
+		return heightNode(root);
+	}
+
+	public int heightNode(Node<T> current) {
+		if (isNull(current)) {
+			return 0;
+		} else {
+			return 1 + Math.max(heightNode(current.left), heightNode(current.right));
 		}
 	}
 }

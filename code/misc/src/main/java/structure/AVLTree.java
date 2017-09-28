@@ -6,7 +6,7 @@ import static java.util.Objects.nonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AVLTree<T extends Comparable<T>> {
+public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 	private Node<T> root;
 
 	public boolean search(T value) {
@@ -278,5 +278,25 @@ public class AVLTree<T extends Comparable<T>> {
 			this.target = y;
 			this.path = z;
 		}
+	}
+
+	@Override
+	public List<T> preorder() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<T> postorder() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<T> inorder() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<T> breadthFirst() {
+		throw new UnsupportedOperationException();
 	}
 }

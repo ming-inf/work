@@ -3,11 +3,12 @@ package structure;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T> implements List<T> {
 	private Node<T> head;
 	private Node<T> last;
 	private int size;
 
+	@Override
 	public boolean search(T value) {
 		if (isNull(value)) {
 			return false;
@@ -15,6 +16,7 @@ public class SinglyLinkedList<T> {
 		return nonNull(find(value).target);
 	}
 
+	@Override
 	public void insert(T value) {
 		if (isNull(value)) {
 			return;
@@ -32,6 +34,7 @@ public class SinglyLinkedList<T> {
 		size++;
 	}
 
+	@Override
 	public boolean delete(T value) {
 		if (isNull(value) || isNull(head)) {
 			return false;
@@ -64,10 +67,12 @@ public class SinglyLinkedList<T> {
 		return true;
 	}
 
+	@Override
 	public T[] traverse(Class<T> clazz) {
 		return convert(this, clazz);
 	}
 
+	@Override
 	public T[] reverseTraverse(Class<T> clazz) {
 		SinglyLinkedList<T> result = new SinglyLinkedList<>();
 
@@ -80,6 +85,7 @@ public class SinglyLinkedList<T> {
 		return convert(result, clazz);
 	}
 
+	@Override
 	public int size() {
 		return size;
 	}

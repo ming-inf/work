@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class DoublyLinkedListTest {
-	DoublyLinkedList<Integer> objectUnderTest;
+	List<Integer> objectUnderTest;
 
 	@Before
 	public void setup() {
