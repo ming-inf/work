@@ -3,12 +3,10 @@ package structure;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SinglyLinkedList<T> {
 	private Node<T> head;
 	private Node<T> last;
+	private int size;
 
 	public boolean search(T value) {
 		if (isNull(value)) {
@@ -30,6 +28,8 @@ public class SinglyLinkedList<T> {
 			last.next = newNode;
 			last = newNode;
 		}
+
+		size++;
 	}
 
 	public boolean delete(T value) {
@@ -59,51 +59,50 @@ public class SinglyLinkedList<T> {
 		}
 
 		target.clear();
+		size--;
 
 		return true;
 	}
 
 	public T[] traverse(Class<T> clazz) {
-		List<T> result = new ArrayList<>();
-
-		Node<T> current = head;
-		while (nonNull(current)) {
-			result.add(current.value);
-			current = current.next;
-		}
-
-		return convert(result, clazz);
+		return convert(this, clazz);
 	}
 
 	public T[] reverseTraverse(Class<T> clazz) {
-		List<T> result = new ArrayList<>();
+		SinglyLinkedList<T> result = new SinglyLinkedList<>();
 
 		Node<T> current = last;
 		while (nonNull(current)) {
-			result.add(current.value);
+			result.insert(current.value);
 			current = find(current.value).previous;
 		}
 
 		return convert(result, clazz);
 	}
 
+	public int size() {
+		return size;
+	}
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer(head.value.toString());
 		Node<T> current = head.next;
 		while (nonNull(current)) {
-			sb.append(current.value + ", ");
+			sb.append(", " + current.value);
 			current = current.next;
 		}
 		return sb.toString();
 	}
 
 	@SuppressWarnings("unchecked")
-	private T[] convert(List<T> from, Class<T> clazz) {
+	private T[] convert(SinglyLinkedList<T> from, Class<T> clazz) {
 		T[] newArrayInstance = (T[]) java.lang.reflect.Array.newInstance(clazz, from.size());
 
 		int index = 0;
-		for (T fromObject : from) {
-			newArrayInstance[index] = fromObject;
+		Node<T> current = from.head;
+		while (nonNull(current)) {
+			newArrayInstance[index] = current.value;
+			current = current.next;
 			index++;
 		}
 		return newArrayInstance;
