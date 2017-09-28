@@ -125,9 +125,9 @@ public class SinglyLinkedListTest {
 			objectUnderTest.insert(i);
 		}
 
-		Integer[] actualIntArray = reverse(objectUnderTest.reverseTraverse(Integer.class));
+		Integer[] actualIntArray = objectUnderTest.reverseTraverse(Integer.class);
 
-		Assert.assertArrayEquals(intArray, actualIntArray);
+		Assert.assertArrayEquals(reverse(intArray), actualIntArray);
 	}
 
 	private Integer[] reverse(Integer[] array) {
