@@ -3,12 +3,10 @@ package structure;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DoublyLinkedList<T> {
 	private Node<T> head;
 	private Node<T> last;
+	private int size;
 
 	public boolean search(T value) {
 		if (isNull(value)) {
@@ -31,6 +29,8 @@ public class DoublyLinkedList<T> {
 			newNode.prev = last;
 			last = newNode;
 		}
+
+		size++;
 	}
 
 	public boolean delete(T value) {
@@ -64,32 +64,29 @@ public class DoublyLinkedList<T> {
 		}
 
 		current.clear();
+		size--;
 
 		return true;
 	}
 
-	public List<T> traverse() {
-		List<T> list = new ArrayList<>();
-
-		Node<T> current = head;
-		while (nonNull(current)) {
-			list.add(current.value);
-			current = current.next;
-		}
-
-		return list;
+	public T[] traverse(Class<T> clazz) {
+		return convert(this, clazz);
 	}
 
-	public List<T> reverseTraverse() {
-		List<T> list = new ArrayList<>();
+	public T[] reverseTraverse(Class<T> clazz) {
+		DoublyLinkedList<T> result = new DoublyLinkedList<>();
 
 		Node<T> current = last;
 		while (nonNull(current)) {
-			list.add(current.value);
+			result.insert(current.value);
 			current = current.prev;
 		}
 
-		return list;
+		return convert(result, clazz);
+	}
+
+	public int size() {
+		return size;
 	}
 
 	public String toString() {
@@ -100,6 +97,20 @@ public class DoublyLinkedList<T> {
 			current = current.next;
 		}
 		return sb.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	private T[] convert(DoublyLinkedList<T> from, Class<T> clazz) {
+		T[] newArrayInstance = (T[]) java.lang.reflect.Array.newInstance(clazz, from.size());
+
+		int index = 0;
+		Node<T> current = from.head;
+		while (nonNull(current)) {
+			newArrayInstance[index] = current.value;
+			current = current.next;
+			index++;
+		}
+		return newArrayInstance;
 	}
 
 	private Node<T> find(T value) {

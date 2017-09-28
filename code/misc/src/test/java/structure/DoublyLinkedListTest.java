@@ -1,9 +1,5 @@
 package structure;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -111,29 +107,36 @@ public class DoublyLinkedListTest {
 	@Test
 	public void testTraverse() {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
-		List<Integer> ints = Arrays.asList(intArray);
 
-		for (int i : ints) {
+		for (int i : intArray) {
 			objectUnderTest.insert(i);
 		}
 
-		List<Integer> actualIntArray = objectUnderTest.traverse();
+		Integer[] actualIntArray = objectUnderTest.traverse(Integer.class);
 
-		Assert.assertEquals(ints, actualIntArray);
+		Assert.assertArrayEquals(intArray, actualIntArray);
 	}
 
 	@Test
 	public void testReverseTraverse() {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
-		List<Integer> ints = Arrays.asList(intArray);
 
-		for (int i : ints) {
+		for (int i : intArray) {
 			objectUnderTest.insert(i);
 		}
 
-		List<Integer> actualIntArray = objectUnderTest.reverseTraverse();
+		Integer[] actualIntArray = objectUnderTest.reverseTraverse(Integer.class);
 
-		Collections.reverse(actualIntArray);
-		Assert.assertEquals(ints, actualIntArray);
+		Assert.assertArrayEquals(reverse(intArray), actualIntArray);
+	}
+
+	private Integer[] reverse(Integer[] array) {
+		for (int i = 0; i < array.length / 2; i++) {
+			int iPrime = array.length - 1 - i;
+			array[i] = array[iPrime] - array[i];
+			array[iPrime] = array[iPrime] - array[i];
+			array[i] = array[iPrime] + array[i];
+		}
+		return array;
 	}
 }
