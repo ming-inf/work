@@ -4,7 +4,10 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 	private Node<T> root;
@@ -282,21 +285,81 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 
 	@Override
 	public List<T> preorder() {
-		throw new UnsupportedOperationException();
+		return preorder(root);
+	}
+
+	private List<T> preorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.add(current.value);
+		l.addAll(preorder(current.left));
+		l.addAll(preorder(current.right));
+		return l;
 	}
 
 	@Override
 	public List<T> postorder() {
-		throw new UnsupportedOperationException();
+		return postorder(root);
+	}
+
+	private List<T> postorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.addAll(postorder(current.left));
+		l.addAll(postorder(current.right));
+		l.add(current.value);
+		return l;
 	}
 
 	@Override
 	public List<T> inorder() {
-		throw new UnsupportedOperationException();
+		return inorder(root);
+	}
+
+	private List<T> inorder(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+		l.addAll(inorder(current.left));
+		l.add(current.value);
+		l.addAll(inorder(current.right));
+		return l;
 	}
 
 	@Override
 	public List<T> breadthFirst() {
-		throw new UnsupportedOperationException();
+		return breadthFirst(root);
+	}
+
+	private List<T> breadthFirst(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<T> l = new ArrayList<>();
+
+		Queue<Node<T>> q = new ArrayBlockingQueue<>(4);
+		q.add(current);
+		while (!q.isEmpty()) {
+			Node<T> n = q.remove();
+			l.add(n.value);
+			if (nonNull(n.left)) {
+				q.add(n.left);
+			}
+
+			if (nonNull(n.right)) {
+				q.add(n.right);
+			}
+		}
+
+		return l;
 	}
 }
