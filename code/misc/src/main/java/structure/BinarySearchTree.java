@@ -128,10 +128,6 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return true;
 	}
 
-	public List<T> traverse() {
-		return preorder(root);
-	}
-
 	@Override
 	public List<T> preorder() {
 		return preorder(root);
