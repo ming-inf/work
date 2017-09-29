@@ -9,7 +9,7 @@ import java.util.List;
 public class Heap<T extends Comparable<T>> implements Collection<T> {
 	List<T> heap = new ArrayList<>();
 
-	public boolean search(T value) {
+	public boolean contains(T value) {
 		if (isNull(value) || heap.isEmpty()) {
 			return false;
 		}
@@ -37,7 +37,7 @@ public class Heap<T extends Comparable<T>> implements Collection<T> {
 		return false;
 	}
 
-	public void insert(T value) {
+	public void add(T value) {
 		if (isNull(value)) {
 			return;
 		}
@@ -67,7 +67,7 @@ public class Heap<T extends Comparable<T>> implements Collection<T> {
 	}
 
 	@Override
-	public boolean delete(T value) {
+	public boolean remove(T value) {
 		throw new UnsupportedOperationException("not implemented yet");
 	}
 

@@ -1,9 +1,9 @@
 package structure;
 
 public interface Collection<T> {
-	boolean search(T value);
+	boolean contains(T value);
 
-	void insert(T value);
+	void add(T value);
 
-	boolean delete(T value);
+	boolean remove(T value);
 }

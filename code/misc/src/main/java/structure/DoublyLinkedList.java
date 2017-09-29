@@ -8,14 +8,14 @@ public class DoublyLinkedList<T> implements List<T> {
 	private Node<T> last;
 	private int size;
 
-	public boolean search(T value) {
+	public boolean contains(T value) {
 		if (isNull(value)) {
 			return false;
 		}
 		return nonNull(find(value));
 	}
 
-	public void insert(T value) {
+	public void add(T value) {
 		if (isNull(value)) {
 			return;
 		}
@@ -33,7 +33,7 @@ public class DoublyLinkedList<T> implements List<T> {
 		size++;
 	}
 
-	public boolean delete(T value) {
+	public boolean remove(T value) {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
@@ -78,7 +78,7 @@ public class DoublyLinkedList<T> implements List<T> {
 
 		Node<T> current = last;
 		while (nonNull(current)) {
-			result.insert(current.value);
+			result.add(current.value);
 			current = current.prev;
 		}
 

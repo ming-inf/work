@@ -17,94 +17,94 @@ public class DoublyLinkedListTest {
 
 	@Test
 	public void testSearchNull() {
-		assertFalse(objectUnderTest.search(null));
+		assertFalse(objectUnderTest.contains(null));
 	}
 
 	@Test
 	public void testSearchEmpty() {
-		assertFalse(objectUnderTest.search(-1));
-		assertFalse(objectUnderTest.search(0));
-		assertFalse(objectUnderTest.search(1));
-		assertFalse(objectUnderTest.search(5742));
+		assertFalse(objectUnderTest.contains(-1));
+		assertFalse(objectUnderTest.contains(0));
+		assertFalse(objectUnderTest.contains(1));
+		assertFalse(objectUnderTest.contains(5742));
 	}
 
 	@Test
 	public void testInsertNull() {
-		objectUnderTest.insert(null);
+		objectUnderTest.add(null);
 	}
 
 	@Test
 	public void testInsert() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertFalse(objectUnderTest.search(-1));
-		assertTrue(objectUnderTest.search(0));
-		assertFalse(objectUnderTest.search(1));
-		assertFalse(objectUnderTest.search(5742));
+		assertFalse(objectUnderTest.contains(-1));
+		assertTrue(objectUnderTest.contains(0));
+		assertFalse(objectUnderTest.contains(1));
+		assertFalse(objectUnderTest.contains(5742));
 	}
 
 	@Test
 	public void testDeleteNull() {
-		assertFalse(objectUnderTest.delete(null));
+		assertFalse(objectUnderTest.remove(null));
 	}
 
 	@Test
 	public void testDeleteEmpty() {
-		assertFalse(objectUnderTest.search(1));
-		assertFalse(objectUnderTest.delete(1));
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(1));
+		assertFalse(objectUnderTest.remove(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteNotFound() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertFalse(objectUnderTest.search(1));
-		assertFalse(objectUnderTest.delete(1));
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(1));
+		assertFalse(objectUnderTest.remove(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteFound() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertTrue(objectUnderTest.search(0));
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.contains(0));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testDeleteFoundHead() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.search(0));
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.contains(0));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testDeleteFoundLast() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.search(1));
-		assertTrue(objectUnderTest.delete(1));
-		assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.contains(1));
+		assertTrue(objectUnderTest.remove(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteThenInsert() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.delete(1));
+		assertTrue(objectUnderTest.remove(1));
 
-		objectUnderTest.insert(2);
+		objectUnderTest.add(2);
 
-		assertTrue(objectUnderTest.search(0));
-		assertFalse(objectUnderTest.search(1));
-		assertTrue(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.contains(0));
+		assertFalse(objectUnderTest.contains(1));
+		assertTrue(objectUnderTest.contains(2));
 	}
 
 	@Test
@@ -112,7 +112,7 @@ public class DoublyLinkedListTest {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
 
 		for (int i : intArray) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		Integer[] actualIntArray = objectUnderTest.traverse(Integer.class);
@@ -125,7 +125,7 @@ public class DoublyLinkedListTest {
 		Integer[] intArray = { 7, 34, 57, 775, 9679, 78, 677, 27 };
 
 		for (int i : intArray) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		Integer[] actualIntArray = objectUnderTest.reverseTraverse(Integer.class);

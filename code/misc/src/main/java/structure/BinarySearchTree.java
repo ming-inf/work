@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 	private Node<T> root;
 
-	public boolean search(T value) {
+	public boolean contains(T value) {
 		if (isNull(value)) {
 			return false;
 		}
@@ -33,7 +33,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		}
 	}
 
-	public void insert(T value) {
+	public void add(T value) {
 		if (isNull(value)) {
 			return;
 		}
@@ -62,7 +62,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		}
 	}
 
-	public boolean delete(T value) {
+	public boolean remove(T value) {
 		if (isNull(value) || isNull(root)) {
 			return false;
 		}

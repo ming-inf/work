@@ -9,7 +9,7 @@ public class SinglyLinkedList<T> implements List<T> {
 	private int size;
 
 	@Override
-	public boolean search(T value) {
+	public boolean contains(T value) {
 		if (isNull(value)) {
 			return false;
 		}
@@ -17,7 +17,7 @@ public class SinglyLinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public void insert(T value) {
+	public void add(T value) {
 		if (isNull(value)) {
 			return;
 		}
@@ -35,7 +35,7 @@ public class SinglyLinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean delete(T value) {
+	public boolean remove(T value) {
 		if (isNull(value) || isNull(head)) {
 			return false;
 		}
@@ -78,7 +78,7 @@ public class SinglyLinkedList<T> implements List<T> {
 
 		Node<T> current = last;
 		while (nonNull(current)) {
-			result.insert(current.value);
+			result.add(current.value);
 			current = find(current.value).previous;
 		}
 

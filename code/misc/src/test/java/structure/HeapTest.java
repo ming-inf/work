@@ -21,8 +21,8 @@ public class HeapTest {
 
 	@Test
 	public void testSearchNull() {
-		assertFalse(objectUnderTest.search(null));
-		assertFalse(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.contains(null));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
@@ -31,15 +31,15 @@ public class HeapTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testInsertNull() {
-		objectUnderTest.insert(null);
+		objectUnderTest.add(null);
 	}
 
 	@Test
@@ -48,14 +48,14 @@ public class HeapTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
-		assertTrue(objectUnderTest.search(8));
-		assertTrue(objectUnderTest.search(19));
-		assertTrue(objectUnderTest.search(12));
-		assertTrue(objectUnderTest.search(1));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.contains(8));
+		assertTrue(objectUnderTest.contains(19));
+		assertTrue(objectUnderTest.contains(12));
+		assertTrue(objectUnderTest.contains(1));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class HeapTest {
 
 	@Test
 	public void testDeleteOnly() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
 		assertTrue(objectUnderTest.delete());
 	}
@@ -76,25 +76,25 @@ public class HeapTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		assertTrue(objectUnderTest.delete());
-		assertFalse(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.contains(0));
 		assertTrue(objectUnderTest.delete());
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(1));
 		assertTrue(objectUnderTest.delete());
-		assertFalse(objectUnderTest.search(2));
+		assertFalse(objectUnderTest.contains(2));
 		assertTrue(objectUnderTest.delete());
-		assertFalse(objectUnderTest.search(3));
-		assertTrue(objectUnderTest.search(4));
+		assertFalse(objectUnderTest.contains(3));
+		assertTrue(objectUnderTest.contains(4));
 	}
 
 	@Test
 	public void testPeek() {
 		assertNull(objectUnderTest.peek());
 
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
 		assertEquals((Integer) 0, objectUnderTest.peek());
 	}
@@ -105,7 +105,7 @@ public class HeapTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		List<Integer> expected = Arrays.asList(1, 3, 12, 9, 7);

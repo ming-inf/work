@@ -20,222 +20,222 @@ public class BinarySearchTreeTest {
 
 	@Test
 	public void testSearchNull() {
-		assertFalse(objectUnderTest.search(null));
+		assertFalse(objectUnderTest.contains(null));
 	}
 
 	@Test
 	public void testSearchNotFoundEmpty() {
-		assertFalse(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testSearchNotFound() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testSearchFound() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertTrue(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testSearchNotFoundLeft() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-1);
 
-		assertFalse(objectUnderTest.search(-2));
+		assertFalse(objectUnderTest.contains(-2));
 	}
 
 	@Test
 	public void testSearchNotFoundRight() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertFalse(objectUnderTest.search(2));
+		assertFalse(objectUnderTest.contains(2));
 	}
 
 	@Test
 	public void testSearchNotFoundBoth() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-1);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-1);
+		objectUnderTest.add(1);
 
-		assertFalse(objectUnderTest.search(-2));
+		assertFalse(objectUnderTest.contains(-2));
 	}
 
 	@Test
 	public void testInsertNull() {
-		objectUnderTest.insert(null);
+		objectUnderTest.add(null);
 	}
 
 	@Test
 	public void testInsert() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertFalse(objectUnderTest.search(-1));
-		assertTrue(objectUnderTest.search(0));
-		assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.contains(-1));
+		assertTrue(objectUnderTest.contains(0));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteNull() {
-		assertFalse(objectUnderTest.delete(null));
+		assertFalse(objectUnderTest.remove(null));
 	}
 
 	@Test
 	public void testDeleteEmpty() {
-		assertFalse(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.remove(0));
 	}
 
 	@Test
 	public void testDeleteNotFound() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertFalse(objectUnderTest.delete(1));
+		assertFalse(objectUnderTest.remove(1));
 	}
 
 	@Test
 	public void testDeleteRootLeaf() {
-		objectUnderTest.insert(0);
+		objectUnderTest.add(0);
 
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testDeleteRootWithLeft() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-1);
 
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testDeleteRootWithRight() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
 	}
 
 	@Test
 	public void testDeleteRootWithBoth() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
+		objectUnderTest.add(-1);
 
-		assertTrue(objectUnderTest.delete(0));
-		assertFalse(objectUnderTest.search(0));
-		assertTrue(objectUnderTest.search(1));
-		assertTrue(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.remove(0));
+		assertFalse(objectUnderTest.contains(0));
+		assertTrue(objectUnderTest.contains(1));
+		assertTrue(objectUnderTest.contains(-1));
 	}
 
 	@Test
 	public void testDeleteNonRootLeftLeaf() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-1);
 
-		assertTrue(objectUnderTest.delete(-1));
-		assertFalse(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.remove(-1));
+		assertFalse(objectUnderTest.contains(-1));
 	}
 
 	@Test
 	public void testDeleteNonRootLeftWithLeft() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-1);
-		objectUnderTest.insert(-2);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-1);
+		objectUnderTest.add(-2);
 
-		assertTrue(objectUnderTest.delete(-1));
-		assertFalse(objectUnderTest.search(-1));
-		assertTrue(objectUnderTest.search(-2));
+		assertTrue(objectUnderTest.remove(-1));
+		assertFalse(objectUnderTest.contains(-1));
+		assertTrue(objectUnderTest.contains(-2));
 	}
 
 	@Test
 	public void testDeleteNonRootLeftWithRight() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-2);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-2);
+		objectUnderTest.add(-1);
 
-		assertTrue(objectUnderTest.delete(-2));
-		assertFalse(objectUnderTest.search(-2));
-		assertTrue(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.remove(-2));
+		assertFalse(objectUnderTest.contains(-2));
+		assertTrue(objectUnderTest.contains(-1));
 	}
 
 	@Test
 	public void testDeleteNonRootLeftWithBoth() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-2);
-		objectUnderTest.insert(-3);
-		objectUnderTest.insert(-1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-2);
+		objectUnderTest.add(-3);
+		objectUnderTest.add(-1);
 
-		assertTrue(objectUnderTest.delete(-2));
-		assertFalse(objectUnderTest.search(-2));
-		assertTrue(objectUnderTest.search(-1));
-		assertTrue(objectUnderTest.search(-3));
+		assertTrue(objectUnderTest.remove(-2));
+		assertFalse(objectUnderTest.contains(-2));
+		assertTrue(objectUnderTest.contains(-1));
+		assertTrue(objectUnderTest.contains(-3));
 	}
 
 	@Test
 	public void testDeleteNonRootRightLeaf() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.delete(1));
-		assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.remove(1));
+		assertFalse(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteNonRootRightWithLeft() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(2);
-		objectUnderTest.insert(1);
+		objectUnderTest.add(0);
+		objectUnderTest.add(2);
+		objectUnderTest.add(1);
 
-		assertTrue(objectUnderTest.delete(2));
-		assertFalse(objectUnderTest.search(2));
-		assertTrue(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.remove(2));
+		assertFalse(objectUnderTest.contains(2));
+		assertTrue(objectUnderTest.contains(1));
 	}
 
 	@Test
 	public void testDeleteNonRootRightWithRight() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(1);
-		objectUnderTest.insert(2);
+		objectUnderTest.add(0);
+		objectUnderTest.add(1);
+		objectUnderTest.add(2);
 
-		assertTrue(objectUnderTest.delete(1));
-		assertFalse(objectUnderTest.search(1));
-		assertTrue(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.remove(1));
+		assertFalse(objectUnderTest.contains(1));
+		assertTrue(objectUnderTest.contains(2));
 	}
 
 	@Test
 	public void testDeleteNonRootRightWithBoth() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(2);
-		objectUnderTest.insert(1);
-		objectUnderTest.insert(3);
+		objectUnderTest.add(0);
+		objectUnderTest.add(2);
+		objectUnderTest.add(1);
+		objectUnderTest.add(3);
 
-		assertTrue(objectUnderTest.delete(2));
-		assertFalse(objectUnderTest.search(2));
-		assertTrue(objectUnderTest.search(1));
-		assertTrue(objectUnderTest.search(3));
+		assertTrue(objectUnderTest.remove(2));
+		assertFalse(objectUnderTest.contains(2));
+		assertTrue(objectUnderTest.contains(1));
+		assertTrue(objectUnderTest.contains(3));
 	}
 
 	@Test
 	public void testDeleteNonRootLeft() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-5);
-		objectUnderTest.insert(-8);
-		objectUnderTest.insert(-7);
-		objectUnderTest.insert(-4);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-5);
+		objectUnderTest.add(-8);
+		objectUnderTest.add(-7);
+		objectUnderTest.add(-4);
 
-		assertTrue(objectUnderTest.delete(-5));
-		assertFalse(objectUnderTest.search(-5));
-		assertTrue(objectUnderTest.search(-8));
-		assertTrue(objectUnderTest.search(-7));
+		assertTrue(objectUnderTest.remove(-5));
+		assertFalse(objectUnderTest.contains(-5));
+		assertTrue(objectUnderTest.contains(-8));
+		assertTrue(objectUnderTest.contains(-7));
 	}
 
 	@Test
@@ -244,7 +244,7 @@ public class BinarySearchTreeTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		List<Integer> actualIntArray = objectUnderTest.preorder();
@@ -258,7 +258,7 @@ public class BinarySearchTreeTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		List<Integer> expected = Arrays.asList(9, 7, 17, 14, 31, 23);
@@ -273,7 +273,7 @@ public class BinarySearchTreeTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		List<Integer> expected = Arrays.asList(7, 9, 14, 17, 23, 31);
@@ -288,7 +288,7 @@ public class BinarySearchTreeTest {
 		List<Integer> ints = Arrays.asList(intArray);
 
 		for (int i : ints) {
-			objectUnderTest.insert(i);
+			objectUnderTest.add(i);
 		}
 
 		List<Integer> expected = Arrays.asList(23, 14, 31, 7, 17, 9);
@@ -299,13 +299,13 @@ public class BinarySearchTreeTest {
 
 	@Test
 	public void testHeight() {
-		objectUnderTest.insert(0);
-		objectUnderTest.insert(-2);
-		objectUnderTest.insert(-1);
-		objectUnderTest.insert(-3);
-		objectUnderTest.insert(2);
-		objectUnderTest.insert(1);
-		objectUnderTest.insert(3);
+		objectUnderTest.add(0);
+		objectUnderTest.add(-2);
+		objectUnderTest.add(-1);
+		objectUnderTest.add(-3);
+		objectUnderTest.add(2);
+		objectUnderTest.add(1);
+		objectUnderTest.add(3);
 
 		assertEquals(3, objectUnderTest.height());
 	}
