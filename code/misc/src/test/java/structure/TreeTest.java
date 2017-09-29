@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -277,6 +278,14 @@ public class TreeTest {
 
 		List<Integer> expected = Arrays.asList(7, 9, 14, 17, 23, 31);
 		List<Integer> actualIntArray = objectUnderTest.inorder();
+
+		assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraverseBreadthFirstNull() {
+		List<Integer> expected = Collections.emptyList();
+		List<Integer> actualIntArray = objectUnderTest.breadthFirst();
 
 		assertEquals(expected, actualIntArray);
 	}
