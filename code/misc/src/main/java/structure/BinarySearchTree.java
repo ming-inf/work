@@ -132,6 +132,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return preorder(root);
 	}
 
+	@Override
 	public List<T> preorder() {
 		return preorder(root);
 	}
@@ -148,6 +149,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return l;
 	}
 
+	@Override
 	public List<T> postorder() {
 		return postorder(root);
 	}
@@ -164,6 +166,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return l;
 	}
 
+	@Override
 	public List<T> inorder() {
 		return inorder(root);
 	}
@@ -180,6 +183,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return l;
 	}
 
+	@Override
 	public List<T> breadthFirst() {
 		return breadthFirst(root);
 	}
