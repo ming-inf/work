@@ -1,9 +1,12 @@
 package structure;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,26 +20,26 @@ public class AVLTreeTest {
 
 	@Test
 	public void testSearchNull() {
-		Assert.assertFalse(objectUnderTest.search(null));
+		assertFalse(objectUnderTest.search(null));
 	}
 
 	@Test
 	public void testSearchNotFoundEmpty() {
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
 	public void testSearchNotFound() {
 		objectUnderTest.insert(0);
 
-		Assert.assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
 	public void testSearchFound() {
 		objectUnderTest.insert(0);
 
-		Assert.assertTrue(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.search(0));
 	}
 
 	@Test
@@ -44,7 +47,7 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(-1);
 
-		Assert.assertFalse(objectUnderTest.search(-2));
+		assertFalse(objectUnderTest.search(-2));
 	}
 
 	@Test
@@ -52,7 +55,7 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(1);
 
-		Assert.assertFalse(objectUnderTest.search(2));
+		assertFalse(objectUnderTest.search(2));
 	}
 
 	@Test
@@ -61,7 +64,7 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-1);
 		objectUnderTest.insert(1);
 
-		Assert.assertFalse(objectUnderTest.search(-2));
+		assertFalse(objectUnderTest.search(-2));
 	}
 
 	@Test
@@ -73,9 +76,9 @@ public class AVLTreeTest {
 	public void testInsert() {
 		objectUnderTest.insert(0);
 
-		Assert.assertFalse(objectUnderTest.search(-1));
-		Assert.assertTrue(objectUnderTest.search(0));
-		Assert.assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
@@ -87,7 +90,7 @@ public class AVLTreeTest {
 		objectUnderTest.insert(5);
 		objectUnderTest.insert(6);
 
-		Assert.assertEquals(3, objectUnderTest.height());
+		assertEquals(3, objectUnderTest.height());
 	}
 
 	@Test
@@ -99,32 +102,32 @@ public class AVLTreeTest {
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(1);
 
-		Assert.assertEquals(3, objectUnderTest.height());
+		assertEquals(3, objectUnderTest.height());
 	}
 
 	@Test
 	public void testDeleteNull() {
-		Assert.assertFalse(objectUnderTest.delete(null));
+		assertFalse(objectUnderTest.delete(null));
 	}
 
 	@Test
 	public void testDeleteEmpty() {
-		Assert.assertFalse(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.delete(0));
 	}
 
 	@Test
 	public void testDeleteNotFound() {
 		objectUnderTest.insert(0);
 
-		Assert.assertFalse(objectUnderTest.delete(1));
+		assertFalse(objectUnderTest.delete(1));
 	}
 
 	@Test
 	public void testDeleteRootLeaf() {
 		objectUnderTest.insert(0);
 
-		Assert.assertTrue(objectUnderTest.delete(0));
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
@@ -132,8 +135,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(-1);
 
-		Assert.assertTrue(objectUnderTest.delete(0));
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
@@ -141,8 +144,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(1);
 
-		Assert.assertTrue(objectUnderTest.delete(0));
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
@@ -151,10 +154,10 @@ public class AVLTreeTest {
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(-1);
 
-		Assert.assertTrue(objectUnderTest.delete(0));
-		Assert.assertFalse(objectUnderTest.search(0));
-		Assert.assertTrue(objectUnderTest.search(1));
-		Assert.assertTrue(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.delete(0));
+		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.search(-1));
 	}
 
 	@Test
@@ -162,8 +165,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(-1);
 
-		Assert.assertTrue(objectUnderTest.delete(-1));
-		Assert.assertFalse(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.delete(-1));
+		assertFalse(objectUnderTest.search(-1));
 	}
 
 	@Test
@@ -173,9 +176,9 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-1);
 		objectUnderTest.insert(-2);
 
-		Assert.assertTrue(objectUnderTest.delete(-1));
-		Assert.assertFalse(objectUnderTest.search(-1));
-		Assert.assertTrue(objectUnderTest.search(-2));
+		assertTrue(objectUnderTest.delete(-1));
+		assertFalse(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.search(-2));
 	}
 
 	@Test
@@ -185,9 +188,9 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-2);
 		objectUnderTest.insert(-1);
 
-		Assert.assertTrue(objectUnderTest.delete(-2));
-		Assert.assertFalse(objectUnderTest.search(-2));
-		Assert.assertTrue(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.delete(-2));
+		assertFalse(objectUnderTest.search(-2));
+		assertTrue(objectUnderTest.search(-1));
 	}
 
 	@Test
@@ -198,10 +201,10 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-1);
 		objectUnderTest.insert(-3);
 
-		Assert.assertTrue(objectUnderTest.delete(-2));
-		Assert.assertFalse(objectUnderTest.search(-2));
-		Assert.assertTrue(objectUnderTest.search(-1));
-		Assert.assertTrue(objectUnderTest.search(-3));
+		assertTrue(objectUnderTest.delete(-2));
+		assertFalse(objectUnderTest.search(-2));
+		assertTrue(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.search(-3));
 	}
 
 	@Test
@@ -209,8 +212,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(0);
 		objectUnderTest.insert(1);
 
-		Assert.assertTrue(objectUnderTest.delete(1));
-		Assert.assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.delete(1));
+		assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
@@ -220,9 +223,9 @@ public class AVLTreeTest {
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(1);
 
-		Assert.assertTrue(objectUnderTest.delete(2));
-		Assert.assertFalse(objectUnderTest.search(2));
-		Assert.assertTrue(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.delete(2));
+		assertFalse(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.search(1));
 	}
 
 	@Test
@@ -232,9 +235,9 @@ public class AVLTreeTest {
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(2);
 
-		Assert.assertTrue(objectUnderTest.delete(1));
-		Assert.assertFalse(objectUnderTest.search(1));
-		Assert.assertTrue(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.delete(1));
+		assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.search(2));
 	}
 
 	@Test
@@ -245,10 +248,10 @@ public class AVLTreeTest {
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(3);
 
-		Assert.assertTrue(objectUnderTest.delete(2));
-		Assert.assertFalse(objectUnderTest.search(2));
-		Assert.assertTrue(objectUnderTest.search(1));
-		Assert.assertTrue(objectUnderTest.search(3));
+		assertTrue(objectUnderTest.delete(2));
+		assertFalse(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.search(3));
 	}
 
 	@Test
@@ -261,10 +264,10 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-4);
 		objectUnderTest.insert(-3);
 
-		Assert.assertTrue(objectUnderTest.delete(-2));
-		Assert.assertFalse(objectUnderTest.search(-2));
-		Assert.assertTrue(objectUnderTest.search(-4));
-		Assert.assertTrue(objectUnderTest.search(-3));
+		assertTrue(objectUnderTest.delete(-2));
+		assertFalse(objectUnderTest.search(-2));
+		assertTrue(objectUnderTest.search(-4));
+		assertTrue(objectUnderTest.search(-3));
 	}
 
 	@Test
@@ -274,8 +277,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(-2);
 		objectUnderTest.insert(-1);
 
-		Assert.assertTrue(objectUnderTest.delete(1));
-		Assert.assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.delete(1));
+		assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
@@ -285,8 +288,8 @@ public class AVLTreeTest {
 		objectUnderTest.insert(2);
 		objectUnderTest.insert(1);
 
-		Assert.assertTrue(objectUnderTest.delete(-1));
-		Assert.assertFalse(objectUnderTest.search(-1));
+		assertTrue(objectUnderTest.delete(-1));
+		assertFalse(objectUnderTest.search(-1));
 	}
 
 	@Test
@@ -301,7 +304,7 @@ public class AVLTreeTest {
 		List<Integer> expected = Arrays.asList(14, 7, 9, 23, 17, 31);
 		List<Integer> actualIntArray = objectUnderTest.preorder();
 
-		Assert.assertEquals(expected, actualIntArray);
+		assertEquals(expected, actualIntArray);
 	}
 
 	@Test
@@ -316,7 +319,7 @@ public class AVLTreeTest {
 		List<Integer> expected = Arrays.asList(9, 7, 17, 31, 23, 14);
 		List<Integer> actualIntArray = objectUnderTest.postorder();
 
-		Assert.assertEquals(expected, actualIntArray);
+		assertEquals(expected, actualIntArray);
 	}
 
 	@Test
@@ -331,7 +334,7 @@ public class AVLTreeTest {
 		List<Integer> expected = Arrays.asList(7, 9, 14, 17, 23, 31);
 		List<Integer> actualIntArray = objectUnderTest.inorder();
 
-		Assert.assertEquals(expected, actualIntArray);
+		assertEquals(expected, actualIntArray);
 	}
 
 	@Test
@@ -346,7 +349,7 @@ public class AVLTreeTest {
 		List<Integer> expected = Arrays.asList(14, 7, 23, 9, 17, 31);
 		List<Integer> actualIntArray = objectUnderTest.breadthFirst();
 
-		Assert.assertEquals(expected, actualIntArray);
+		assertEquals(expected, actualIntArray);
 	}
 
 	@Test
@@ -359,6 +362,6 @@ public class AVLTreeTest {
 		objectUnderTest.insert(1);
 		objectUnderTest.insert(3);
 
-		Assert.assertEquals(3, objectUnderTest.height());
+		assertEquals(3, objectUnderTest.height());
 	}
 }

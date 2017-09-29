@@ -1,9 +1,13 @@
 package structure;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,8 +21,8 @@ public class HeapTest {
 
 	@Test
 	public void testSearchNull() {
-		Assert.assertFalse(objectUnderTest.search(null));
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertFalse(objectUnderTest.search(null));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
@@ -30,7 +34,7 @@ public class HeapTest {
 			objectUnderTest.insert(i);
 		}
 
-		Assert.assertFalse(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.search(1));
 	}
 
 	@Test
@@ -47,23 +51,23 @@ public class HeapTest {
 			objectUnderTest.insert(i);
 		}
 
-		Assert.assertTrue(objectUnderTest.search(8));
-		Assert.assertTrue(objectUnderTest.search(19));
-		Assert.assertTrue(objectUnderTest.search(12));
-		Assert.assertTrue(objectUnderTest.search(1));
-		Assert.assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.search(8));
+		assertTrue(objectUnderTest.search(19));
+		assertTrue(objectUnderTest.search(12));
+		assertTrue(objectUnderTest.search(1));
+		assertFalse(objectUnderTest.search(0));
 	}
 
 	@Test
 	public void testDeleteEmpty() {
-		Assert.assertFalse(objectUnderTest.delete());
+		assertFalse(objectUnderTest.delete());
 	}
 
 	@Test
 	public void testDeleteOnly() {
 		objectUnderTest.insert(0);
 
-		Assert.assertTrue(objectUnderTest.delete());
+		assertTrue(objectUnderTest.delete());
 	}
 
 	@Test
@@ -75,24 +79,24 @@ public class HeapTest {
 			objectUnderTest.insert(i);
 		}
 
-		Assert.assertTrue(objectUnderTest.delete());
-		Assert.assertFalse(objectUnderTest.search(0));
-		Assert.assertTrue(objectUnderTest.delete());
-		Assert.assertFalse(objectUnderTest.search(1));
-		Assert.assertTrue(objectUnderTest.delete());
-		Assert.assertFalse(objectUnderTest.search(2));
-		Assert.assertTrue(objectUnderTest.delete());
-		Assert.assertFalse(objectUnderTest.search(3));
-		Assert.assertTrue(objectUnderTest.search(4));
+		assertTrue(objectUnderTest.delete());
+		assertFalse(objectUnderTest.search(0));
+		assertTrue(objectUnderTest.delete());
+		assertFalse(objectUnderTest.search(1));
+		assertTrue(objectUnderTest.delete());
+		assertFalse(objectUnderTest.search(2));
+		assertTrue(objectUnderTest.delete());
+		assertFalse(objectUnderTest.search(3));
+		assertTrue(objectUnderTest.search(4));
 	}
 
 	@Test
 	public void testPeek() {
-		Assert.assertNull(objectUnderTest.peek());
+		assertNull(objectUnderTest.peek());
 
 		objectUnderTest.insert(0);
 
-		Assert.assertEquals((Integer) 0, objectUnderTest.peek());
+		assertEquals((Integer) 0, objectUnderTest.peek());
 	}
 
 	@Test
@@ -107,6 +111,6 @@ public class HeapTest {
 		List<Integer> expected = Arrays.asList(1, 3, 12, 9, 7);
 		List<Integer> actualIntArray = objectUnderTest.traverse();
 
-		Assert.assertEquals(expected, actualIntArray);
+		assertEquals(expected, actualIntArray);
 	}
 }
