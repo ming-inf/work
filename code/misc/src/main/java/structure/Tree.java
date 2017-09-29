@@ -2,7 +2,7 @@ package structure;
 
 import java.util.List;
 
-public interface Tree<T extends Comparable<T>> extends Set<T>, Collection<T> {
+public interface Tree<T extends Comparable<T>> extends Collection<T> {
 	public int height();
 
 	public List<T> preorder();

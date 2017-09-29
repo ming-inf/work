@@ -1,5 +1,7 @@
 package structure;
 
 public interface Set<T> {
-	boolean search(T value);
+	Set<T> union(Set<T> that);
+
+	Set<T> intersection(Set<T> that);
 }

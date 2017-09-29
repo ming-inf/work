@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Heap<T extends Comparable<T>> implements Set<T>, Collection<T> {
+public class Heap<T extends Comparable<T>> implements Collection<T> {
 	List<T> heap = new ArrayList<>();
 
 	public boolean search(T value) {
