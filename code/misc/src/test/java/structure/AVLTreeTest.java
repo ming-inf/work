@@ -1,5 +1,8 @@
 package structure;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -284,5 +287,78 @@ public class AVLTreeTest {
 
 		Assert.assertTrue(objectUnderTest.delete(-1));
 		Assert.assertFalse(objectUnderTest.search(-1));
+	}
+
+	@Test
+	public void testTraversePreorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(14, 7, 9, 23, 17, 31);
+		List<Integer> actualIntArray = objectUnderTest.preorder();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraversePostorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(9, 7, 17, 31, 23, 14);
+		List<Integer> actualIntArray = objectUnderTest.postorder();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraverseInorder() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(7, 9, 14, 17, 23, 31);
+		List<Integer> actualIntArray = objectUnderTest.inorder();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testTraverseBreadthFirst() {
+		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
+		List<Integer> ints = Arrays.asList(intArray);
+
+		for (int i : ints) {
+			objectUnderTest.insert(i);
+		}
+
+		List<Integer> expected = Arrays.asList(14, 7, 23, 9, 17, 31);
+		List<Integer> actualIntArray = objectUnderTest.breadthFirst();
+
+		Assert.assertEquals(expected, actualIntArray);
+	}
+
+	@Test
+	public void testHeight() {
+		objectUnderTest.insert(0);
+		objectUnderTest.insert(-1);
+		objectUnderTest.insert(1);
+		objectUnderTest.insert(-3);
+		objectUnderTest.insert(-2);
+		objectUnderTest.insert(1);
+		objectUnderTest.insert(3);
+
+		Assert.assertEquals(3, objectUnderTest.height());
 	}
 }
