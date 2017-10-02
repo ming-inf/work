@@ -1,0 +1,2 @@
+= notes
+ln -s this file from $HOME directory
