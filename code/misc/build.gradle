@@ -48,5 +48,5 @@ sourceSets {
 
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'javafx.App'
 
