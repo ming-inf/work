@@ -1,4 +1,5 @@
 package javafx;
+
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.util.Arrays;
@@ -103,10 +104,11 @@ public class App extends Application {
 	}
 
 	public void printAvailableLocales() {
-		Set<String> locales = Arrays.stream(ULocale.getAvailableLocales())
-			.filter(l -> {return !l.getCountry().isEmpty();})
-			.map(l -> {return String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l), l.getDisplayCountry(l));})
-			.collect(Collectors.toCollection(TreeSet::new));
+		Set<String> locales = Arrays.stream(ULocale.getAvailableLocales()).filter(l -> {
+			return !l.getCountry().isEmpty();
+		}).map(l -> {
+			return String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l), l.getDisplayCountry(l));
+		}).collect(Collectors.toCollection(TreeSet::new));
 		locales.forEach(System.out::println);
 	}
 }

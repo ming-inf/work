@@ -3,8 +3,7 @@ package javafx.scene.control;
 import java.lang.reflect.Field;
 
 public class SafePasswordField extends PasswordField {
-	public final char[] getPassword()
-			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public final char[] getPassword() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		Content c = getContent();
 
 		StringBuilder sb = (StringBuilder) getFieldReflection(c, c.getClass(), "characters");
