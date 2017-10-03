@@ -1,12 +1,19 @@
-package structure;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import structure.AVLTreeTest;
+import structure.BinarySearchTreeTest;
+import structure.DoublyLinkedListTest;
+import structure.HeapTest;
+import structure.SinglyLinkedListTest;
+
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-	SinglyLinkedListTest.class
+	AppTest.class
+	, SinglyLinkedListTest.class
 	, DoublyLinkedListTest.class
 	, BinarySearchTreeTest.class
 	, HeapTest.class
