@@ -23,6 +23,9 @@ unsetopt beep
 bindkey -v
 # End of lines added by compinstall
 
+# case insensitive tab completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
 bindkey ' ' magic-space # remap space to perform history expansion
 
 [[ -f ~/.alias ]] && source ~/.alias
@@ -30,13 +33,12 @@ bindkey ' ' magic-space # remap space to perform history expansion
 [[ -f ~/.alias.tmux ]] && [[ -v TMUX_PANE ]] && source ~/.alias.tmux
 [[ -f ~/.functions.zsh ]] && source ~/.functions.zsh
 
-# case insensitive tab completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
 # os specific settings
-if [ -f ~/.zshrc.os ]; then
-	source ~/.zshrc.os
-fi
+[[ -f ~/.zshrc.os ]] && source ~/.zshrc.os
+
+# local override
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.alias.local ]] && source ~/.alias.local
 
 () {print -Pn "\e]0;%n@%m:%~\a"}
 # https://superuser.com/a/622184
@@ -60,7 +62,3 @@ fi
 PS2="$_> "
 PS3="?# "
 PS4="+"
-
-if [[ -a ~/.zshrc.local ]]; then
-	source ~/.zshrc.local # local override
-fi
