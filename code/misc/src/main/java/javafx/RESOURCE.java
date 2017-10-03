@@ -1,3 +1,4 @@
+package javafx;
 
 public enum RESOURCE {
 	GREETING("greeting")

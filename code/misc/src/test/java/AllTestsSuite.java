@@ -3,6 +3,7 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import javafx.AppTest;
 import structure.AVLTreeTest;
 import structure.BinarySearchTreeTest;
 import structure.DoublyLinkedListTest;
