@@ -37,6 +37,10 @@ public class App extends Application {
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
+	SafePasswordField passwordField;
+	ComboBox<ULocale> localesDropdown;
+	ComboBox<String> stylesheetDropdown;
+
 	public App() {
 		super();
 
@@ -71,8 +75,10 @@ public class App extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		SafePasswordField passwordField = new SafePasswordField();
+	public void init() throws Exception {
+		super.init();
+
+		passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
 			try {
@@ -83,7 +89,7 @@ public class App extends Application {
 			}
 		});
 
-		ComboBox<ULocale> localesDropdown = new ComboBox<>();
+		localesDropdown = new ComboBox<>();
 		Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
@@ -91,13 +97,16 @@ public class App extends Application {
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 
 		ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
-		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
+		stylesheetDropdown = new ComboBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
-			ObservableList<String> css = primaryStage.getScene().getStylesheets();
+			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
 			css.clear();
 			css.add(newValue);
 		});
+	}
 
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 		Pane root = new FlowPane();
 		root.getChildren().add(passwordField);
 		root.getChildren().add(localesDropdown);
