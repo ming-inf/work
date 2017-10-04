@@ -71,7 +71,7 @@ public class App extends Application {
 				System.out.println(c);
 			}
 		}
-		Platform.exit();
+		land();
 	}
 
 	@Override
@@ -127,6 +127,10 @@ public class App extends Application {
 						l.getDisplayCountry(l)))
 				.collect(Collectors.toCollection(TreeSet::new));
 		locales.forEach(System.out::println);
+	}
+
+	public void land() {
+		Platform.exit();
 	}
 }
 
