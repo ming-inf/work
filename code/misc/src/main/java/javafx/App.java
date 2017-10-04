@@ -118,7 +118,10 @@ class LocalesFormatCell extends ListCell<ULocale> {
 	protected void updateItem(ULocale item, boolean empty) {
 		super.updateItem(item, empty);
 
-		if (ULocale.ROOT == item) {
+		if (null == item || empty) {
+			setText(null);
+			setGraphic(null);
+		} else if (ULocale.ROOT == item) {
 			setText("default");
 		} else if (null != item) {
 			setText(item.toString());
