@@ -88,7 +88,6 @@ public class App extends Application {
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
 		localesDropdown.setItems(localeList);
-		localesDropdown.getSelectionModel().selectFirst();
 		currentLocale.bind(localesDropdown.getSelectionModel().selectedItemProperty());
 
 		ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
@@ -108,6 +107,7 @@ public class App extends Application {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 
+		localesDropdown.getSelectionModel().selectFirst();
 		stylesheetDropdown.getSelectionModel().selectFirst();
 
 		root.requestFocus();
