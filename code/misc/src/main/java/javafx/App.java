@@ -88,14 +88,14 @@ public class App extends Application {
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
 		localesDropdown.setItems(localeList);
-		currentLocale.bind(localesDropdown.getSelectionModel().selectedItemProperty());
+		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 
 		ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
-		stylesheetDropdown.setOnAction(event -> {
+		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = primaryStage.getScene().getStylesheets();
 			css.clear();
-			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
+			css.add(newValue);
 		});
 
 		Pane root = new FlowPane();
