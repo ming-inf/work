@@ -15,9 +15,7 @@ import com.sun.javafx.PlatformUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +31,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class App extends Application {
-	ListProperty<ULocale> localeList = new SimpleListProperty<>();
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
@@ -41,10 +38,13 @@ public class App extends Application {
 	ComboBox<ULocale> localesDropdown;
 	ComboBox<String> stylesheetDropdown;
 
+	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
+	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
+
+	Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
+
 	public App() {
 		super();
-
-		localeList.set(FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA));
 
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 		currentLocale.set(ULocale.ROOT);
@@ -89,14 +89,11 @@ public class App extends Application {
 			}
 		});
 
-		localesDropdown = new ComboBox<>();
-		Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
+		localesDropdown = new ComboBox<>(localeList);
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
-		localesDropdown.setItems(localeList);
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 
-		ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 		stylesheetDropdown = new ComboBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
