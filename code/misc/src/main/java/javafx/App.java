@@ -83,12 +83,7 @@ public class App extends Application {
 		});
 
 		ComboBox<ULocale> localesDropdown = new ComboBox<>();
-		Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = new Callback<ListView<ULocale>, ListCell<ULocale>>() {
-			@Override
-			public ListCell<ULocale> call(ListView<ULocale> param) {
-				return new LocalesFormatCell();
-			}
-		};
+		Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
 		localesDropdown.setItems(localeList);
