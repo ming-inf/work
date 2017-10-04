@@ -10,6 +10,7 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 import com.ibm.icu.util.ULocale;
+import com.sun.javafx.PlatformUtil;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,8 +20,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SafePasswordField;
@@ -39,9 +42,7 @@ public class App extends Application {
 
 		localeList.set(FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA));
 
-		currentLocale.addListener((observable, oldValue, newValue) -> {
-			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
-		});
+		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 		currentLocale.set(ULocale.ROOT);
 	}
 
@@ -90,20 +91,35 @@ public class App extends Application {
 		localesDropdown.getSelectionModel().selectFirst();
 		currentLocale.bind(localesDropdown.getSelectionModel().selectedItemProperty());
 
+		ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
+		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
+		stylesheetDropdown.setOnAction(event -> {
+			ObservableList<String> css = primaryStage.getScene().getStylesheets();
+			css.clear();
+			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
+		});
+
 		Pane root = new FlowPane();
 		root.getChildren().add(passwordField);
 		root.getChildren().add(localesDropdown);
+		root.getChildren().add(stylesheetDropdown);
+		root.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
+
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
+
+		stylesheetDropdown.getSelectionModel().selectFirst();
+
 		root.requestFocus();
 	}
 
 	public void printAvailableLocales() {
-		Set<String> locales = Arrays.stream(ULocale.getAvailableLocales()).filter(l -> {
-			return !l.getCountry().isEmpty();
-		}).map(l -> {
-			return String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l), l.getDisplayCountry(l));
-		}).collect(Collectors.toCollection(TreeSet::new));
+		Set<String> locales = Arrays
+				.stream(ULocale.getAvailableLocales())
+				.filter(l -> !l.getCountry().isEmpty())
+				.map(l -> String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l),
+						l.getDisplayCountry(l)))
+				.collect(Collectors.toCollection(TreeSet::new));
 		locales.forEach(System.out::println);
 	}
 }

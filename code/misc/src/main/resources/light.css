@@ -1,0 +1,7 @@
+.root {
+	-fx-base: white;
+}
+
+Text {
+	-fx-stroke: ladder(-fx-base, white 49%, black 50%);
+}
