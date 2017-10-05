@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15408712[Strategies for offline PGP key storage]
 - https://news.ycombinator.com/item?id=15387434[Socratic method to teaching by asking]
 - https://news.ycombinator.com/item?id=15392944[Say no to Electron: use JavaFX to write a fast, responsive desktop app]
 - https://news.ycombinator.com/item?id=15347519[The Great Tree-List Recursion Problem (2000)]
