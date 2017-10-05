@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
+import com.sun.javafx.css.StyleManager;
 import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 
 import javafx.application.Application;
@@ -79,9 +80,13 @@ public class App extends Application {
 	public void init() throws Exception {
 		super.init();
 
-		Application.setUserAgentStylesheet(STYLESHEET_MODENA);
+		passwordField = passwordField();
+		localesDropdown = localesDropdown();
+		stylesheetDropdown = stylesheetDropdown();
+	}
 
-		passwordField = new SafePasswordField();
+	private SafePasswordField passwordField() {
+		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
 			try {
@@ -91,18 +96,25 @@ public class App extends Application {
 				e.printStackTrace();
 			}
 		});
+		return passwordField;
+	}
 
-		localesDropdown = new ComboBox<>(localeList);
+	private ComboBox<ULocale> localesDropdown() {
+		ComboBox<ULocale> localesDropdown = new ComboBox<>(localeList);
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
+		return localesDropdown;
+	}
 
-		stylesheetDropdown = new ComboBox<>(styles);
+	private ComboBox<String> stylesheetDropdown() {
+		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
 			css.remove(oldValue);
 			css.add(newValue);
 		});
+		return stylesheetDropdown;
 	}
 
 	@Override
