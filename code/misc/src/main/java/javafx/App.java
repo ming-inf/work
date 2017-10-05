@@ -20,14 +20,12 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SafePasswordField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -107,26 +105,6 @@ public class App extends Application {
 		});
 	}
 
-	class StylesheetFormatCell extends ListCell<String> {
-		@Override
-		protected void updateItem(String item, boolean empty) {
-			super.updateItem(item, empty);
-
-			if (null == item || empty) {
-				setText(null);
-				setGraphic(null);
-				return;
-			}
-
-			setText(item.toString());
-			setOnMouseEntered(event -> {
-				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-				css.clear();
-				css.add(item);
-			});
-		}
-	}
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane root = new FlowPane();
@@ -165,20 +143,40 @@ public class App extends Application {
 	public void land() {
 		Platform.exit();
 	}
-}
 
-class LocalesFormatCell extends ListCell<ULocale> {
-	@Override
-	protected void updateItem(ULocale item, boolean empty) {
-		super.updateItem(item, empty);
+	class LocalesFormatCell extends ListCell<ULocale> {
+		@Override
+		protected void updateItem(ULocale item, boolean empty) {
+			super.updateItem(item, empty);
 
-		if (null == item || empty) {
-			setText(null);
-			setGraphic(null);
-		} else if (ULocale.ROOT == item) {
-			setText("default");
-		} else if (null != item) {
+			if (null == item || empty) {
+				setText(null);
+				setGraphic(null);
+			} else if (ULocale.ROOT == item) {
+				setText("default");
+			} else if (null != item) {
+				setText(item.toString());
+			}
+		}
+	}
+
+	class StylesheetFormatCell extends ListCell<String> {
+		@Override
+		protected void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if (null == item || empty) {
+				setText(null);
+				setGraphic(null);
+				return;
+			}
+
 			setText(item.toString());
+			setOnMouseEntered(event -> {
+				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
+				css.clear();
+				css.add(item);
+			});
 		}
 	}
 }
