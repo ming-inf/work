@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
+import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,12 +20,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SafePasswordField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -78,6 +81,8 @@ public class App extends Application {
 	public void init() throws Exception {
 		super.init();
 
+		Application.setUserAgentStylesheet(STYLESHEET_MODENA);
+
 		passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
@@ -97,9 +102,29 @@ public class App extends Application {
 		stylesheetDropdown = new ComboBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-			css.clear();
+			css.remove(oldValue);
 			css.add(newValue);
 		});
+	}
+
+	class StylesheetFormatCell extends ListCell<String> {
+		@Override
+		protected void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if (null == item || empty) {
+				setText(null);
+				setGraphic(null);
+				return;
+			}
+
+			setText(item.toString());
+			setOnMouseEntered(event -> {
+				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
+				css.clear();
+				css.add(item);
+			});
+		}
 	}
 
 	@Override
@@ -117,6 +142,14 @@ public class App extends Application {
 		stylesheetDropdown.getSelectionModel().selectFirst();
 
 		root.requestFocus();
+
+		ListView<String> lv = ((ComboBoxListViewSkin<String>) stylesheetDropdown.getSkin()).getListView();
+		lv.setCellFactory(listView -> new StylesheetFormatCell());
+		lv.setOnMouseExited(event -> {
+			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
+			css.clear();
+			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
+		});
 	}
 
 	public void printAvailableLocales() {
