@@ -138,11 +138,6 @@ public class App extends Application {
 
 		ListView<String> lv = ((ComboBoxListViewSkin<String>) stylesheetDropdown.getSkin()).getListView();
 		lv.setCellFactory(listView -> new StylesheetFormatCell());
-		lv.setOnMouseExited(event -> {
-			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-			css.clear();
-			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
-		});
 
 		pane.requestFocus();
 
@@ -202,8 +197,11 @@ public class App extends Application {
 			setText(item.toString());
 			setOnMouseEntered(event -> {
 				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-				css.clear();
 				css.add(item);
+			});
+			setOnMouseExited(event -> {
+				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
+				css.remove(item);
 			});
 		}
 	}
