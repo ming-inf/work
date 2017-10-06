@@ -89,12 +89,12 @@ public class App extends Application {
 	public void init() throws Exception {
 		super.init();
 
-		passwordField = passwordField();
-		localesDropdown = localesDropdown();
-		stylesheetDropdown = stylesheetDropdown();
+		passwordField = createPasswordField();
+		localesDropdown = createLocalesDropdown(localeList);
+		stylesheetDropdown = createStylesheetDropdown(styles);
 	}
 
-	private SafePasswordField passwordField() {
+	private SafePasswordField createPasswordField() {
 		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
@@ -108,7 +108,7 @@ public class App extends Application {
 		return passwordField;
 	}
 
-	private ComboBox<ULocale> localesDropdown() {
+	private ComboBox<ULocale> createLocalesDropdown(ObservableList<ULocale> localeList) {
 		ComboBox<ULocale> localesDropdown = new ComboBox<>(localeList);
 		localesDropdown.setButtonCell(cellFactory.call(null));
 		localesDropdown.setCellFactory(cellFactory);
@@ -116,7 +116,7 @@ public class App extends Application {
 		return localesDropdown;
 	}
 
-	private ComboBox<String> stylesheetDropdown() {
+	private ComboBox<String> createStylesheetDropdown(ObservableList<String> styles) {
 		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
@@ -128,19 +128,13 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Pane root = new FlowPane();
-		root.getChildren().add(passwordField);
-		root.getChildren().add(localesDropdown);
-		root.getChildren().add(stylesheetDropdown);
-		root.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
-
-		primaryStage.setScene(new Scene(root));
+		Pane pane = createPane();
+		Scene scene = new Scene(pane);
+		primaryStage.setScene(scene);
 		primaryStage.show();
 
 		localesDropdown.getSelectionModel().selectFirst();
 		stylesheetDropdown.getSelectionModel().selectFirst();
-
-		root.requestFocus();
 
 		ListView<String> lv = ((ComboBoxListViewSkin<String>) stylesheetDropdown.getSkin()).getListView();
 		lv.setCellFactory(listView -> new StylesheetFormatCell());
@@ -149,7 +143,19 @@ public class App extends Application {
 			css.clear();
 			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
 		});
+
+		pane.requestFocus();
+
 		log.info("application started");
+	}
+
+	private Pane createPane() {
+		Pane pane = new FlowPane();
+		pane.getChildren().add(passwordField);
+		pane.getChildren().add(localesDropdown);
+		pane.getChildren().add(stylesheetDropdown);
+		pane.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
+		return pane;
 	}
 
 	public void printAvailableLocales() {
