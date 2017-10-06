@@ -9,9 +9,13 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.io.IoBuilder;
+
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
-import com.sun.javafx.css.StyleManager;
 import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 
 import javafx.application.Application;
@@ -33,6 +37,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class App extends Application {
+	static final Logger log = LogManager.getLogger(App.class);
+
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
@@ -47,6 +53,9 @@ public class App extends Application {
 
 	public App() {
 		super();
+
+		System.setErr(IoBuilder.forLogger(LogManager.getRootLogger()).setLevel(Level.ERROR).buildPrintStream());
+		System.setOut(IoBuilder.forLogger(LogManager.getRootLogger()).setLevel(Level.INFO).buildPrintStream());
 
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 		currentLocale.set(ULocale.ROOT);
@@ -140,6 +149,7 @@ public class App extends Application {
 			css.clear();
 			css.add(stylesheetDropdown.getSelectionModel().getSelectedItem());
 		});
+		log.info("application started");
 	}
 
 	public void printAvailableLocales() {
