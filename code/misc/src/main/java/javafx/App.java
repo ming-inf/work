@@ -152,16 +152,6 @@ public class App extends Application {
 		return pane;
 	}
 
-	public void printAvailableLocales() {
-		Set<String> locales = Arrays
-				.stream(ULocale.getAvailableLocales())
-				.filter(l -> !l.getCountry().isEmpty())
-				.map(l -> String.format("%s: %s, %s; %s, %s", l, l.getDisplayLanguage(), l.getDisplayCountry(), l.getDisplayLanguage(l),
-						l.getDisplayCountry(l)))
-				.collect(Collectors.toCollection(TreeSet::new));
-		locales.forEach(System.out::println);
-	}
-
 	public void land() {
 		Platform.exit();
 	}
