@@ -60,12 +60,6 @@ public class App extends Application {
 	Callback<ListView<ULocale>, ListCell<ULocale>> localeCellFactory = lv -> new LocalesFormatCell();
 	Callback<ListView<String>, ListCell<String>> stylesheetCellFactory = lv -> new StylesheetFormatCell();
 
-	public App() {
-		super();
-
-		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
-	}
-
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
 	}
@@ -93,6 +87,8 @@ public class App extends Application {
 	@Override
 	public void init() throws Exception {
 		super.init();
+
+		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 
 		passwordField = createPasswordField();
 		localesDropdown = createLocalesDropdown(localeList);
