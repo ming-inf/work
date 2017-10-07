@@ -2,6 +2,7 @@ package javafx;
 
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -35,6 +36,15 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class App extends Application {
+	static {
+		try {
+			InputStream is = App.class.getResourceAsStream("/logging.properties");
+			java.util.logging.LogManager.getLogManager().readConfiguration(is);
+		} catch (SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	static final Logger log = LogManager.getLogger(App.class);
 
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
