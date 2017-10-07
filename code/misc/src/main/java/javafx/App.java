@@ -47,8 +47,9 @@ public class App extends Application {
 
 	static final Logger log = LogManager.getLogger(App.class);
 
-	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
-	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
+	ULocale defaultULocale = ULocale.ROOT;
+	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>(defaultULocale);
+	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
 
 	SafePasswordField passwordField;
 	ComboBox<ULocale> localesDropdown;
@@ -63,7 +64,6 @@ public class App extends Application {
 		super();
 
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
-		currentLocale.set(ULocale.ROOT);
 	}
 
 	public String getString(RESOURCE resourceKey) {
