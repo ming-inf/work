@@ -198,14 +198,6 @@ public class App extends Application {
 			}
 
 			setText(item.toString());
-			setOnMouseEntered(event -> {
-				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-				css.add(item);
-			});
-			setOnMouseExited(event -> {
-				ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-				css.remove(item);
-			});
 		}
 	}
 }
