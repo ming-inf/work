@@ -3,12 +3,8 @@ package javafx;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
