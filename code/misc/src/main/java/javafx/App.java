@@ -47,6 +47,9 @@ public class App extends Application {
 
 	static final Logger log = LogManager.getLogger(App.class);
 
+	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
+	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
+
 	ULocale defaultULocale = ULocale.ROOT;
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>(defaultULocale);
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
@@ -54,9 +57,6 @@ public class App extends Application {
 	SafePasswordField passwordField;
 	ComboBox<ULocale> localesDropdown;
 	ComboBox<String> stylesheetDropdown;
-
-	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
-	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 
 	Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
 
