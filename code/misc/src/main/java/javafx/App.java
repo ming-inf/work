@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
-import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -58,7 +57,8 @@ public class App extends Application {
 	ComboBox<ULocale> localesDropdown;
 	ComboBox<String> stylesheetDropdown;
 
-	Callback<ListView<ULocale>, ListCell<ULocale>> cellFactory = param -> new LocalesFormatCell();
+	Callback<ListView<ULocale>, ListCell<ULocale>> localeCellFactory = lv -> new LocalesFormatCell();
+	Callback<ListView<String>, ListCell<String>> stylesheetCellFactory = lv -> new StylesheetFormatCell();
 
 	public App() {
 		super();
@@ -115,14 +115,15 @@ public class App extends Application {
 
 	private ComboBox<ULocale> createLocalesDropdown(ObservableList<ULocale> localeList) {
 		ComboBox<ULocale> localesDropdown = new ComboBox<>(localeList);
-		localesDropdown.setButtonCell(cellFactory.call(null));
-		localesDropdown.setCellFactory(cellFactory);
+		localesDropdown.setButtonCell(localeCellFactory.call(null));
+		localesDropdown.setCellFactory(localeCellFactory);
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 		return localesDropdown;
 	}
 
 	private ComboBox<String> createStylesheetDropdown(ObservableList<String> styles) {
 		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
+		stylesheetDropdown.setCellFactory(stylesheetCellFactory);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
 			css.remove(oldValue);
@@ -140,9 +141,6 @@ public class App extends Application {
 
 		localesDropdown.getSelectionModel().selectFirst();
 		stylesheetDropdown.getSelectionModel().selectFirst();
-
-		ListView<String> lv = ((ComboBoxListViewSkin<String>) stylesheetDropdown.getSkin()).getListView();
-		lv.setCellFactory(listView -> new StylesheetFormatCell());
 
 		pane.requestFocus();
 
