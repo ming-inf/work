@@ -20,7 +20,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -29,6 +29,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class App extends Application {
 	static {
@@ -50,11 +51,8 @@ public class App extends Application {
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
 
 	SafePasswordField passwordField;
-	ComboBox<ULocale> localesDropdown;
-	ComboBox<String> stylesheetDropdown;
-
-	Callback<ListView<ULocale>, ListCell<ULocale>> localeCellFactory = lv -> new LocalesFormatCell();
-	Callback<ListView<String>, ListCell<String>> stylesheetCellFactory = lv -> new StylesheetFormatCell();
+	ChoiceBox<ULocale> localesDropdown;
+	ChoiceBox<String> stylesheetDropdown;
 
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
@@ -105,17 +103,15 @@ public class App extends Application {
 		return passwordField;
 	}
 
-	private ComboBox<ULocale> createLocalesDropdown(ObservableList<ULocale> localeList) {
-		ComboBox<ULocale> localesDropdown = new ComboBox<>(localeList);
-		localesDropdown.setButtonCell(localeCellFactory.call(null));
-		localesDropdown.setCellFactory(localeCellFactory);
+	private ChoiceBox<ULocale> createLocalesDropdown(ObservableList<ULocale> localeList) {
+		ChoiceBox<ULocale> localesDropdown = new ChoiceBox<>(localeList);
+		localesDropdown.setConverter(new LocaleConverter());
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 		return localesDropdown;
 	}
 
-	private ComboBox<String> createStylesheetDropdown(ObservableList<String> styles) {
-		ComboBox<String> stylesheetDropdown = new ComboBox<>(styles);
-		stylesheetDropdown.setCellFactory(stylesheetCellFactory);
+	private ChoiceBox<String> createStylesheetDropdown(ObservableList<String> styles) {
+		ChoiceBox<String> stylesheetDropdown = new ChoiceBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
 			css.remove(oldValue);
@@ -152,34 +148,15 @@ public class App extends Application {
 		Platform.exit();
 	}
 
-	class LocalesFormatCell extends ListCell<ULocale> {
+	class LocaleConverter extends StringConverter<ULocale> {
 		@Override
-		protected void updateItem(ULocale item, boolean empty) {
-			super.updateItem(item, empty);
-
-			if (null == item || empty) {
-				setText(null);
-				setGraphic(null);
-			} else if (ULocale.ROOT == item) {
-				setText("default");
-			} else if (null != item) {
-				setText(item.toString());
-			}
+		public String toString(ULocale object) {
+			return ULocale.ROOT == object ? "default" : object.toString();
 		}
-	}
 
-	class StylesheetFormatCell extends ListCell<String> {
 		@Override
-		protected void updateItem(String item, boolean empty) {
-			super.updateItem(item, empty);
-
-			if (null == item || empty) {
-				setText(null);
-				setGraphic(null);
-				return;
-			}
-
-			setText(item.toString());
+		public ULocale fromString(String string) {
+			return null;
 		}
 	}
 }
