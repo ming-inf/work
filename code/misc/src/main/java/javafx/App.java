@@ -51,8 +51,8 @@ public class App extends Application {
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
 
 	SafePasswordField passwordField;
-	ChoiceBox<ULocale> localesDropdown;
-	ChoiceBox<String> stylesheetDropdown;
+	ChoiceBox<ULocale> locales;
+	ChoiceBox<String> theme;
 
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
@@ -85,8 +85,8 @@ public class App extends Application {
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 
 		passwordField = createPasswordField();
-		localesDropdown = createLocalesDropdown(localeList);
-		stylesheetDropdown = createStylesheetDropdown(styles);
+		locales = createLocales(localeList);
+		theme = createTheme(styles);
 	}
 
 	private SafePasswordField createPasswordField() {
@@ -103,14 +103,14 @@ public class App extends Application {
 		return passwordField;
 	}
 
-	private ChoiceBox<ULocale> createLocalesDropdown(ObservableList<ULocale> localeList) {
+	private ChoiceBox<ULocale> createLocales(ObservableList<ULocale> localeList) {
 		ChoiceBox<ULocale> localesDropdown = new ChoiceBox<>(localeList);
 		localesDropdown.setConverter(new LocaleConverter());
 		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
 		return localesDropdown;
 	}
 
-	private ChoiceBox<String> createStylesheetDropdown(ObservableList<String> styles) {
+	private ChoiceBox<String> createTheme(ObservableList<String> styles) {
 		ChoiceBox<String> stylesheetDropdown = new ChoiceBox<>(styles);
 		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
 			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
@@ -127,8 +127,8 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		localesDropdown.getSelectionModel().selectFirst();
-		stylesheetDropdown.getSelectionModel().selectFirst();
+		locales.getSelectionModel().selectFirst();
+		theme.getSelectionModel().selectFirst();
 
 		pane.requestFocus();
 
@@ -138,8 +138,8 @@ public class App extends Application {
 	private Pane createPane() {
 		Pane pane = new FlowPane();
 		pane.getChildren().add(passwordField);
-		pane.getChildren().add(localesDropdown);
-		pane.getChildren().add(stylesheetDropdown);
+		pane.getChildren().add(locales);
+		pane.getChildren().add(theme);
 		pane.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
 		return pane;
 	}
