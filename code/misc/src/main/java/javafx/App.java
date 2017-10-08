@@ -50,7 +50,7 @@ public class App extends Application {
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>(defaultULocale);
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
 
-	SafePasswordField passwordField;
+	SafePasswordField password;
 	ChoiceBox<ULocale> locales;
 	ChoiceBox<String> theme;
 
@@ -84,12 +84,12 @@ public class App extends Application {
 
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 
-		passwordField = createPasswordField();
+		password = createPassword();
 		locales = createLocales(localeList);
 		theme = createTheme(styles);
 	}
 
-	private SafePasswordField createPasswordField() {
+	private SafePasswordField createPassword() {
 		SafePasswordField passwordField = new SafePasswordField();
 		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
 		passwordField.setOnAction(event -> {
@@ -137,7 +137,7 @@ public class App extends Application {
 
 	private Pane createPane() {
 		Pane pane = new FlowPane();
-		pane.getChildren().add(passwordField);
+		pane.getChildren().add(password);
 		pane.getChildren().add(locales);
 		pane.getChildren().add(theme);
 		pane.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
