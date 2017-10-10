@@ -70,13 +70,13 @@ public class App extends Application {
 	public void run(String[] args) throws IOException {
 		if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
 			launch(args);
+			land();
 		} else if (null != System.console()) {
 			char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT) + " ");
 			for (char c : pass) {
 				System.out.println(c);
 			}
 		}
-		land();
 	}
 
 	@Override
