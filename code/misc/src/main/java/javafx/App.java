@@ -104,8 +104,7 @@ public class App extends Application {
 			try {
 				System.out.println(passwordField.getPassword());
 			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.catching(e);
 			}
 		});
 		return passwordField;
