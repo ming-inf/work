@@ -22,13 +22,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.SafePasswordField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 public class App extends Application {
@@ -47,12 +44,16 @@ public class App extends Application {
 	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 
 	ULocale defaultULocale = ULocale.ROOT;
-	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>(defaultULocale);
-	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>(ResourceBundle.getBundle("AppBundle", defaultULocale.toLocale()));
+	String defaultStylesheet = "default.css";
+	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
+	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
+	ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
 
 	SafePasswordField password;
 	ChoiceBox<ULocale> locales;
 	ChoiceBox<String> theme;
+
+	Scene scene;
 
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
@@ -83,6 +84,13 @@ public class App extends Application {
 		super.init();
 
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
+		currentStylesheet.addListener((ob, o, n) -> {
+			ObservableList<String> css = scene.getStylesheets();
+			css.remove(o);
+			css.add(n);
+		});
+
+		currentLocale.set(defaultULocale);
 
 		password = createPassword();
 		locales = createLocales(localeList);
@@ -112,18 +120,14 @@ public class App extends Application {
 
 	private ChoiceBox<String> createTheme(ObservableList<String> styles) {
 		ChoiceBox<String> stylesheetDropdown = new ChoiceBox<>(styles);
-		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
-			ObservableList<String> css = stylesheetDropdown.getScene().getStylesheets();
-			css.remove(oldValue);
-			css.add(newValue);
-		});
+		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentStylesheet.set(newValue));
 		return stylesheetDropdown;
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane pane = createPane();
-		Scene scene = new Scene(pane);
+		scene = new Scene(pane);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
