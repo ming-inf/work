@@ -1,6 +1,16 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15448330[Why Constant-Time Crypto?]
+- https://news.ycombinator.com/item?id=15399787[From design patterns to category theory]
+- https://news.ycombinator.com/item?id=15409977[Pensieve: An intelligent repository for the million things in your head]
+- https://news.ycombinator.com/item?id=15440146[Theoretical Computer Science for the Working Category Theorist [pdf\]]
+- https://news.ycombinator.com/item?id=15440170[Elliptic Curve Cryptography for Beginners]
+- https://news.ycombinator.com/item?id=15445006[Pencil and Paper Games]
+- https://news.ycombinator.com/item?id=15447710[Event-Driven Architecture]
+- https://news.ycombinator.com/item?id=15441364[Solo founders with profitable businesses, collected stories]
+- https://news.ycombinator.com/item?id=15441460[Why I learned to code instead of pursuing a career in finance]
+- https://news.ycombinator.com/item?id=15414926[Lessons learned from building a Hello World Neural Network]
 - https://news.ycombinator.com/item?id=15409757[Modern B-Tree Techniques]
 - https://news.ycombinator.com/item?id=15408712[Strategies for offline PGP key storage]
 - https://news.ycombinator.com/item?id=15387434[Socratic method to teaching by asking]
