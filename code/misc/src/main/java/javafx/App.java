@@ -95,8 +95,9 @@ public class App extends Application {
 			css.add(n);
 		});
 
-		confLocale = new ULocale(injector.getInstance(Config.class).getLocale());
-		confStylesheet = injector.getInstance(Config.class).getStylesheet();
+		Config config = injector.getInstance(Config.class);
+		confLocale = new ULocale(config.getLocale());
+		confStylesheet = config.getStylesheet();
 
 		currentLocale.set(confLocale);
 
