@@ -1,3 +1,4 @@
+package root;
 
 public class Config {
 	private String locale;

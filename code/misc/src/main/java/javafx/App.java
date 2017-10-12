@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.inject.Injector;
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
 
@@ -27,6 +28,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import root.Config;
+import root.Main;
 
 public class App extends Application {
 	static {
@@ -43,8 +46,8 @@ public class App extends Application {
 	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
 	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 
-	ULocale defaultULocale = ULocale.ROOT;
-	String defaultStylesheet = "default.css";
+	ULocale confLocale;
+	String confStylesheet;
 	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 	ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
@@ -83,6 +86,8 @@ public class App extends Application {
 	public void init() throws Exception {
 		super.init();
 
+		Injector injector = Main.getInjector();
+
 		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 		currentStylesheet.addListener((ob, o, n) -> {
 			ObservableList<String> css = scene.getStylesheets();
@@ -90,7 +95,10 @@ public class App extends Application {
 			css.add(n);
 		});
 
-		currentLocale.set(defaultULocale);
+		confLocale = new ULocale(injector.getInstance(Config.class).getLocale());
+		confStylesheet = injector.getInstance(Config.class).getStylesheet();
+
+		currentLocale.set(confLocale);
 
 		password = createPassword();
 		locales = createLocales(localeList);
@@ -130,8 +138,8 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		locales.getSelectionModel().selectFirst();
-		theme.getSelectionModel().selectFirst();
+		locales.getSelectionModel().select(confLocale);
+		theme.getSelectionModel().select(confStylesheet);
 
 		pane.requestFocus();
 
