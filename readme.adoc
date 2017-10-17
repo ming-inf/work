@@ -1,6 +1,12 @@
 = readme
 
 == articles
+- https://dzone.com/articles/the-observer-pattern-using-modern-java[The Observer Pattern Using Java 8]
+- http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/[Java 8 Concurrency Tutorial: Threads and Executors]
+- https://news.ycombinator.com/item?id=15484228[Perceptually uniform color spaces]
+- https://news.ycombinator.com/item?id=15481578[Python Graph Gallery]
+- https://news.ycombinator.com/item?id=15483613[Advanced Data Structures by Stanford [pdf\]]
+- https://news.ycombinator.com/item?id=15480517[Data Structure Visualizations]
 - https://news.ycombinator.com/item?id=15448330[Why Constant-Time Crypto?]
 - https://news.ycombinator.com/item?id=15399787[From design patterns to category theory]
 - https://news.ycombinator.com/item?id=15409977[Pensieve: An intelligent repository for the million things in your head]
