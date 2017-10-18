@@ -1,7 +1,6 @@
 package structure;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,13 +8,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Consumer;
 
 public class SuccinctTrie {
-	Map<String, String> testData = new HashMap<>();
-	{
-		testData.put("nodeCount", "37");
-		testData.put("directory", "BMIg");
-		testData.put("trie", "v2qqqqqqqpIUn4A5JZyBZ4ggCKh55ZZgBA5ZZd5vIEl1wx8g8A");
-	}
-
 	// Configure the bit writing and reading functions to work natively in BASE-64
 	// encoding. That way, we don't have to convert back and forth to bytes.
 	String BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
@@ -35,83 +27,83 @@ public class SuccinctTrie {
 	/**
 	 * Returns the decimal value of the given character unit.
 	 */
-	Map<String, Integer> BASE64_CACHE = new HashMap<>();
+	Map<Character, Integer> BASE64_CACHE = new HashMap<>(64);
 	{
-		BASE64_CACHE.put("A", 0);
-		BASE64_CACHE.put("B", 1);
-		BASE64_CACHE.put("C", 2);
-		BASE64_CACHE.put("D", 3);
-		BASE64_CACHE.put("E", 4);
-		BASE64_CACHE.put("F", 5);
-		BASE64_CACHE.put("G", 6);
-		BASE64_CACHE.put("H", 7);
-		BASE64_CACHE.put("I", 8);
-		BASE64_CACHE.put("J", 9);
-		BASE64_CACHE.put("K", 10);
-		BASE64_CACHE.put("L", 11);
-		BASE64_CACHE.put("M", 12);
-		BASE64_CACHE.put("N", 13);
-		BASE64_CACHE.put("O", 14);
-		BASE64_CACHE.put("P", 15);
-		BASE64_CACHE.put("Q", 16);
-		BASE64_CACHE.put("R", 17);
-		BASE64_CACHE.put("S", 18);
-		BASE64_CACHE.put("T", 19);
-		BASE64_CACHE.put("U", 20);
-		BASE64_CACHE.put("V", 21);
-		BASE64_CACHE.put("W", 22);
-		BASE64_CACHE.put("X", 23);
-		BASE64_CACHE.put("Y", 24);
-		BASE64_CACHE.put("Z", 25);
-		BASE64_CACHE.put("a", 26);
-		BASE64_CACHE.put("b", 27);
-		BASE64_CACHE.put("c", 28);
-		BASE64_CACHE.put("d", 29);
-		BASE64_CACHE.put("e", 30);
-		BASE64_CACHE.put("f", 31);
-		BASE64_CACHE.put("g", 32);
-		BASE64_CACHE.put("h", 33);
-		BASE64_CACHE.put("i", 34);
-		BASE64_CACHE.put("j", 35);
-		BASE64_CACHE.put("k", 36);
-		BASE64_CACHE.put("l", 37);
-		BASE64_CACHE.put("m", 38);
-		BASE64_CACHE.put("n", 39);
-		BASE64_CACHE.put("o", 40);
-		BASE64_CACHE.put("p", 41);
-		BASE64_CACHE.put("q", 42);
-		BASE64_CACHE.put("r", 43);
-		BASE64_CACHE.put("s", 44);
-		BASE64_CACHE.put("t", 45);
-		BASE64_CACHE.put("u", 46);
-		BASE64_CACHE.put("v", 47);
-		BASE64_CACHE.put("w", 48);
-		BASE64_CACHE.put("x", 49);
-		BASE64_CACHE.put("y", 50);
-		BASE64_CACHE.put("z", 51);
-		BASE64_CACHE.put("0", 52);
-		BASE64_CACHE.put("1", 53);
-		BASE64_CACHE.put("2", 54);
-		BASE64_CACHE.put("3", 55);
-		BASE64_CACHE.put("4", 56);
-		BASE64_CACHE.put("5", 57);
-		BASE64_CACHE.put("6", 58);
-		BASE64_CACHE.put("7", 59);
-		BASE64_CACHE.put("8", 60);
-		BASE64_CACHE.put("9", 61);
-		BASE64_CACHE.put("-", 62);
-		BASE64_CACHE.put("_", 63);
+		BASE64_CACHE.put('A', 0);
+		BASE64_CACHE.put('B', 1);
+		BASE64_CACHE.put('C', 2);
+		BASE64_CACHE.put('D', 3);
+		BASE64_CACHE.put('E', 4);
+		BASE64_CACHE.put('F', 5);
+		BASE64_CACHE.put('G', 6);
+		BASE64_CACHE.put('H', 7);
+		BASE64_CACHE.put('I', 8);
+		BASE64_CACHE.put('J', 9);
+		BASE64_CACHE.put('K', 10);
+		BASE64_CACHE.put('L', 11);
+		BASE64_CACHE.put('M', 12);
+		BASE64_CACHE.put('N', 13);
+		BASE64_CACHE.put('O', 14);
+		BASE64_CACHE.put('P', 15);
+		BASE64_CACHE.put('Q', 16);
+		BASE64_CACHE.put('R', 17);
+		BASE64_CACHE.put('S', 18);
+		BASE64_CACHE.put('T', 19);
+		BASE64_CACHE.put('U', 20);
+		BASE64_CACHE.put('V', 21);
+		BASE64_CACHE.put('W', 22);
+		BASE64_CACHE.put('X', 23);
+		BASE64_CACHE.put('Y', 24);
+		BASE64_CACHE.put('Z', 25);
+		BASE64_CACHE.put('a', 26);
+		BASE64_CACHE.put('b', 27);
+		BASE64_CACHE.put('c', 28);
+		BASE64_CACHE.put('d', 29);
+		BASE64_CACHE.put('e', 30);
+		BASE64_CACHE.put('f', 31);
+		BASE64_CACHE.put('g', 32);
+		BASE64_CACHE.put('h', 33);
+		BASE64_CACHE.put('i', 34);
+		BASE64_CACHE.put('j', 35);
+		BASE64_CACHE.put('k', 36);
+		BASE64_CACHE.put('l', 37);
+		BASE64_CACHE.put('m', 38);
+		BASE64_CACHE.put('n', 39);
+		BASE64_CACHE.put('o', 40);
+		BASE64_CACHE.put('p', 41);
+		BASE64_CACHE.put('q', 42);
+		BASE64_CACHE.put('r', 43);
+		BASE64_CACHE.put('s', 44);
+		BASE64_CACHE.put('t', 45);
+		BASE64_CACHE.put('u', 46);
+		BASE64_CACHE.put('v', 47);
+		BASE64_CACHE.put('w', 48);
+		BASE64_CACHE.put('x', 49);
+		BASE64_CACHE.put('y', 50);
+		BASE64_CACHE.put('z', 51);
+		BASE64_CACHE.put('0', 52);
+		BASE64_CACHE.put('1', 53);
+		BASE64_CACHE.put('2', 54);
+		BASE64_CACHE.put('3', 55);
+		BASE64_CACHE.put('4', 56);
+		BASE64_CACHE.put('5', 57);
+		BASE64_CACHE.put('6', 58);
+		BASE64_CACHE.put('7', 59);
+		BASE64_CACHE.put('8', 60);
+		BASE64_CACHE.put('9', 61);
+		BASE64_CACHE.put('-', 62);
+		BASE64_CACHE.put('_', 63);
 	};
 
 	public int ORD(char ch) {
-		return BASE64_CACHE.get("" + ch);
+		return BASE64_CACHE.get(ch);
 	}
 
 	/**
 	 * Fixed values for the L1 and L2 table sizes in the Rank Directory
 	 */
-	int L1 = 32 * 32;
 	int L2 = 32;
+	int L1 = L2 * L2;
 
 	/**
 	 * The BitWriter will create a stream of bytes, letting you write a certain number of bits at a time. This is part of the encoder, so it is not optimized
@@ -137,7 +129,7 @@ public class SuccinctTrie {
 		 * Get the bitstring represented as a string of bytes
 		 */
 		public String getData() {
-			String chars = "";
+			StringBuffer chars = new StringBuffer();
 			int b = 0;
 			int i = 0;
 
@@ -145,35 +137,35 @@ public class SuccinctTrie {
 				b = (b << 1) | this.bits.get(j);
 				i += 1;
 				if (i == W) {
-					chars += ("" + CHR(b));
+					chars.append(CHR(b));
 					i = b = 0;
 				}
 			}
 
 			if (0 < i) {
-				chars += ("" + CHR(b << (W - i)));
+				chars.append(CHR(b << (W - i)));
 			}
 
-			return String.join("", chars);
+			return chars.toString();
 		}
 
 		/**
 		 * Returns the bits as a human readable binary string for debugging
 		 */
 		public String getDebugString(int group) {
-			String chars = "";
+			StringBuffer chars = new StringBuffer();
 			int i = 0;
 
 			for (int j = 0; j < this.bits.size(); j++) {
-				chars.concat("" + this.bits.get(j));
+				chars.append(this.bits.get(j));
 				i++;
 				if (i == group) {
-					chars.concat(" ");
+					chars.append(" ");
 					i = 0;
 				}
 			}
 
-			return String.join("", chars);
+			return chars.toString();
 		}
 	}
 
@@ -183,17 +175,14 @@ public class SuccinctTrie {
 	class BitString {
 		String bytes;
 		int length = 0;
-		int[] MaskTop = { 0x3f, 0x1f, 0x0f, 0x07, 0x03, 0x01, 0x00 };
-		int[] BitsInByte = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4,
-				3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5,
-				4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4,
-				3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6,
-				5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6,
-				5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8 };
 
 		public BitString(String str) {
 			this.bytes = str;
 			this.length = this.bytes.length() * W;
+		}
+
+		public int maskTop(int i) {
+			return ~(~0<<6-i);
 		}
 
 		/**
@@ -207,13 +196,14 @@ public class SuccinctTrie {
 		 * Returns a decimal number, consisting of a certain number, n, of bits starting at a certain position, p.
 		 */
 		public int get(int p, int n) {
+			int mask = maskTop(p % W);
 			// case 1: bits lie within the given byte
 			if ((p % W) + n <= W) {
-				return (ORD(this.bytes.charAt(p / W | 0)) & MaskTop[p % W]) >> (W - p % W - n);
+				return (ORD(this.bytes.charAt(p / W | 0)) & mask) >> (W - p % W - n);
 
 				// case 2: bits lie incompletely in the given byte
 			} else {
-				int result = (ORD(this.bytes.charAt(p / W | 0)) & MaskTop[p % W]);
+				int result = (ORD(this.bytes.charAt(p / W | 0)) & mask);
 
 				int l = W - p % W;
 				p += l;
@@ -239,12 +229,12 @@ public class SuccinctTrie {
 		public int count(int p, int n) {
 			int count = 0;
 			while (n >= 8) {
-				count += BitsInByte[this.get(p, 8)];
+				count += Integer.bitCount(this.get(p, 8));
 				p += 8;
 				n -= 8;
 			}
 
-			return count + BitsInByte[this.get(p, n)];
+			return count + Integer.bitCount(this.get(p, n));
 		}
 
 		/**
@@ -444,7 +434,7 @@ public class SuccinctTrie {
 		 * Apply a function to each node, traversing the trie in level order.
 		 */
 		public void apply(Consumer<TrieNode> fn) {
-			java.util.Queue<TrieNode> level = new ArrayBlockingQueue<>(1000);
+			java.util.Queue<TrieNode> level = new ArrayBlockingQueue<>(120000);
 			level.add(this.root);
 			while (level.size() > 0) {
 				TrieNode node = level.remove();
@@ -601,12 +591,11 @@ public class SuccinctTrie {
 	/**
 	 * Encode the trie.
 	 */
-	public void go() {
+	public void go(java.util.List<String> words) {
 		// create a trie
 		Trie trie = new Trie();
 
 		// split the words of the input up. Sort them for faster trie insertion.
-		java.util.List<String> words = Arrays.asList("apple", "orange", "alphapha", "lamp", "hello", "jello", "quiz");
 		Collections.sort(words);
 		for (String word : words) {
 			trie.insert(word);
@@ -618,33 +607,24 @@ public class SuccinctTrie {
 		// Encode the rank directory
 		RankDirectory directory = create(trieData, trie.getNodeCount() * 2 + 1, L1, L2);
 
-		String output = "{\n    \"nodeCount\": " + trie.getNodeCount() + ",\n";
-		output += "    \"directory\": " + directory.getData() + ",\n";
-		output += "    \"trie\": " + trieData + "\n";
-		output += "}\n";
-		System.out.println(output);
-
 		this.trie = trie;
 		this.directory = directory;
 		this.trieData = trieData;
+		System.out.println(this);
 	}
 
-	public String lookup(String word) {
+	public boolean lookup(String word) {
 		FrozenTrie ftrie = new FrozenTrie(trieData, directory.getData(), trie.getNodeCount());
-		String status = String.format("\"%s\" %s in the dictionary", word, ftrie.lookup(word) ? "is" : "is NOT");
+		return ftrie.lookup(word);
+	}
+
+	public String lookupStatus(String word) {
+		String status = String.format("\"%s\" %s in the dictionary", word, lookup(word) ? "is" : "is NOT");
 		return status;
 	}
 
-	public static void main(String... args) {
-		SuccinctTrie st = new SuccinctTrie();
-		st.go();
-		java.util.List<String> words = Arrays.asList("apple", "orange", "alphapha", "lamp", "hello", "jello", "quiz");
-		java.util.List<String> words2 = Arrays.asList(" ", "appl ", "appl", "applee", "directory", "contains", "the", "information", "needed", "to", "compute");
-		for (String word : words) {
-			System.out.println(st.lookup(word));
-		}
-		for (String word : words2) {
-			System.out.println(st.lookup(word));
-		}
+	@Override
+	public String toString() {
+		return "SuccinctTrie [trie.nodeCount=" + trie.getNodeCount() + ", directory=" + directory.getData() + ", trieData=" + trieData + "]";
 	}
 }
