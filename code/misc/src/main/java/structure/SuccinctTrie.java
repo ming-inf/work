@@ -134,7 +134,7 @@ public class SuccinctTrie {
 		}
 
 		/**
-		 * Get the bitstring represented as a javascript string of bytes
+		 * Get the bitstring represented as a string of bytes
 		 */
 		public String getData() {
 			String chars = "";
@@ -264,7 +264,7 @@ public class SuccinctTrie {
 
 	/**
 	 * Used to build a rank directory from the given input string.
-	 * @param data A javascript string containing the data, as readable using the BitString object.
+	 * @param data A string containing the data, as readable using the BitString object.
 	 * @param numBits The number of bits to index.
 	 * @param l1Size The number of bits that each entry in the Level 1 table summarizes. This should be a multiple of l2Size.
 	 * @param l2Size The number of bits that each entry in the Level 2 table summarizes.
@@ -599,7 +599,7 @@ public class SuccinctTrie {
 	String trieData;
 
 	/**
-	 * Encode the trie in the input text box.
+	 * Encode the trie.
 	 */
 	public void go() {
 		// create a trie
@@ -629,9 +629,6 @@ public class SuccinctTrie {
 		this.trieData = trieData;
 	}
 
-	/**
-	 * Decode the data in the output textarea, and use it to check if a word exists in the dictionary.
-	 */
 	public String lookup(String word) {
 		String status = "";
 		FrozenTrie ftrie = new FrozenTrie(trieData, directory.getData(), trie.getNodeCount());
