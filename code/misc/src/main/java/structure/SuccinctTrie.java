@@ -647,7 +647,7 @@ public class SuccinctTrie {
 		SuccinctTrie st = new SuccinctTrie();
 		st.go();
 		java.util.List<String> words = Arrays.asList("apple", "orange", "alphapha", "lamp", "hello", "jello", "quiz");
-		java.util.List<String> words2 = Arrays.asList("directory", "contains", "the", "information", "needed", "to", "compute");
+		java.util.List<String> words2 = Arrays.asList(" ", "appl ", "appl", "applee", "directory", "contains", "the", "information", "needed", "to", "compute");
 		for (String word : words) {
 			System.out.println(st.lookup(word));
 		}
