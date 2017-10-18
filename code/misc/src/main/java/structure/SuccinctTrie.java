@@ -118,9 +118,9 @@ public class SuccinctTrie {
 		public void write(int data, int numBits) {
 			for (int i = numBits - 1; i >= 0; i--) {
 				if (0 < (data & (1 << i))) {
-					this.bits.add(1);
+					bits.add(1);
 				} else {
-					this.bits.add(0);
+					bits.add(0);
 				}
 			}
 		}
@@ -133,8 +133,8 @@ public class SuccinctTrie {
 			int b = 0;
 			int i = 0;
 
-			for (int j = 0; j < this.bits.size(); j++) {
-				b = (b << 1) | this.bits.get(j);
+			for (int j = 0; j < bits.size(); j++) {
+				b = (b << 1) | bits.get(j);
 				i += 1;
 				if (i == W) {
 					chars.append(CHR(b));
@@ -156,8 +156,8 @@ public class SuccinctTrie {
 			StringBuffer chars = new StringBuffer();
 			int i = 0;
 
-			for (int j = 0; j < this.bits.size(); j++) {
-				chars.append(this.bits.get(j));
+			for (int j = 0; j < bits.size(); j++) {
+				chars.append(bits.get(j));
 				i++;
 				if (i == group) {
 					chars.append(" ");
@@ -177,8 +177,8 @@ public class SuccinctTrie {
 		int length = 0;
 
 		public BitString(String str) {
-			this.bytes = str;
-			this.length = this.bytes.length() * W;
+			bytes = str;
+			length = bytes.length() * W;
 		}
 
 		public int maskTop(int i) {
@@ -189,7 +189,7 @@ public class SuccinctTrie {
 		 * Returns the internal string of bytes
 		 */
 		public String getData() {
-			return this.bytes;
+			return bytes;
 		}
 
 		/**
@@ -199,24 +199,24 @@ public class SuccinctTrie {
 			int mask = maskTop(p % W);
 			// case 1: bits lie within the given byte
 			if ((p % W) + n <= W) {
-				return (ORD(this.bytes.charAt(p / W | 0)) & mask) >> (W - p % W - n);
+				return (ORD(bytes.charAt(p / W | 0)) & mask) >> (W - p % W - n);
 
 				// case 2: bits lie incompletely in the given byte
 			} else {
-				int result = (ORD(this.bytes.charAt(p / W | 0)) & mask);
+				int result = (ORD(bytes.charAt(p / W | 0)) & mask);
 
 				int l = W - p % W;
 				p += l;
 				n -= l;
 
 				while (n >= W) {
-					result = (result << W) | ORD(this.bytes.charAt(p / W | 0));
+					result = (result << W) | ORD(bytes.charAt(p / W | 0));
 					p += W;
 					n -= W;
 				}
 
 				if (n > 0) {
-					result = (result << n) | (ORD(this.bytes.charAt(p / W | 0)) >> (W - n));
+					result = (result << n) | (ORD(bytes.charAt(p / W | 0)) >> (W - n));
 				}
 
 				return result;
@@ -229,12 +229,12 @@ public class SuccinctTrie {
 		public int count(int p, int n) {
 			int count = 0;
 			while (n >= 8) {
-				count += Integer.bitCount(this.get(p, 8));
+				count += Integer.bitCount(get(p, 8));
 				p += 8;
 				n -= 8;
 			}
 
-			return count + Integer.bitCount(this.get(p, n));
+			return count + Integer.bitCount(get(p, n));
 		}
 
 		/**
@@ -306,7 +306,7 @@ public class SuccinctTrie {
 			this.l2Size = l2Size;
 			this.l1Bits = (int) Math.ceil(Math.log(numBits) / Math.log(2));
 			this.l2Bits = (int) Math.ceil(Math.log(l1Size) / Math.log(2));
-			this.sectionBits = (l1Size / l2Size - 1) * this.l2Bits + this.l1Bits;
+			this.sectionBits = (l1Size / l2Size - 1) * l2Bits + l1Bits;
 			this.numBits = numBits;
 		}
 
@@ -314,7 +314,7 @@ public class SuccinctTrie {
 		 * Returns the string representation of the directory.
 		 */
 		public String getData() {
-			return this.directory.getData();
+			return directory.getData();
 		}
 
 		/**
@@ -323,25 +323,25 @@ public class SuccinctTrie {
 		public int rank(int which, int x) {
 
 			if (which == 0) {
-				return x - this.rank(1, x) + 1;
+				return x - rank(1, x) + 1;
 			}
 
 			int rank = 0;
 			int o = x;
 			int sectionPos = 0;
 
-			if (o >= this.l1Size) {
-				sectionPos = (int) ((o / this.l1Size | 0) * this.sectionBits);
-				rank = this.directory.get(sectionPos - this.l1Bits, this.l1Bits);
-				o = o % this.l1Size;
+			if (o >= l1Size) {
+				sectionPos = (int) ((o / l1Size | 0) * sectionBits);
+				rank = directory.get(sectionPos - l1Bits, l1Bits);
+				o = o % l1Size;
 			}
 
-			if (o >= this.l2Size) {
-				sectionPos += (o / this.l2Size | 0) * this.l2Bits;
-				rank += this.directory.get(sectionPos - this.l2Bits, this.l2Bits);
+			if (o >= l2Size) {
+				sectionPos += (o / l2Size | 0) * l2Bits;
+				rank += directory.get(sectionPos - l2Bits, l2Bits);
 			}
 
-			rank += this.data.count(x - x % this.l2Size, x % this.l2Size + 1);
+			rank += data.count(x - x % l2Size, x % l2Size + 1);
 
 			return rank;
 		}
@@ -350,13 +350,13 @@ public class SuccinctTrie {
 		 * Returns the position of the y'th 0 or 1 bit, depending on the "which" parameter.
 		 */
 		public int select(int which, int y) {
-			int high = this.numBits;
+			int high = numBits;
 			int low = -1;
 			int val = -1;
 
 			while (high - low > 1) {
 				int probe = (high + low) / 2 | 0;
-				int r = this.rank(which, probe);
+				int r = rank(which, probe);
 
 				if (r == y) {
 					// We have to continue searching after we have found it,
@@ -394,14 +394,14 @@ public class SuccinctTrie {
 		int nodeCount = 1;
 
 		public Trie() {
-			this.cache.add(this.root);
+			cache.add(root);
 		}
 
 		/**
 		 * Returns the number of nodes in the trie
 		 */
 		public int getNodeCount() {
-			return this.nodeCount;
+			return nodeCount;
 		}
 
 		/**
@@ -409,25 +409,25 @@ public class SuccinctTrie {
 		 */
 		public void insert(String word) {
 			int commonPrefix = 0;
-			for (int i = 0; i < Math.min(word.length(), this.previousWord.length()); i++) {
-				if (word.charAt(i) != this.previousWord.charAt(i)) {
+			for (int i = 0; i < Math.min(word.length(), previousWord.length()); i++) {
+				if (word.charAt(i) != previousWord.charAt(i)) {
 					break;
 				}
 				commonPrefix += 1;
 			}
 
-			TrieNode node = this.cache.get(commonPrefix);
+			TrieNode node = cache.get(commonPrefix);
 
 			for (int i = commonPrefix; i < word.length(); i++) {
 				TrieNode next = new TrieNode(word.charAt(i));
-				this.nodeCount++;
+				nodeCount++;
 				node.children.add(next);
-				this.cache.add(next);
+				cache.add(next);
 				node = next;
 			}
 
 			node.final1 = true;
-			this.previousWord = word;
+			previousWord = word;
 		}
 
 		/**
@@ -435,7 +435,7 @@ public class SuccinctTrie {
 		 */
 		public void apply(Consumer<TrieNode> fn) {
 			java.util.Queue<TrieNode> level = new LinkedBlockingQueue<>();
-			level.add(this.root);
+			level.add(root);
 			while (level.size() > 0) {
 				TrieNode node = level.remove();
 				for (int i = 0; i < node.children.size(); i++) {
@@ -452,7 +452,7 @@ public class SuccinctTrie {
 			// Write the unary encoding of the tree in level order.
 			BitWriter bits = new BitWriter();
 			bits.write(0x02, 2);
-			this.apply(node -> {
+			apply(node -> {
 				for (int i = 0; i < node.children.size(); i++) {
 					bits.write(1, 1);
 				}
@@ -463,7 +463,7 @@ public class SuccinctTrie {
 			// the "final" indicator. The other 5 bits store one of the 26 letters
 			// of the alphabet.
 			int a = 'a';
-			this.apply(node -> {
+			apply(node -> {
 				int value = node.letter - a;
 				if (node.final1) {
 					value |= 0x20;
@@ -500,7 +500,7 @@ public class SuccinctTrie {
 		 * Returns the number of children.
 		 */
 		public int getChildCount() {
-			return this.childCount;
+			return childCount;
 		}
 
 		/**
@@ -508,7 +508,7 @@ public class SuccinctTrie {
 		 * @param index The 0-based index of the child of this node. For example, if the node has 5 children, and you wanted the 0th one, pass in 0.
 		 */
 		public FrozenTrieNode getChild(int index) {
-			return this.trie.getNodeByIndex(this.firstChild + index);
+			return trie.getNodeByIndex(firstChild + index);
 		}
 	}
 
@@ -537,13 +537,13 @@ public class SuccinctTrie {
 		 */
 		public FrozenTrieNode getNodeByIndex(int index) {
 			// retrieve the 6-bit letter.
-			boolean final1 = this.data.get(this.letterStart + index * 6, 1) == 1;
-			char letter = (char) (this.data.get(this.letterStart + index * 6 + 1, 5) + 'a');
-			int firstChild = this.directory.select(0, index + 1) - index;
+			boolean final1 = data.get(letterStart + index * 6, 1) == 1;
+			char letter = (char) (data.get(letterStart + index * 6 + 1, 5) + 'a');
+			int firstChild = directory.select(0, index + 1) - index;
 
 			// Since the nodes are in level order, this nodes children must go up
 			// until the next node's children start.
-			int childOfNextNode = this.directory.select(0, index + 2) - index - 1;
+			int childOfNextNode = directory.select(0, index + 2) - index - 1;
 
 			return new FrozenTrieNode(this, index, letter, final1, firstChild, childOfNextNode - firstChild);
 		}
@@ -552,14 +552,14 @@ public class SuccinctTrie {
 		 * Retrieve the root node. You can use this node to obtain all of the other nodes in the trie.
 		 */
 		public FrozenTrieNode getRoot() {
-			return this.getNodeByIndex(0);
+			return getNodeByIndex(0);
 		}
 
 		/**
 		 * Look-up a word in the trie. Returns true if and only if the word exists in the trie.
 		 */
 		public boolean lookup(String word) {
-			FrozenTrieNode node = this.getRoot();
+			FrozenTrieNode node = getRoot();
 			for (int i = 0; i < word.length(); i++) {
 				FrozenTrieNode child = null;
 				int j = 0;
