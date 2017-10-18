@@ -174,7 +174,7 @@ public class SuccinctTrie {
 	 */
 	class BitString {
 		String bytes;
-		int length = 0;
+		int length;
 
 		public BitString(String str) {
 			bytes = str;
@@ -321,7 +321,6 @@ public class SuccinctTrie {
 		 * Returns the number of 1 or 0 bits (depending on the "which" parameter) to to and including position x.
 		 */
 		public int rank(int which, int x) {
-
 			if (which == 0) {
 				return x - rank(1, x) + 1;
 			}
@@ -610,7 +609,6 @@ public class SuccinctTrie {
 		this.trie = trie;
 		this.directory = directory;
 		this.trieData = trieData;
-		System.out.println(this);
 	}
 
 	public boolean lookup(String word) {
