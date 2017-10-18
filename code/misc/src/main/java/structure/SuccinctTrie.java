@@ -118,7 +118,7 @@ public class SuccinctTrie {
 	 * for memory or speed.
 	 */
 	class BitWriter {
-		java.util.List<Integer> bits = new ArrayList();
+		java.util.List<Integer> bits = new ArrayList<>();
 
 		/**
 		 * Write some data to the bit string. The number of bits must be 32 or fewer.
