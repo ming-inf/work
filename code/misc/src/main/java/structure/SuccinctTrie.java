@@ -630,13 +630,8 @@ public class SuccinctTrie {
 	}
 
 	public String lookup(String word) {
-		String status = "";
 		FrozenTrie ftrie = new FrozenTrie(trieData, directory.getData(), trie.getNodeCount());
-		if (ftrie.lookup(word)) {
-			status = '"' + word + "' is in the dictionary.";
-		} else {
-			status = '"' + word + "' IS NOT in the dictionary.";
-		}
+		String status = String.format("\"%s\" %s in the dictionary", word, ftrie.lookup(word) ? "is" : "is NOT");
 		return status;
 	}
 
