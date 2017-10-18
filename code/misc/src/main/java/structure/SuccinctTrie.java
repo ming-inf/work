@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
 public class SuccinctTrie {
@@ -434,7 +434,7 @@ public class SuccinctTrie {
 		 * Apply a function to each node, traversing the trie in level order.
 		 */
 		public void apply(Consumer<TrieNode> fn) {
-			java.util.Queue<TrieNode> level = new ArrayBlockingQueue<>(120000);
+			java.util.Queue<TrieNode> level = new LinkedBlockingQueue<>();
 			level.add(this.root);
 			while (level.size() > 0) {
 				TrieNode node = level.remove();
