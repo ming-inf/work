@@ -9,25 +9,20 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class DAFSA {
 	String previousWord;
 	Node root;
-
 	java.util.List<Object[]> uncheckedNodes;
-
 	Map<Node, Node> minimizedNodes;
-
 	java.util.List<String> data;
 
 	public DAFSA() {
 		previousWord = "";
 		root = new Node();
-
 		uncheckedNodes = new ArrayList<>();
-
 		minimizedNodes = new HashMap<>();
-
 		data = new ArrayList<>();
 	}
 
