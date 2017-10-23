@@ -3,7 +3,6 @@ package structure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -175,25 +174,61 @@ public class DAFSA {
 		return word;
 	}
 
-	public void display() {
+	public String display() {
+		java.util.List<Node> nodes = new ArrayList<>();
 		Stack<Node> stack = new Stack<>();
 		stack.push(root);
-		java.util.Set<Integer> done = new HashSet<>();
 		while (!stack.isEmpty()) {
-			Node node = stack.pop();
-			if (done.contains(node.id)) {
-				continue;
+			Node current = stack.pop();
+			if (!nodes.contains(current)) {
+				nodes.add(current);
 			}
-			done.add(node.id);
-			System.out.println(node.id + " " + node.finalNode);
-			java.util.List<Character> list = new ArrayList<>(node.edges.keySet());
-			Collections.sort(list);
-			for (Character label : list) {
-				Node child = node.edges.get(label);
-				System.out.println(String.format("  %s goto %s", label, child.id));
-				stack.push(child);
+			stack.addAll(current.edges.values());
+		}
+
+		Collections.sort(nodes, (x, y) -> {
+			return x.id - y.id;
+		});
+
+		String output = "";
+		for (Node node : nodes) {
+			output += node.id;
+			output += node.finalNode ? "*" : "";
+			output += "\n";
+
+			for (Entry<Character, Node> child : node.edges.entrySet()) {
+				output += String.format("  %s -> %d\n", child.getKey(), child.getValue().id);
 			}
 		}
+
+		return output;
+	}
+
+	public String displayTree() {
+		Node n = new Node();
+
+		String tree = "";
+		java.util.Queue<Node> q = new ArrayBlockingQueue<>(root.wordsReachable);
+		q.add(root);
+		q.add(n);
+
+		String level = "";
+		while (!(q.size() == 1 && n.equals(q.peek()))) {
+			Node current = q.poll();
+			if (n.equals(current)) {
+				level += "  ";
+				q.add(n);
+				continue;
+			}
+			tree += level + current.id + (current.finalNode ? "*" : " ") + "\n";
+			for (Entry<Character, Node> child : current.edges.entrySet()) {
+				if (!q.contains(child.getValue())) {
+					q.add(child.getValue());
+				}
+			}
+		}
+
+		return tree;
 	}
 }
 
