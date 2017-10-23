@@ -174,7 +174,8 @@ public class DAFSA {
 		return word;
 	}
 
-	public String display() {
+	@Override
+	public String toString() {
 		java.util.List<Node> nodes = new ArrayList<>();
 		Stack<Node> stack = new Stack<>();
 		stack.push(root);

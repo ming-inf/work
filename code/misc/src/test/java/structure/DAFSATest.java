@@ -3,7 +3,8 @@ package structure;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
@@ -12,37 +13,30 @@ import org.junit.Test;
 public class DAFSATest {
 	DAFSA objectUnderTest;
 
-//	@Ignore
+// @Ignore
 	@Test
 	public void test() {
 		objectUnderTest = new DAFSA();
 
-//		objectUnderTest.insert("dog", "");
-//		objectUnderTest.insert("log", "");
+		String words;
+// words = "dog log";
+// words = "cities city pities pity";
+		words = "a as i is";
 
-//		objectUnderTest.insert("cities", "");
-//		objectUnderTest.insert("city", "");
-//		objectUnderTest.insert("pities", "");
-//		objectUnderTest.insert("pity", "");
-
-		objectUnderTest.insert("a", null);
-		objectUnderTest.insert("as", null);
-		objectUnderTest.insert("i", null);
-		objectUnderTest.insert("is", null);
+		String[] splitWords = words.split(" ");
+		Arrays.stream(splitWords).forEach(w -> {
+			objectUnderTest.insert(w, null);
+		});
 
 		objectUnderTest.finish();
-		System.out.println(objectUnderTest.display());
 
-//		System.out.println(objectUnderTest.wordToIndex("cities"));
-//		System.out.println(objectUnderTest.wordToIndex("city"));
-//		System.out.println(objectUnderTest.wordToIndex("pities"));
-//		System.out.println(objectUnderTest.wordToIndex("pity"));
+		System.out.println(objectUnderTest);
 
-//		System.out.println(objectUnderTest.indexToWord(1));
-//		System.out.println(objectUnderTest.indexToWord(2));
-//		System.out.println(objectUnderTest.indexToWord(3));
-//		System.out.println(objectUnderTest.indexToWord(4));
-//		System.out.println(objectUnderTest.indexToWord(5));
+		Arrays.stream(splitWords).map(objectUnderTest::wordToIndex).forEach(System.out::println);
+
+		IntStream.range(0, splitWords.length).mapToObj(i -> {
+			return splitWords[i];
+		}).forEach(System.out::println);
 	}
 
 	@Test
@@ -54,9 +48,9 @@ public class DAFSATest {
 
 		objectUnderTest = new DAFSA();
 
-		for (String word : words.collect(Collectors.toList())) {
-			objectUnderTest.insert(word, "");
-		}
+		words.forEach(w -> {
+			objectUnderTest.insert(w, null);
+		});
 
 		objectUnderTest.finish();
 
@@ -72,9 +66,9 @@ public class DAFSATest {
 
 		objectUnderTest = new DAFSA();
 
-		for (String word : words.collect(Collectors.toList())) {
-			objectUnderTest.insert(word, "");
-		}
+		words.forEach(w -> {
+			objectUnderTest.insert(w, null);
+		});
 
 		objectUnderTest.finish();
 
