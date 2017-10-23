@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class DAFSATest {
@@ -21,13 +20,24 @@ public class DAFSATest {
 //		objectUnderTest.insert("dog", "");
 //		objectUnderTest.insert("log", "");
 		
-		objectUnderTest.insert("city", "");
 		objectUnderTest.insert("cities", "");
-		objectUnderTest.insert("pity", "");
+		objectUnderTest.insert("city", "");
 		objectUnderTest.insert("pities", "");
+		objectUnderTest.insert("pity", "");
 
 		objectUnderTest.finish();
 		objectUnderTest.display();
+
+		System.out.println(objectUnderTest.wordToIndex("cities"));
+		System.out.println(objectUnderTest.wordToIndex("city"));
+		System.out.println(objectUnderTest.wordToIndex("pities"));
+		System.out.println(objectUnderTest.wordToIndex("pity"));
+
+		System.out.println(objectUnderTest.indexToWord(1));
+		System.out.println(objectUnderTest.indexToWord(2));
+		System.out.println(objectUnderTest.indexToWord(3));
+		System.out.println(objectUnderTest.indexToWord(4));
+		System.out.println(objectUnderTest.indexToWord(5));
 	}
 
 	@Test

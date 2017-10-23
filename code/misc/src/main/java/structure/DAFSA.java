@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
 import java.util.Stack;
+import java.util.TreeMap;
 
 public class DAFSA {
 	String previousWord;
@@ -110,7 +112,7 @@ public class DAFSA {
 					node = child;
 					break;
 				}
-				skipped += child.count;
+				skipped += child.wordsReachable;
 			}
 		}
 
@@ -132,6 +134,50 @@ public class DAFSA {
 			count += node.edges.size();
 		}
 		return count;
+	}
+
+	public int wordToIndex(String word) {
+		int index = 0;
+		Node current = root;
+		for (int i = 0; i < word.length(); i++) {
+			char c = word.charAt(i);
+			Node next = current.edges.get(c);
+			if (null == next) {
+				return -1;
+			}
+			SortedMap<Character, Node> children = current.edges.subMap(current.edges.firstKey(), c);
+			for (Entry<Character, Node> child : children.entrySet()) {
+				index += child.getValue().wordsReachable;
+			}
+			current = next;
+			if (current.finalNode) {
+				index++;
+			}
+		}
+		return index;
+	}
+
+	public String indexToWord(int index) {
+		String word = "";
+		int count = index;
+		Node current = root;
+		while (0 < count) {
+			SortedMap<Character, Node> children = current.edges;
+			for (Entry<Character, Node> child : children.entrySet()) {
+				Node tmp = child.getValue();
+				if (tmp.wordsReachable < count) {
+					count -= tmp.wordsReachable;
+				} else {
+					word += child.getKey();
+					current = tmp;
+					if (current.finalNode) {
+						count--;
+					}
+					break;
+				}
+			}
+		}
+		return word;
 	}
 
 	public void display() {
@@ -161,14 +207,14 @@ class Node {
 
 	int id;
 	boolean finalNode;
-	Map<Character, Node> edges;
-	int count;
+	SortedMap<Character, Node> edges;
+	int wordsReachable;
 
 	public Node() {
 		id = nextId++;
 		finalNode = false;
-		edges = new HashMap<>();
-		count = -1;
+		edges = new TreeMap<>();
+		wordsReachable = -1;
 	}
 
 	@Override
@@ -205,10 +251,6 @@ class Node {
 	}
 
 	public int numReachable() {
-		if (0 <= count) {
-			return count;
-		}
-
 		int count = 0;
 		if (finalNode) {
 			count++;
@@ -217,7 +259,7 @@ class Node {
 			count += e.getValue().numReachable();
 		}
 
-		this.count = count;
+		wordsReachable = count;
 		return count;
 	}
 }
