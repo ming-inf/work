@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://gist.github.com/atoponce/07d8d4c833873be2f68c34f9afc5a78a[Cryptographic Best Practices]
 - https://news.ycombinator.com/item?id=15507763[Pearl No. 4 – Kth Smallest in the Union of Two Sorted Collections]
 - https://github.com/thomasmueller/minperf[A Minimal Perfect Hash Function Library]
 - https://github.com/FallibleInc/security-guide-for-developers/blob/master/security-checklist.md[The Security Checklist]
