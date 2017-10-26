@@ -1,6 +1,10 @@
 = readme
 
 == articles
+- http://julesjacobs.github.io/2015/06/17/disqus-levenshtein-simple-and-fast.html[Levenshtein automata can be simple and fast]
+- http://blog.notdot.net/2010/07/Damn-Cool-Algorithms-Levenshtein-Automata[Damn Cool Algorithms: Levenshtein Automata]
+- https://github.com/universal-automata/liblevenshtein-java[A library for generating Finite State Transducers based on Levenshtein Automata]
+- https://github.com/BurntSushi/fst[finite state transducer]
 - https://gist.github.com/atoponce/07d8d4c833873be2f68c34f9afc5a78a[Cryptographic Best Practices]
 - https://news.ycombinator.com/item?id=15507763[Pearl No. 4 – Kth Smallest in the Union of Two Sorted Collections]
 - https://github.com/thomasmueller/minperf[A Minimal Perfect Hash Function Library]
