@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://books.google.ca/books?id=o1-mCwAAQBAJ&pg=PA213&lpg=PA213&dq=universal+deterministic+levenshtein+automaton&source=bl&ots=uhUOFRy0gj&sig=kGocSib5IQ_8wOVZAVbJNc6S2eU&hl=en&sa=X&ved=0ahUKEwi6h7_Mi4_XAhXq34MKHf-wAo8Q6AEIUzAH#v=onepage&q=universal%20deterministic%20levenshtein%20automaton&f=false[On the Levenshtein Automaton and the Size of the Neighbourhood of a Word]
+- https://news.ycombinator.com/item?id=15611701[Asynchronous Group Messaging with Strong Security Guarantees]
 - http://julesjacobs.github.io/2015/06/17/disqus-levenshtein-simple-and-fast.html[Levenshtein automata can be simple and fast]
 - http://blog.notdot.net/2010/07/Damn-Cool-Algorithms-Levenshtein-Automata[Damn Cool Algorithms: Levenshtein Automata]
 - https://github.com/universal-automata/liblevenshtein-java[A library for generating Finite State Transducers based on Levenshtein Automata]
