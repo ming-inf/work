@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15653206[Show HN: PageDash, Your Personal Web Archive]
+- https://news.ycombinator.com/item?id=15653544[Redis Streams and the Unified Log]
 - https://news.ycombinator.com/item?id=15643429[Show HN: Designer Lynx – curated links to useful UI design resources]
 - https://news.ycombinator.com/item?id=15538535[How Merkle Trees Enable the Decentralized Web]
 - https://news.ycombinator.com/item?id=15633102[Tufte CSS]
