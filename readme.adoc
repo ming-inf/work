@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- http://acko.net/blog/animate-your-way-to-glory/[Animate Your Way to Glory]
 - https://github.com/yoann-dufresne/ula[Universal Levenshtein Automaton]
 - https://news.ycombinator.com/item?id=15653206[Show HN: PageDash, Your Personal Web Archive]
 - https://news.ycombinator.com/item?id=15653544[Redis Streams and the Unified Log]
