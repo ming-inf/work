@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15723772[Is software development really a dead-end job after age 35-40?]
 - http://acko.net/blog/animate-your-way-to-glory/[Animate Your Way to Glory]
 - https://github.com/yoann-dufresne/ula[Universal Levenshtein Automaton]
 - https://news.ycombinator.com/item?id=15653206[Show HN: PageDash, Your Personal Web Archive]
