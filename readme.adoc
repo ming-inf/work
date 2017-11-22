@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- http://www.startupsfortherestofus.com/[Startups for the Rest of Us]
+- https://waitbutwhy.com/2015/06/how-tesla-will-change-your-life.html[How Tesla Will Change The World]
 - https://news.ycombinator.com/item?id=15752725[Fossil – Next Generation]
 - https://news.ycombinator.com/item?id=15739731[Modern Computer Arthmetic (2010) [pdf\]]
 - http://www.dspguide.com/[The Scientist and Engineer's Guide to Digital Signal Processing]
