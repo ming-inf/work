@@ -1,6 +1,9 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15752725[Fossil – Next Generation]
+- https://news.ycombinator.com/item?id=15739731[Modern Computer Arthmetic (2010) [pdf\]]
+- http://www.dspguide.com/[The Scientist and Engineer's Guide to Digital Signal Processing]
 - https://news.ycombinator.com/item?id=15723772[Is software development really a dead-end job after age 35-40?]
 - http://acko.net/blog/animate-your-way-to-glory/[Animate Your Way to Glory]
 - https://github.com/yoann-dufresne/ula[Universal Levenshtein Automaton]
