@@ -1,6 +1,13 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15796039[A Library of Parallel Algorithms]
+- https://news.ycombinator.com/item?id=15793156[Show HN: 3D Game Programming]
+- https://github.com/ncredinburgh/QuickTheories[Property based testing for Java 8]
+- https://news.ycombinator.com/item?id=15787023[Norvig's Python programs to practice or demonstrate skills]
+- https://www.climbing.com/skills/your-goal-boulder-harder/[Your Goal: Boulder Harder]
+- https://www.99boulders.com/bouldering-training[Bouldering Training 101: The Complete Guide]
+- http://existentialcomics.com/[existential comics]
 - http://www.startupsfortherestofus.com/[Startups for the Rest of Us]
 - https://waitbutwhy.com/2015/06/how-tesla-will-change-your-life.html[How Tesla Will Change The World]
 - https://news.ycombinator.com/item?id=15752725[Fossil – Next Generation]
