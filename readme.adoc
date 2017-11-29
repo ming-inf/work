@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15809291[Show HN: Shazam-like acoustic fingerprinting of continuous audio streams]
 - https://news.ycombinator.com/item?id=15796039[A Library of Parallel Algorithms]
 - https://news.ycombinator.com/item?id=15793156[Show HN: 3D Game Programming]
 - https://github.com/ncredinburgh/QuickTheories[Property based testing for Java 8]
