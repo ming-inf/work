@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15815040[Joplin – A note-taking and to-do app with builds for desktop, mobile, terminal]
+- https://news.ycombinator.com/item?id=15819033[Git hash function transition plan]
 - https://news.ycombinator.com/item?id=15815327[Auto increment is a terrible idea]
 - https://news.ycombinator.com/item?id=15809291[Show HN: Shazam-like acoustic fingerprinting of continuous audio streams]
 - https://news.ycombinator.com/item?id=15796039[A Library of Parallel Algorithms]
