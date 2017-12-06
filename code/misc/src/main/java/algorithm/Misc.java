@@ -2,13 +2,14 @@ package algorithm;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Misc<T> {
 	public Set<Set<T>> powerset(Set<T> set) {
-		java.util.List<T> list = new ArrayList<>(set);
+		List<T> list = new ArrayList<>(set);
 		int size = (int) Math.pow(2, set.size());
 		Set<Set<T>> result = IntStream.rangeClosed(0, size).mapToObj(i -> {
 			Set<T> s = new HashSet<>();
