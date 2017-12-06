@@ -3,6 +3,13 @@ package practice;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * East Central North America
+ * Regional Contest 2016
+ * 
+ * Problem C
+ * The Key to Cryptography
+ */
 public class KeyPlaintextRunningKeyEncryption {
 	private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
