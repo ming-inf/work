@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15861136[I Made My Shed the Top Rated Restaurant on TripAdvisor]
 - https://grafana.com/[The open platform for beautiful analytics and monitoring]
 - https://news.ycombinator.com/item?id=15815040[Joplin – A note-taking and to-do app with builds for desktop, mobile, terminal]
 - https://news.ycombinator.com/item?id=15819033[Git hash function transition plan]
