@@ -6,6 +6,15 @@ public class GraphTest {
 	Graph objectUnderTest;
 
 	@Test
+	public void testMultipleRoot() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n1 b\n2 c\n\n0 2\n1 2";
+		objectUnderTest.fromString(wordsString);
+		System.out.println(objectUnderTest.toString());
+	}
+
+	@Test
 	public void testDepthFirst() {
 		objectUnderTest = new Graph();
 

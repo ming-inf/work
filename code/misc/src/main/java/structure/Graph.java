@@ -3,6 +3,7 @@ package structure;
 import static java.util.Objects.isNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Graph {
-	GraphNode node;
+	java.util.List<GraphNode> node;
 
 	public void fromString(String s) {
 		String[] sections = s.split("\n\n");
@@ -25,22 +26,28 @@ public class Graph {
 			idToNode.put(id_name[0], new GraphNode(id_name[1]));
 		}
 
+		Map<GraphNode, GraphNode> connections = new HashMap<>();
 		for (String edge : edges) {
 			String[] from_to = edge.split("\\s+");
 			GraphNode from = idToNode.get(from_to[0]);
 			GraphNode to = idToNode.get(from_to[1]);
+			connections.put(from, to);
 			from.addEdge(to);
 		}
 
 		GraphNode root = findMother(idToNode);
-		node = (null != root) ? root : idToNode.get(nodes[0].split("\\s+")[0]);
+		node = (null != root) ? Arrays.asList(root) : findRoots(idToNode, connections);
 	}
 
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 
 		Map<GraphNode, String> nodeToId = new HashMap<>();
-		List<GraphNode> nodes = breadthFirst(node);
+		java.util.Set<GraphNode> allNodes = new HashSet<>();
+		for (GraphNode n : node) {
+			allNodes.addAll(breadthFirst(n));
+		}
+		List<GraphNode> nodes = new ArrayList<>(allNodes);
 		for (int i = 0; i < nodes.size(); i++) {
 			result.append(String.format("%s %s\n", i, nodes.get(i).id));
 			nodeToId.put(nodes.get(i), "" + i);
@@ -102,6 +109,12 @@ public class Graph {
 
 		visited = depthFirst(v);
 		return visited.size() == idToNode.size() ? v : null;
+	}
+
+	public java.util.List<GraphNode> findRoots(Map<String, GraphNode> idToNode, Map<GraphNode, GraphNode> connections) {
+		java.util.Set<GraphNode> nodes = new HashSet<>(idToNode.values());
+		nodes.removeAll(connections.values());
+		return new ArrayList<>(nodes);
 	}
 }
 
