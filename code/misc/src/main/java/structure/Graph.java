@@ -128,22 +128,29 @@ public class Graph {
 		List<GraphNode> visited = new ArrayList<>();
 		for (GraphNode r : node) {
 			visited.clear();
-			isCyclic = isCyclic || depthFirstCycle(visited, r);
+			isCyclic = isCyclic || depthFirstCycle(r);
 		}
 		return isCyclic;
 	}
 
-	private boolean depthFirstCycle(List<GraphNode> visited, GraphNode current) {
+	private boolean depthFirstCycle(GraphNode current) {
 		if (isNull(current)) {
 			return false;
 		}
 
-		visited.add(current);
+		java.util.Set<GraphNode> s = new HashSet<>();
 
-		for (GraphNode n : current.connectedTo) {
-			return visited.contains(n) ? true : depthFirstCycle(visited, n);
+		java.util.Stack<GraphNode> stack = new Stack<>();
+		stack.add(current);
+		while (!stack.isEmpty()) {
+			GraphNode node = stack.pop();
+			if (!s.contains(node)) {
+				s.add(node);
+				stack.addAll(node.connectedTo);
+			} else {
+				return true;
+			}
 		}
-
 		return false;
 	}
 }
