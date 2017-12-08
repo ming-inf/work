@@ -32,8 +32,8 @@ public class Graph {
 			from.addEdge(to);
 		}
 
-		String root = nodes[0].split("\\s+")[0];
-		node = idToNode.get(root);
+		GraphNode root = findMother(idToNode);
+		node = (null != root) ? root : idToNode.get(nodes[0].split("\\s+")[0]);
 	}
 
 	public String toString() {
@@ -75,6 +75,33 @@ public class Graph {
 		}
 
 		return new ArrayList<>(s);
+	}
+
+	private java.util.Set<GraphNode> depthFirst(GraphNode current) {
+		if (isNull(current)) {
+			return Collections.emptySet();
+		}
+
+		java.util.Set<GraphNode> s = new HashSet<>();
+		s.add(current);
+		for (GraphNode n : current.connectedTo) {
+			s.addAll(depthFirst(n));
+		}
+		return s;
+	}
+
+	public GraphNode findMother(Map<String, GraphNode> idToNode) {
+		GraphNode v = null;
+		java.util.Set<GraphNode> visited = new HashSet<>();
+		for (GraphNode n : idToNode.values()) {
+			if (!visited.contains(n)) {
+				visited.addAll(depthFirst(n));
+				v = n;
+			}
+		}
+
+		visited = depthFirst(v);
+		return visited.size() == idToNode.size() ? v : null;
 	}
 }
 
