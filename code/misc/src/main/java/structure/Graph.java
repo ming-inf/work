@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Graph {
@@ -76,26 +77,26 @@ public class Graph {
 		while (!q.isEmpty()) {
 			GraphNode node = q.remove();
 			s.add(node);
-			for (GraphNode n : node.connectedTo) {
-				q.add(n);
-			}
+			q.addAll(node.connectedTo);
 		}
 
 		return new ArrayList<>(s);
 	}
 
-	private java.util.Set<GraphNode> depthFirst(java.util.Set<GraphNode> visited, GraphNode current) {
+	private java.util.Set<GraphNode> depthFirst(GraphNode current) {
 		if (isNull(current)) {
 			return Collections.emptySet();
 		}
 
-		visited.add(current);
-
 		java.util.Set<GraphNode> s = new HashSet<>();
-		s.add(current);
-		for (GraphNode n : current.connectedTo) {
-			if (!visited.contains(n)) {
-				s.addAll(depthFirst(visited, n));
+
+		java.util.Stack<GraphNode> stack = new Stack<>();
+		stack.add(current);
+		while (!stack.isEmpty()) {
+			GraphNode node = stack.pop();
+			if (!s.contains(node)) {
+				s.add(node);
+				stack.addAll(node.connectedTo);
 			}
 		}
 		return s;
@@ -106,13 +107,13 @@ public class Graph {
 		java.util.Set<GraphNode> visited = new HashSet<>();
 		for (GraphNode n : idToNode.values()) {
 			if (!visited.contains(n)) {
-				visited.addAll(depthFirst(visited, n));
+				visited.addAll(depthFirst(n));
 				v = n;
 			}
 		}
 
 		visited.clear();
-		visited = depthFirst(visited, v);
+		visited = depthFirst(v);
 		return visited.size() == idToNode.size() ? v : null;
 	}
 
