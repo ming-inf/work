@@ -18,7 +18,7 @@ public class Graph {
 	public void fromString(String s) {
 		String[] sections = s.split("\n\n");
 		String[] nodes = sections[0].split("\n");
-		String[] edges = sections[1].split("\n");
+		String[] edges = 1 < sections.length ? sections[1].split("\n") : new String[0];
 
 		Map<String, GraphNode> idToNode = new HashMap<>();
 		for (String node : nodes) {
@@ -84,15 +84,19 @@ public class Graph {
 		return new ArrayList<>(s);
 	}
 
-	private java.util.Set<GraphNode> depthFirst(GraphNode current) {
+	private java.util.Set<GraphNode> depthFirst(java.util.Set<GraphNode> visited, GraphNode current) {
 		if (isNull(current)) {
 			return Collections.emptySet();
 		}
 
+		visited.add(current);
+
 		java.util.Set<GraphNode> s = new HashSet<>();
 		s.add(current);
 		for (GraphNode n : current.connectedTo) {
-			s.addAll(depthFirst(n));
+			if (!visited.contains(n)) {
+				s.addAll(depthFirst(visited, n));
+			}
 		}
 		return s;
 	}
@@ -102,12 +106,13 @@ public class Graph {
 		java.util.Set<GraphNode> visited = new HashSet<>();
 		for (GraphNode n : idToNode.values()) {
 			if (!visited.contains(n)) {
-				visited.addAll(depthFirst(n));
+				visited.addAll(depthFirst(visited, n));
 				v = n;
 			}
 		}
 
-		visited = depthFirst(v);
+		visited.clear();
+		visited = depthFirst(visited, v);
 		return visited.size() == idToNode.size() ? v : null;
 	}
 
@@ -115,6 +120,30 @@ public class Graph {
 		java.util.Set<GraphNode> nodes = new HashSet<>(idToNode.values());
 		nodes.removeAll(connections.values());
 		return new ArrayList<>(nodes);
+	}
+
+	public boolean isCyclic() {
+		boolean isCyclic = false;
+		List<GraphNode> visited = new ArrayList<>();
+		for (GraphNode r : node) {
+			visited.clear();
+			isCyclic = isCyclic || depthFirstCycle(visited, r);
+		}
+		return isCyclic;
+	}
+
+	private boolean depthFirstCycle(List<GraphNode> visited, GraphNode current) {
+		if (isNull(current)) {
+			return false;
+		}
+
+		visited.add(current);
+
+		for (GraphNode n : current.connectedTo) {
+			return visited.contains(n) ? true : depthFirstCycle(visited, n);
+		}
+
+		return false;
 	}
 }
 

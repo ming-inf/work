@@ -1,9 +1,64 @@
 package structure;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class GraphTest {
 	Graph objectUnderTest;
+
+	@Test
+	public void testNotCyclic() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n\n";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertFalse(objectUnderTest.isCyclic());
+	}
+
+	@Test
+	public void testNotCyclicTwoNodes() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n1 b\n\n0 1";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertFalse(objectUnderTest.isCyclic());
+	}
+
+	@Test
+	public void testNotCyclicMultiRoot() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n1 b\n2 c\n\n0 2\n1 2";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertFalse(objectUnderTest.isCyclic());
+	}
+
+	@Test
+	public void testCyclic() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n\n0 0";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertTrue(objectUnderTest.isCyclic());
+	}
+
+	@Test
+	public void testCyclicTwoNodes() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n1 b\n\n0 1\n1 0";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertTrue(objectUnderTest.isCyclic());
+	}
+
+	@Test
+	public void testCyclicMultiNode() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0 a\n1 b\n2 c\n3 d\n\n0 1\n1 2\n2 3\n3 0";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertTrue(objectUnderTest.isCyclic());
+	}
 
 	@Test
 	public void testMultipleRoot() {
