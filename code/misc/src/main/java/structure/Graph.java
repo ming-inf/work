@@ -24,7 +24,7 @@ public class Graph {
 		Map<String, GraphNode> idToNode = new HashMap<>();
 		for (String node : nodes) {
 			String[] id_name = node.split("\\s+");
-			idToNode.put(id_name[0], new GraphNode(id_name[1]));
+			idToNode.put(id_name[0], new GraphNode(id_name[1 < id_name.length ? 1 : 0]));
 		}
 
 		Map<GraphNode, GraphNode> connections = new HashMap<>();
