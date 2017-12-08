@@ -7,6 +7,15 @@ public class GraphTest {
 	Graph objectUnderTest;
 
 	@Test
+	public void testTopologicalSort() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0\n1\n2\n3\n4\n5\n\n5 2\n5 0\n4 0\n4 1\n2 3\n3 1";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertEquals("4 5 0 2 3 1", objectUnderTest.topologicalSort());
+	}
+
+	@Test
 	public void testNotCyclic() {
 		objectUnderTest = new Graph();
 

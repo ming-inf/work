@@ -153,6 +153,37 @@ public class Graph {
 		}
 		return false;
 	}
+
+	public String topologicalSort() {
+		Stack<GraphNode> sort = new Stack<>();
+		for (GraphNode n : node) {
+			depthFirstSort(sort, n);
+		}
+
+		List<String> ids = new ArrayList<>();
+		while (!sort.isEmpty()) {
+			ids.add(sort.pop().id);
+		}
+
+		String result = String.join(" ", ids);
+		return result;
+	}
+
+	private void depthFirstSort(Stack<GraphNode> sort, GraphNode current) {
+		if (isNull(node) || node.isEmpty()) {
+			return;
+		}
+
+		for (GraphNode n : current.connectedTo) {
+			depthFirstSort(sort, n);
+			if (!sort.contains(n)) {
+				sort.push(n);
+			}
+		}
+		if (!sort.contains(current)) {
+			sort.push(current);
+		}
+	}
 }
 
 class GraphNode {
