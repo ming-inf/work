@@ -27,12 +27,12 @@ public class Graph {
 			idToNode.put(id_name[0], new GraphNode(id_name[1 < id_name.length ? 1 : 0]));
 		}
 
-		Map<GraphNode, GraphNode> connections = new HashMap<>();
+		java.util.Set<GraphNode> connections = new HashSet<>();
 		for (String edge : edges) {
 			String[] from_to = edge.split("\\s+");
 			GraphNode from = idToNode.get(from_to[0]);
 			GraphNode to = idToNode.get(from_to[1]);
-			connections.put(from, to);
+			connections.add(to);
 			from.addEdge(to);
 		}
 
@@ -117,9 +117,9 @@ public class Graph {
 		return visited.size() == idToNode.size() ? v : null;
 	}
 
-	public java.util.List<GraphNode> findRoots(Map<String, GraphNode> idToNode, Map<GraphNode, GraphNode> connections) {
+	public java.util.List<GraphNode> findRoots(Map<String, GraphNode> idToNode, java.util.Set<GraphNode> connections) {
 		java.util.Set<GraphNode> nodes = new HashSet<>(idToNode.values());
-		nodes.removeAll(connections.values());
+		nodes.removeAll(connections);
 		return new ArrayList<>(nodes);
 	}
 
