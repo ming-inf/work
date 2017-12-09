@@ -1,0 +1,4 @@
+= readme
+
+== run from cmd
+code\misc\bin>java -cp ".;C:\Users\a\.gradle\caches\modules-2\files-2.1\com.google.inject\guice\4.1.0\eeb69005da379a10071aa4948c48d89250febb07\guice-4.1.0.jar;C:\Users\a\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.9.1\c041978c686866ee8534f538c6220238db3bb6be\log4j-core-2.9.1.jar;C:\Users\a\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.9.1\7a2999229464e7a324aa503c0a52ec0f05efe7bd\log4j-api-2.9.1.jar;C:\Users\a\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j\59.1\6f06e820cf4c8968bbbaae66ae0b33f6a256b57f\icu4j-59.1.jar;" -Dheadless=true root.Main
