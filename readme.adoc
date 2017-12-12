@@ -1,6 +1,9 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=15909134[How RSA Works: TLS Foundations]
+- https://news.ycombinator.com/item?id=15819033[Ask HN: Why don't websites show password requirements at the login screen?]
+- https://news.ycombinator.com/item?id=15898263[A complete computer science study plan to become a software engineer]
 - https://news.ycombinator.com/item?id=15861136[I Made My Shed the Top Rated Restaurant on TripAdvisor]
 - https://grafana.com/[The open platform for beautiful analytics and monitoring]
 - https://news.ycombinator.com/item?id=15815040[Joplin – A note-taking and to-do app with builds for desktop, mobile, terminal]
