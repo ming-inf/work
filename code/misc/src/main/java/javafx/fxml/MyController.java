@@ -1,4 +1,4 @@
-package javafx;
+package javafx.fxml;
 
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
 
+import javafx.RESOURCE;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

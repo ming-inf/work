@@ -1,4 +1,4 @@
-package javafx;
+package javafx.fxml;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class App2 extends Application {
+public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		URL location = getClass().getResource("example.fxml");

@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.SafePasswordField?>
 
-<FlowPane fx:controller="javafx.MyController" xmlns:fx="http://javafx.com/fxml">
+<FlowPane fx:controller="javafx.fxml.MyController" xmlns:fx="http://javafx.com/fxml">
 	<children>
 		<SafePasswordField fx:id="passwordField"/>
 		<Button fx:id="button" text="%greeting"/>
