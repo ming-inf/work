@@ -38,6 +38,7 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
 
 	compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.7'
+	compile group: 'io.reactivex.rxjava2', name: 'rxjavafx', version: '2.2.2'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

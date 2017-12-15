@@ -13,6 +13,9 @@ import com.google.inject.Injector;
 import com.ibm.icu.util.ULocale;
 import com.sun.javafx.PlatformUtil;
 
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -48,7 +51,9 @@ public class App extends Application {
 
 	ULocale confLocale;
 	String confStylesheet;
-	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
+
+	Subject<ULocale> currentLocale;
+
 	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 	ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
 
@@ -88,7 +93,6 @@ public class App extends Application {
 
 		Injector injector = Main.getInjector();
 
-		currentLocale.addListener((observable, oldValue, newValue) -> appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale())));
 		currentStylesheet.addListener((ob, o, n) -> {
 			ObservableList<String> css = scene.getStylesheets();
 			css.remove(o);
@@ -99,7 +103,10 @@ public class App extends Application {
 		confLocale = new ULocale(config.getLocale());
 		confStylesheet = config.getStylesheet();
 
-		currentLocale.set(confLocale);
+		currentLocale = BehaviorSubject.createDefault(confLocale);
+		currentLocale.subscribe(newValue -> {
+			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
+		});
 
 		password = createPassword();
 		locales = createLocales(localeList);
@@ -122,7 +129,7 @@ public class App extends Application {
 	private ChoiceBox<ULocale> createLocales(ObservableList<ULocale> localeList) {
 		ChoiceBox<ULocale> localesDropdown = new ChoiceBox<>(localeList);
 		localesDropdown.setConverter(new LocaleConverter());
-		localesDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
+		JavaFxObservable.valuesOf(localesDropdown.valueProperty()).subscribe(newValue -> currentLocale.onNext(newValue));
 		return localesDropdown;
 	}
 
