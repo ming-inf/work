@@ -12,9 +12,17 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.stream.Collectors;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 public class Graph {
 	java.util.List<GraphNode> node;
+
+	List<GraphNode> allNodes = new ArrayList<>();
+	Multimap<GraphNode, GraphNode> allEdges = ArrayListMultimap.create();
 
 	public void fromString(String s) {
 		String[] sections = s.split("\n\n");
@@ -24,7 +32,10 @@ public class Graph {
 		Map<String, GraphNode> idToNode = new HashMap<>();
 		for (String node : nodes) {
 			String[] id_name = node.split("\\s+");
-			idToNode.put(id_name[0], new GraphNode(id_name[1 < id_name.length ? 1 : 0]));
+			GraphNode n = new GraphNode(id_name[1 < id_name.length ? 1 : 0]);
+			idToNode.put(id_name[0], n);
+			allNodes.add(n);
+			allEdges.put(n, null);
 		}
 
 		java.util.Set<GraphNode> connections = new HashSet<>();
@@ -34,6 +45,7 @@ public class Graph {
 			GraphNode to = idToNode.get(from_to[1]);
 			connections.add(to);
 			from.addEdge(to);
+			allEdges.put(from, to);
 		}
 
 		GraphNode root = findMother(idToNode);
@@ -154,6 +166,45 @@ public class Graph {
 		return false;
 	}
 
+	public List<String> allTopologicalSort() {
+		List<String> all = new ArrayList<>();
+
+		List<GraphNode> zeroIndegrees = zeroIndegree(allEdges);
+		Stack<GraphNode> sort = new Stack<>();
+		for (GraphNode n : zeroIndegrees) {
+			sort.push(n);
+			Multimap<GraphNode, GraphNode> remaining = Multimaps.filterEntries(allEdges, entry -> !n.equals(entry.getValue()) && !n.equals(entry.getKey()));
+			allTopologicalSortUtil(all, sort, remaining);
+			sort.pop();
+		}
+
+		return all;
+	}
+
+	private void allTopologicalSortUtil(List<String> all, Stack<GraphNode> sort, Multimap<GraphNode, GraphNode> remaining) {
+		if (0 == remaining.size()) {
+			List<GraphNode> ids = new ArrayList<>(sort);
+			all.add(String.join(" ", ids.stream().map(n -> n.id).collect(Collectors.toList())));
+		}
+		List<GraphNode> zeroIndegrees = zeroIndegree(remaining);
+		for (GraphNode n : zeroIndegrees) {
+			sort.push(n);
+			Multimap<GraphNode, GraphNode> remain = Multimaps.filterEntries(remaining, entry -> !n.equals(entry.getValue()) && !n.equals(entry.getKey()));
+			allTopologicalSortUtil(all, sort, remain);
+			sort.pop();
+		}
+	}
+
+	private List<GraphNode> zeroIndegree(Multimap<GraphNode, GraphNode> remaining) {
+		List<GraphNode> zeroIndegreeNodes = new ArrayList<>();
+		for (GraphNode from : remaining.keySet()) {
+			if (!remaining.containsValue(from)) {
+				zeroIndegreeNodes.add(from);
+			}
+		}
+		return zeroIndegreeNodes;
+	}
+
 	public String topologicalSort() {
 		Stack<GraphNode> sort = new Stack<>();
 		for (GraphNode n : node) {
@@ -196,5 +247,9 @@ class GraphNode {
 
 	public void addEdge(GraphNode target) {
 		connectedTo.add(target);
+	}
+
+	public String toString() {
+		return id;
 	}
 }
