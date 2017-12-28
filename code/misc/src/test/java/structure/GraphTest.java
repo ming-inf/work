@@ -48,6 +48,15 @@ public class GraphTest {
 	}
 
 	@Test
+	public void testAllTopologicalSortCycle() {
+		objectUnderTest = new Graph();
+
+		String wordsString = "0\n1\n2\n\n0 1\n1 2\n2 0";
+		objectUnderTest.fromString(wordsString);
+		Assert.assertTrue(objectUnderTest.allTopologicalSort().isEmpty());
+	}
+
+	@Test
 	public void testTopologicalSort() {
 		objectUnderTest = new Graph();
 
