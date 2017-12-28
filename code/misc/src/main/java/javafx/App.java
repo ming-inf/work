@@ -4,7 +4,6 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +14,8 @@ import com.sun.javafx.PlatformUtil;
 
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.Subject;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -52,9 +49,9 @@ public class App extends Application {
 	ULocale confLocale;
 	String confStylesheet;
 
-	Subject<ULocale> currentLocale;
+	BehaviorSubject<ULocale> currentLocale;
+	BehaviorSubject<ResourceBundle> appBundle;
 
-	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 	ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
 
 	SafePasswordField password;
@@ -65,10 +62,6 @@ public class App extends Application {
 
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
-	}
-
-	public Callable<String> getCallableString(RESOURCE resourceKey) {
-		return () -> getString(resourceKey);
 	}
 
 	public String getGreeting() {
@@ -103,9 +96,11 @@ public class App extends Application {
 		confLocale = new ULocale(config.getLocale());
 		confStylesheet = config.getStylesheet();
 
+		appBundle = BehaviorSubject.create();
+
 		currentLocale = BehaviorSubject.createDefault(confLocale);
 		currentLocale.subscribe(newValue -> {
-			appBundle.set(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
+			appBundle.onNext(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
 		});
 
 		password = createPassword();
@@ -115,7 +110,9 @@ public class App extends Application {
 
 	private SafePasswordField createPassword() {
 		SafePasswordField passwordField = new SafePasswordField();
-		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
+		appBundle.subscribe(newValue -> {
+			passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
+		});
 		passwordField.setOnAction(event -> {
 			try {
 				System.out.println(passwordField.getPassword());
