@@ -40,6 +40,8 @@ dependencies {
 	compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.7'
 	compile group: 'io.reactivex.rxjava2', name: 'rxjavafx', version: '2.2.2'
 
+	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.58'
+
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
