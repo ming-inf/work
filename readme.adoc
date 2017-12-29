@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- http://www.introtorx.com/[Introduction to Rx]
 - https://news.ycombinator.com/item?id=16021351[The scrypt parameters]
 - https://news.ycombinator.com/item?id=15909134[How RSA Works: TLS Foundations]
 - https://news.ycombinator.com/item?id=15819033[Ask HN: Why don't websites show password requirements at the login screen?]
