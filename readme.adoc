@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16050294[Ask HN: Does anyone use an alternative to a password manager?]
+- https://news.ycombinator.com/item?id=16051428[ASCIIFlow Infinity]
 - http://www.introtorx.com/[Introduction to Rx]
 - https://news.ycombinator.com/item?id=16021351[The scrypt parameters]
 - https://news.ycombinator.com/item?id=15909134[How RSA Works: TLS Foundations]
