@@ -2,26 +2,39 @@ package cryptography;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.engines.AESEngine;
+import org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 import org.bouncycastle.crypto.generators.SCrypt;
 import org.bouncycastle.crypto.macs.HMac;
 import org.bouncycastle.crypto.modes.EAXBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.params.RSAKeyGenerationParameters;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
@@ -114,9 +127,28 @@ public class BouncyCastleTest {
 	}
 
 	@Test
-	public void testSymmetricEncrypt() throws InvalidKeyException, IOException {
+	public void testSymmetricAES() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException,
+			IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException {
 		Security.addProvider(new BouncyCastleProvider());
 
+		String message = "message";
+		Cipher aes = Cipher.getInstance("AES/CTR/NoPadding");
+
+		KeySpec spec = new PBEKeySpec("password".toCharArray(), "salt".getBytes(), 65536, 128); // AES-256
+		SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+		byte[] key = f.generateSecret(spec).getEncoded();
+
+		SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+		aes.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+		byte[] ciphertext = aes.doFinal(message.getBytes());
+		byte[] iv = aes.getIV();
+		aes.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(iv));
+		byte[] plaintext = aes.doFinal(ciphertext);
+		Assert.assertEquals(message, new String(plaintext));
+	}
+
+	@Test
+	public void testSymmetricEncrypt() throws InvalidKeyException, IOException {
 		/*
 		 * This will generate a random key, and encrypt the data
 		 */
@@ -148,6 +180,16 @@ public class BouncyCastleTest {
 		cOut.close();
 
 		// bOut now contains the cipher text
+	}
+
+	@Test
+	public void testAsymmetricRSA() throws NoSuchAlgorithmException, NoSuchPaddingException {
+		Security.addProvider(new BouncyCastleProvider());
+
+		Cipher asym = Cipher.getInstance("RSA/NONE/OAEPWithSHA256AndMGF1Padding");
+		RSAKeyPairGenerator kpg = new RSAKeyPairGenerator();
+		kpg.init(new RSAKeyGenerationParameters(BigInteger.valueOf(0x10001), new SecureRandom(), 4096, 144));
+		System.out.println("Done");
 	}
 
 	@Test
