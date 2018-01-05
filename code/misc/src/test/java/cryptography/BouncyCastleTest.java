@@ -7,8 +7,12 @@ import java.nio.ByteBuffer;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
@@ -23,18 +27,26 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PSource.PSpecified;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.bouncycastle.crypto.AsymmetricBlockCipher;
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.digests.SHA256Digest;
+import org.bouncycastle.crypto.encodings.OAEPEncoding;
 import org.bouncycastle.crypto.engines.AESEngine;
+import org.bouncycastle.crypto.engines.RSABlindedEngine;
 import org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 import org.bouncycastle.crypto.generators.SCrypt;
 import org.bouncycastle.crypto.macs.HMac;
 import org.bouncycastle.crypto.modes.EAXBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
+import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.crypto.params.RSAKeyGenerationParameters;
+import org.bouncycastle.crypto.params.RSAKeyParameters;
+import org.bouncycastle.crypto.params.RSAPrivateCrtKeyParameters;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
@@ -183,13 +195,27 @@ public class BouncyCastleTest {
 	}
 
 	@Test
-	public void testAsymmetricRSA() throws NoSuchAlgorithmException, NoSuchPaddingException {
+	public void testAsymmetricRSA() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidCipherTextException {
 		Security.addProvider(new BouncyCastleProvider());
 
-		Cipher asym = Cipher.getInstance("RSA/NONE/OAEPWithSHA256AndMGF1Padding");
+        // This object generates individual key-pairs.
 		RSAKeyPairGenerator kpg = new RSAKeyPairGenerator();
 		kpg.init(new RSAKeyGenerationParameters(BigInteger.valueOf(0x10001), new SecureRandom(), 4096, 144));
-		System.out.println("Done");
+
+		AsymmetricCipherKeyPair pair = kpg.generateKeyPair();
+		RSAPrivateCrtKeyParameters priv = (RSAPrivateCrtKeyParameters) pair.getPrivate();
+		RSAKeyParameters pub = (RSAKeyParameters) pair.getPublic();
+
+		AsymmetricBlockCipher cipher = new OAEPEncoding(new RSABlindedEngine(), new SHA256Digest(), new SHA256Digest(), PSpecified.DEFAULT.getValue());
+		cipher.init(true, priv);
+
+		String message = "message";
+		byte[] ciphertext = cipher.processBlock(message.getBytes(), 0, message.length());
+
+		cipher.init(false, pub);
+		byte[] result = cipher.processBlock(ciphertext, 0, ciphertext.length);
+
+		Assert.assertTrue(Arrays.areEqual(message.getBytes(), result));
 	}
 
 	@Test
