@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16103356[Ftfy – fix Unicode that's broken in various ways]
 - https://news.ycombinator.com/item?id=13016948[NIST’s new password rules – what you need to know]
 - https://news.ycombinator.com/item?id=16050294[Ask HN: Does anyone use an alternative to a password manager?]
 - https://news.ycombinator.com/item?id=16051428[ASCIIFlow Infinity]
