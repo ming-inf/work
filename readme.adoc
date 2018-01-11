@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16121396[Attack of the Week: Group Messaging in WhatsApp and Signal]
+- https://news.ycombinator.com/item?id=16120103[Continuous low-power music recognition]
 - https://news.ycombinator.com/item?id=16103356[Ftfy – fix Unicode that's broken in various ways]
 - https://news.ycombinator.com/item?id=13016948[NIST’s new password rules – what you need to know]
 - https://news.ycombinator.com/item?id=16050294[Ask HN: Does anyone use an alternative to a password manager?]
