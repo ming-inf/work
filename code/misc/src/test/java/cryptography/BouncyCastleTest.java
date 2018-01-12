@@ -17,6 +17,8 @@ import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.security.spec.MGF1ParameterSpec;
+import java.security.spec.PSSParameterSpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -32,11 +34,16 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.bouncycastle.crypto.AsymmetricBlockCipher;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
+import org.bouncycastle.crypto.CryptoException;
+import org.bouncycastle.crypto.DataLengthException;
 import org.bouncycastle.crypto.InvalidCipherTextException;
+import org.bouncycastle.crypto.Signer;
+import org.bouncycastle.crypto.digests.SHA224Digest;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.encodings.OAEPEncoding;
 import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.engines.RSABlindedEngine;
+import org.bouncycastle.crypto.engines.RSAEngine;
 import org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 import org.bouncycastle.crypto.generators.SCrypt;
 import org.bouncycastle.crypto.macs.HMac;
@@ -44,12 +51,16 @@ import org.bouncycastle.crypto.modes.EAXBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.params.ParametersWithRandom;
 import org.bouncycastle.crypto.params.RSAKeyGenerationParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 import org.bouncycastle.crypto.params.RSAPrivateCrtKeyParameters;
+import org.bouncycastle.crypto.prng.FixedSecureRandom;
+import org.bouncycastle.crypto.signers.PSSSigner;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -206,7 +217,7 @@ public class BouncyCastleTest {
 		RSAPrivateCrtKeyParameters priv = (RSAPrivateCrtKeyParameters) pair.getPrivate();
 		RSAKeyParameters pub = (RSAKeyParameters) pair.getPublic();
 
-		AsymmetricBlockCipher cipher = new OAEPEncoding(new RSABlindedEngine(), new SHA256Digest(), new SHA256Digest(), PSpecified.DEFAULT.getValue());
+		AsymmetricBlockCipher cipher = new OAEPEncoding(new RSABlindedEngine(), new SHA256Digest(), PSpecified.DEFAULT.getValue());
 		cipher.init(true, priv);
 
 		String message = "message";
@@ -216,6 +227,33 @@ public class BouncyCastleTest {
 		byte[] result = cipher.processBlock(ciphertext, 0, ciphertext.length);
 
 		Assert.assertTrue(Arrays.areEqual(message.getBytes(), result));
+	}
+
+	@Test
+	public void testAsymmetricRSASignature() throws DataLengthException, CryptoException {
+		Security.addProvider(new BouncyCastleProvider());
+
+		// This object generates individual key-pairs.
+		RSAKeyPairGenerator kpg = new RSAKeyPairGenerator();
+		kpg.init(new RSAKeyGenerationParameters(BigInteger.valueOf(0x10001), new SecureRandom(), 4096, 12));
+
+		AsymmetricCipherKeyPair pair = kpg.generateKeyPair();
+		RSAPrivateCrtKeyParameters priv = (RSAPrivateCrtKeyParameters) pair.getPrivate();
+		RSAKeyParameters pub = (RSAKeyParameters) pair.getPublic();
+
+		String message = "message";
+		byte[] msg = message.getBytes();
+
+		Signer pss = new PSSSigner(new RSABlindedEngine(), new SHA256Digest(), 32);
+		pss.init(true, priv);
+		pss.update(msg, 0, msg.length);
+		byte[] signature = pss.generateSignature();
+
+		pss.init(false, pub);
+		pss.update(msg, 0, msg.length);
+		boolean matches = pss.verifySignature(signature);
+
+		Assert.assertTrue(matches);
 	}
 
 	@Test
