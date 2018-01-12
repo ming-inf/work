@@ -7,18 +7,12 @@ import java.nio.ByteBuffer;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.security.spec.MGF1ParameterSpec;
-import java.security.spec.PSSParameterSpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -38,29 +32,30 @@ import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.DataLengthException;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.Signer;
-import org.bouncycastle.crypto.digests.SHA224Digest;
+import org.bouncycastle.crypto.agreement.DHAgreement;
+import org.bouncycastle.crypto.agreement.DHStandardGroups;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.encodings.OAEPEncoding;
 import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.engines.RSABlindedEngine;
-import org.bouncycastle.crypto.engines.RSAEngine;
+import org.bouncycastle.crypto.generators.DHKeyPairGenerator;
+import org.bouncycastle.crypto.generators.HKDFBytesGenerator;
 import org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 import org.bouncycastle.crypto.generators.SCrypt;
 import org.bouncycastle.crypto.macs.HMac;
 import org.bouncycastle.crypto.modes.EAXBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
-import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
+import org.bouncycastle.crypto.params.DHKeyGenerationParameters;
+import org.bouncycastle.crypto.params.DHPublicKeyParameters;
+import org.bouncycastle.crypto.params.HKDFParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
-import org.bouncycastle.crypto.params.ParametersWithRandom;
 import org.bouncycastle.crypto.params.RSAKeyGenerationParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 import org.bouncycastle.crypto.params.RSAPrivateCrtKeyParameters;
-import org.bouncycastle.crypto.prng.FixedSecureRandom;
 import org.bouncycastle.crypto.signers.PSSSigner;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
-import org.bouncycastle.util.encoders.Hex;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -254,6 +249,39 @@ public class BouncyCastleTest {
 		boolean matches = pss.verifySignature(signature);
 
 		Assert.assertTrue(matches);
+	}
+
+	@Test
+	public void testKeyExchange() throws DataLengthException, CryptoException {
+		Security.addProvider(new BouncyCastleProvider());
+
+		DHKeyPairGenerator dhkpg = new DHKeyPairGenerator();
+//		DHParametersGenerator dhParamGen = new DHParametersGenerator();
+//		dhParamGen.init(2046, 12, new SecureRandom());
+//		dhkpg.init(new DHKeyGenerationParameters(new SecureRandom(), dhParamGen.generateParameters()));
+		dhkpg.init(new DHKeyGenerationParameters(new SecureRandom(), DHStandardGroups.rfc2409_768));
+
+		AsymmetricCipherKeyPair pair = dhkpg.generateKeyPair();
+		AsymmetricCipherKeyPair otherPair = dhkpg.generateKeyPair();
+
+		DHAgreement ka = new DHAgreement();
+		ka.init(pair.getPrivate());
+
+		DHAgreement ka2 = new DHAgreement();
+		ka2.init(otherPair.getPrivate());
+
+		BigInteger initMessage = ka.calculateMessage();
+		BigInteger initMessage2 = ka2.calculateMessage();
+
+		BigInteger sharedSecret = ka2.calculateAgreement((DHPublicKeyParameters) pair.getPublic(), initMessage);
+		BigInteger sharedSecret2 = ka.calculateAgreement((DHPublicKeyParameters) otherPair.getPublic(), initMessage2);
+
+		Assert.assertEquals(sharedSecret, sharedSecret2);
+
+		HKDFBytesGenerator generator = new HKDFBytesGenerator(new SHA256Digest());
+		generator.init(new HKDFParameters(sharedSecret.toByteArray(), new SecureRandom().generateSeed(32), null));
+		byte[] derivedKey = new byte[256];
+		generator.generateBytes(derivedKey, 0, derivedKey.length);
 	}
 
 	@Test
