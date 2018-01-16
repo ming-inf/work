@@ -31,24 +31,28 @@ import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.CryptoException;
 import org.bouncycastle.crypto.DataLengthException;
 import org.bouncycastle.crypto.InvalidCipherTextException;
+import org.bouncycastle.crypto.Mac;
 import org.bouncycastle.crypto.Signer;
 import org.bouncycastle.crypto.agreement.DHAgreement;
 import org.bouncycastle.crypto.agreement.DHStandardGroups;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.encodings.OAEPEncoding;
 import org.bouncycastle.crypto.engines.AESEngine;
+import org.bouncycastle.crypto.engines.ChaCha7539Engine;
 import org.bouncycastle.crypto.engines.RSABlindedEngine;
 import org.bouncycastle.crypto.generators.DHKeyPairGenerator;
 import org.bouncycastle.crypto.generators.HKDFBytesGenerator;
 import org.bouncycastle.crypto.generators.RSAKeyPairGenerator;
 import org.bouncycastle.crypto.generators.SCrypt;
 import org.bouncycastle.crypto.macs.HMac;
+import org.bouncycastle.crypto.macs.Poly1305;
 import org.bouncycastle.crypto.modes.EAXBlockCipher;
 import org.bouncycastle.crypto.params.AEADParameters;
 import org.bouncycastle.crypto.params.DHKeyGenerationParameters;
 import org.bouncycastle.crypto.params.DHPublicKeyParameters;
 import org.bouncycastle.crypto.params.HKDFParameters;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.params.ParametersWithIV;
 import org.bouncycastle.crypto.params.RSAKeyGenerationParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 import org.bouncycastle.crypto.params.RSAPrivateCrtKeyParameters;
@@ -56,6 +60,7 @@ import org.bouncycastle.crypto.signers.PSSSigner;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -110,7 +115,6 @@ public class BouncyCastleTest {
 		hmac.doFinal(scrypt, 0);
 
 		baos.write(scrypt);
-		System.out.println(Base64.toBase64String(baos.toByteArray()));
 	}
 
 	@Test
@@ -318,5 +322,40 @@ public class BouncyCastleTest {
 		eaxCipher.doFinal(datOut, resultLen);
 
 		Assert.assertTrue(Arrays.areEqual(datIn, datOut));
+	}
+
+	@Test
+	public void testChacha() {
+		byte[] key = Hex.decode("0000000000000000000000000000000000000000000000000000000000000000");
+		byte[] iv = Hex.decode("000000000000000000000000");
+		byte[] plaintext = Hex
+				.decode("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+		byte[] expected = Hex
+				.decode("76b8e0ada0f13d90405d6ae55386bd28bdd219b8a08ded1aa836efcc8b770dc7da41597c5157488d7724e03fb8d84a376a43b8f41518a11cc387b669b2ee6586");
+
+		ChaCha7539Engine engine = new ChaCha7539Engine();
+		engine.init(true, new ParametersWithIV(new KeyParameter(key), iv));
+
+		byte[] out = new byte[plaintext.length];
+		int processed = engine.processBytes(plaintext, 0, plaintext.length, out, 0);
+
+		Assert.assertEquals(plaintext.length, processed);
+		Assert.assertArrayEquals(expected, out);
+	}
+
+	@Test
+	public void testPoly() {
+		byte[] key = Hex.decode("85d6be7857556d337f4452fe42d506a80103808afb0db2fd4abff6af4149f51b");
+		byte[] plaintext = Hex.decode("43727970746f6772617068696320466f72756d2052657365617263682047726f7570");
+		byte[] expected = Hex.decode("a8061dc1305136c6c22b8baf0c0127a9");
+
+		Mac mac = new Poly1305();
+		mac.init(new KeyParameter(key));
+		mac.update(plaintext, 0, plaintext.length);
+
+		byte[] out = new byte[mac.getMacSize()];
+		mac.doFinal(out, 0);
+
+		Assert.assertArrayEquals(expected, out);
 	}
 }
