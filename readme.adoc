@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16145586[Using a Yubikey for GPG and SSH]
 - https://github.com/jwasham/coding-interview-university[Coding Interview University]
 - https://news.ycombinator.com/item?id=16121396[Attack of the Week: Group Messaging in WhatsApp and Signal]
 - https://news.ycombinator.com/item?id=16120103[Continuous low-power music recognition]
