@@ -1,6 +1,13 @@
 = readme
 
 == articles
+- https://blog.trifork.com/2009/11/10/securing-connections-with-tls/[SECURING CONNECTIONS WITH TLS]
+- https://stackoverflow.com/questions/18065170/how-do-i-do-tls-with-bouncycastle[How do I do TLS with BouncyCastle?]
+- https://crypto.stackexchange.com/questions/27866/why-curve25519-for-encryption-but-ed25519-for-signatures[Why Curve25519 for encryption but Ed25519 for signatures?]
+- https://scotthelme.co.uk/ecdsa-certificates/[Testing out ECDSA certificates]
+- https://www.reddit.com/r/AskNetsec/comments/33dai2/why_does_facebook_use_ecdhe_ecdsa_for_key/[Why does Facebook use ECDHE_ECDSA for key exchange and signatures instead of ECDHE_RSA?]
+- https://github.com/muquit/libsodium-jna[How to use libsodium]
+- http://kbsriram.com/2013/01/generating-rsa-keys-with-bouncycastle.html[Generating RSA keys with BouncyCastle]
 - https://news.ycombinator.com/item?id=16145586[Using a Yubikey for GPG and SSH]
 - https://github.com/jwasham/coding-interview-university[Coding Interview University]
 - https://news.ycombinator.com/item?id=16121396[Attack of the Week: Group Messaging in WhatsApp and Signal]
