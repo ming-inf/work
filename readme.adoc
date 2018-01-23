@@ -3,6 +3,7 @@
 == articles
 - http://www.brynosaurus.com/pub/net/p2pnat/[Peer-to-Peer Communication Across Network Address Translators]
 - https://news.ycombinator.com/item?id=16170608[Who the Hell Uses Onion Juice?]
+- https://news.ycombinator.com/item?id=16200928[Show HN: Peer-to-peer chat example built with JavaScript IPFS]
 - https://blog.trifork.com/2009/11/10/securing-connections-with-tls/[SECURING CONNECTIONS WITH TLS]
 - https://stackoverflow.com/questions/18065170/how-do-i-do-tls-with-bouncycastle[How do I do TLS with BouncyCastle?]
 - https://crypto.stackexchange.com/questions/27866/why-curve25519-for-encryption-but-ed25519-for-signatures[Why Curve25519 for encryption but Ed25519 for signatures?]
