@@ -42,6 +42,8 @@ dependencies {
 
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.58'
 
+	compile 'info.picocli:picocli:2.2.1'
+
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
