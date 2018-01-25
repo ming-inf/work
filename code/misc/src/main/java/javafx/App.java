@@ -60,6 +60,21 @@ public class App extends Application {
 
 	Scene scene;
 
+	Injector injector = Main.getInjector();
+
+	public App() {
+		Config config = injector.getInstance(Config.class);
+		confLocale = new ULocale(config.getLocale());
+		confStylesheet = config.getStylesheet();
+
+		appBundle = BehaviorSubject.create();
+
+		currentLocale = BehaviorSubject.createDefault(confLocale);
+		currentLocale.subscribe(newValue -> {
+			appBundle.onNext(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
+		});
+	}
+
 	public String getString(RESOURCE resourceKey) {
 		return appBundle.getValue().getString(resourceKey.toString());
 	}
@@ -84,23 +99,10 @@ public class App extends Application {
 	public void init() throws Exception {
 		super.init();
 
-		Injector injector = Main.getInjector();
-
 		currentStylesheet.addListener((ob, o, n) -> {
 			ObservableList<String> css = scene.getStylesheets();
 			css.remove(o);
 			css.add(n);
-		});
-
-		Config config = injector.getInstance(Config.class);
-		confLocale = new ULocale(config.getLocale());
-		confStylesheet = config.getStylesheet();
-
-		appBundle = BehaviorSubject.create();
-
-		currentLocale = BehaviorSubject.createDefault(confLocale);
-		currentLocale.subscribe(newValue -> {
-			appBundle.onNext(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
 		});
 
 		password = createPassword();
