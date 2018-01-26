@@ -21,9 +21,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SafePasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -110,8 +112,32 @@ public class App extends Application {
 		theme = createTheme(styles);
 	}
 
+	private CheckBox hidePassword;
+	private TextField textField;
 	private SafePasswordField createPassword() {
+		// text field to show password as unmasked
+		textField = new TextField();
+		// Set initial state
+		textField.setManaged(false);
+		textField.setVisible(false);
+
+		hidePassword = new CheckBox("Show/Hide password");
+
 		SafePasswordField passwordField = new SafePasswordField();
+
+		// Bind properties. Toggle textField and passwordField
+		// visibility and managability properties mutually when checkbox's state is changed.
+		// Because we want to display only one component (textField or passwordField)
+		// on the scene at a time.
+		textField.managedProperty().bind(hidePassword.selectedProperty());
+		textField.visibleProperty().bind(hidePassword.selectedProperty());
+
+		passwordField.managedProperty().bind(hidePassword.selectedProperty().not());
+		passwordField.visibleProperty().bind(hidePassword.selectedProperty().not());
+
+		// Bind the textField and passwordField text values bidirectionally.
+		textField.textProperty().bindBidirectional(passwordField.textProperty());
+
 		appBundle.subscribe(newValue -> {
 			passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
 		});
@@ -156,6 +182,8 @@ public class App extends Application {
 	private Pane createPane() {
 		Pane pane = new FlowPane();
 		pane.getChildren().add(password);
+		pane.getChildren().add(textField);
+		pane.getChildren().add(hidePassword);
 		pane.getChildren().add(locales);
 		pane.getChildren().add(theme);
 		pane.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
