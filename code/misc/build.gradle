@@ -46,6 +46,8 @@ dependencies {
 
 	compile 'info.picocli:picocli:2.2.1'
 
+	compile group: 'io.netty', name: 'netty-all', version: '4.1.20.Final'
+
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
