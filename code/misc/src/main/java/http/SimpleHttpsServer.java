@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.security.KeyStore;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -86,7 +89,7 @@ public class SimpleHttpsServer {
 				}
 			});
 			httpsServer.createContext("/test", new MyHandler());
-			httpsServer.setExecutor(null); // creates a default executor
+			httpsServer.setExecutor(new ThreadPoolExecutor(4, 8, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100)));
 			httpsServer.start();
 		} catch (Exception exception) {
 			System.out.println("Failed to create HTTPS server on port " + 8000 + " of localhost");
