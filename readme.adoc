@@ -1,6 +1,13 @@
 = readme
 
 == articles
+- https://malubu.wordpress.com/2012/10/05/flockin-droid/[Flockin’ Droid]
+- https://codereview.stackexchange.com/questions/119033/java-snow-animation[Java snow animation]
+- https://www.javaworld.com/article/2072241/learn-java/let-it-snow--let-it-snow--let-it-snow-.html[Let It Snow! Let It Snow! Let It Snow!]
+- https://stackoverflow.com/questions/36725926/how-to-turn-main-code-into-a-class-snowfall[How To Turn Main Code Into A Class (Snowfall)]
+- http://solemone.de/demos/snow-effect-processing/[Snow Effect with Processing]
+- https://www.gamasutra.com/view/feature/1815/modeling_opinion_flow_in_humans_.php[Modeling Opinion Flow in Humans Using Boids Algorithm & Social Network Analysis]
+- http://www.red3d.com/cwr/boids/[boids]
 - http://www.brynosaurus.com/pub/net/p2pnat/[Peer-to-Peer Communication Across Network Address Translators]
 - https://news.ycombinator.com/item?id=16170608[Who the Hell Uses Onion Juice?]
 - https://news.ycombinator.com/item?id=16200928[Show HN: Peer-to-peer chat example built with JavaScript IPFS]
