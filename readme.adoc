@@ -1,6 +1,7 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16242955[Moving efficiently in the CLI]
 - https://github.com/javaterminal/TerminalFX[Java FX Terminal Emulator]
 - https://malubu.wordpress.com/2012/10/05/flockin-droid/[Flockin’ Droid]
 - https://codereview.stackexchange.com/questions/119033/java-snow-animation[Java snow animation]
