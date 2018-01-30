@@ -8,8 +8,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.base.Functions;
 
 public class BinaryTreeTest {
 	private Tree<Integer> objectUnderTest;
@@ -28,9 +31,9 @@ public class BinaryTreeTest {
 		right.right = rightRight;
 		root.left = left;
 		root.right = right;
-		
+
 		objectUnderTest = new BinaryTree<Integer>(root);
-		
+
 		assertEquals(Arrays.asList(0, 1, 2, 3), objectUnderTest.preorder());
 		assertEquals(Arrays.asList(1, 3, 2, 0), objectUnderTest.postorder());
 		assertEquals(Arrays.asList(1, 0, 2, 3), objectUnderTest.inorder());
@@ -273,6 +276,36 @@ public class BinaryTreeTest {
 	}
 
 	@Test
+	public void testSerialize() {
+		BinaryTree.Node<Character> a = new BinaryTree.Node<Character>('a');
+		BinaryTree.Node<Character> b = new BinaryTree.Node<Character>('b');
+		BinaryTree.Node<Character> c = new BinaryTree.Node<Character>('c');
+		BinaryTree.Node<Character> d = new BinaryTree.Node<Character>('d');
+		BinaryTree.Node<Character> e = new BinaryTree.Node<Character>('e');
+		BinaryTree.Node<Character> f = new BinaryTree.Node<Character>('f');
+		BinaryTree.Node<Character> g = new BinaryTree.Node<Character>('g');
+		a.left = b;
+		a.right = c;
+		b.left = d;
+		b.right = e;
+		e.left = g;
+		c.right = f;
+		BinaryTree<Character> objectUnderTest = new BinaryTree<Character>(a);
+
+		String expected = "abd!!eg!!!c!f!!";
+		Assert.assertEquals(expected, objectUnderTest.serialize(Functions.identity()));
+	}
+
+	@Test
+	public void testDeserialize() {
+		BinaryTree<Character> objectUnderTest = new BinaryTree<Character>();
+		objectUnderTest.deserialize("abd!!eg!!!c!f!!", Functions.identity());
+
+		List<Character> expected = Arrays.asList('a', 'b', 'd', 'e', 'g', 'c', 'f');
+		Assert.assertEquals(expected, objectUnderTest.preorder());
+	}
+
+	@Test
 	public void testTraversePreorder() {
 		Integer[] intArray = { 23, 14, 7, 9, 17, 31 };
 		List<Integer> ints = Arrays.asList(intArray);
@@ -281,7 +314,7 @@ public class BinaryTreeTest {
 			objectUnderTest.add(i);
 		}
 
-		List<Integer> expected = Arrays.asList(23, 14, 9, 17, 7 ,31);
+		List<Integer> expected = Arrays.asList(23, 14, 9, 17, 7, 31);
 		List<Integer> actualIntArray = objectUnderTest.preorder();
 
 		assertEquals(expected, actualIntArray);

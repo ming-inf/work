@@ -4,12 +4,14 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
-
+import java.util.function.Function;
 
 public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 	private Node<T> root;
@@ -66,17 +68,17 @@ public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 	private void insertNode(Node<T> tree, Node<T> value) {
 		Queue<Node<T>> q = new LinkedList<Node<T>>();
 		q.add(tree);
-		
-		while(!q.isEmpty()) {
+
+		while (!q.isEmpty()) {
 			Node<T> current = q.remove();
-			
+
 			if (isNull(current.left)) {
 				current.left = value;
 				break;
 			} else {
 				q.add(current.left);
 			}
-			
+
 			if (isNull(current.right)) {
 				current.right = value;
 				break;
@@ -150,6 +152,67 @@ public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 		}
 
 		return true;
+	}
+
+	private static final Character MARKER = '!';
+
+	public String serialize(Function<T, Character> toCharacter) {
+		List<Optional<T>> traversal = preorderSerialize(root);
+		String result = detokenize(traversal, toCharacter);
+		return result;
+	}
+
+	private List<Optional<T>> preorderSerialize(Node<T> current) {
+		if (isNull(current)) {
+			return Collections.emptyList();
+		}
+
+		List<Optional<T>> l = new ArrayList<>();
+		l.add(Optional.of(current.value));
+		l.addAll(nonNull(current.left) ? preorderSerialize(current.left) : Arrays.asList(Optional.empty()));
+		l.addAll(nonNull(current.right) ? preorderSerialize(current.right) : Arrays.asList(Optional.empty()));
+
+		return l;
+	}
+
+	private String detokenize(List<Optional<T>> tokens, Function<T, Character> toCharacter) {
+		String result = "";
+		for (Optional<T> t : tokens) {
+			result += t.isPresent() ? t.get() : MARKER;
+		}
+		return result;
+	}
+
+	public void deserialize(String serial, Function<Character, T> fromCharacter) {
+		List<Optional<T>> tokens = tokenize(serial, fromCharacter);
+		Node<T> result = preorderDeserialize(tokens);
+		root = result;
+	}
+
+	private List<Optional<T>> tokenize(String serial, Function<Character, T> fromCharacter) {
+		List<Optional<T>> result = new ArrayList<>();
+		for (char c : serial.toCharArray()) {
+			if (MARKER.equals(c)) {
+				result.add(Optional.empty());
+			} else {
+				result.add(Optional.of(fromCharacter.apply(c)));
+			}
+		}
+		return result;
+	}
+
+	private Node<T> preorderDeserialize(List<Optional<T>> tokens) {
+		if (tokens.isEmpty() || !tokens.get(0).isPresent()) {
+			tokens.remove(0);
+			return null;
+		}
+
+		Node<T> current = new Node<T>(tokens.get(0).get());
+		tokens.remove(0);
+		current.left = preorderDeserialize(tokens);
+		current.right = preorderDeserialize(tokens);
+
+		return current;
 	}
 
 	@Override
