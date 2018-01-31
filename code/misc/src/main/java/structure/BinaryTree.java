@@ -13,8 +13,8 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Function;
 
-public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
-	private Node<T> root;
+public class BinaryTree<T> implements Tree<T> {
+	Node<T> root;
 
 	public BinaryTree() {
 	}
@@ -35,7 +35,7 @@ public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 			return new Tuple<>(null, null);
 		}
 
-		if (0 == current.compareTo(value)) {
+		if (current.value.equals(value.value)) {
 			return new Tuple<>(parent, current);
 		} else {
 			Tuple<Node<T>, Node<T>> result = searchNode(current, current.left, value);
@@ -295,7 +295,7 @@ public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 		return l;
 	}
 
-	public static class Node<S extends Comparable<S>> implements Comparable<Node<S>> {
+	public static class Node<S> {
 		S value;
 		Node<S> left;
 		Node<S> right;
@@ -308,11 +308,6 @@ public class BinaryTree<T extends Comparable<T>> implements Tree<T> {
 			this.value = value;
 			this.left = left;
 			this.right = right;
-		}
-
-		@Override
-		public int compareTo(Node<S> o) {
-			return value.compareTo(o.value);
 		}
 
 		@Override
