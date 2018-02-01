@@ -1,4 +1,4 @@
-package javafx.fxml;
+package javafx.fxml.test;
 
 import java.net.URL;
 import java.util.ResourceBundle;

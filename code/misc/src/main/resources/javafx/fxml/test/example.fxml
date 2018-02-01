@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.SafePasswordField?>
+<?import javafx.custom.SafePasswordField?>
 
-<FlowPane fx:controller="javafx.fxml.MyController" xmlns:fx="http://javafx.com/fxml">
+<FlowPane fx:controller="javafx.fxml.test.MyController" xmlns:fx="http://javafx.com/fxml">
 	<children>
 		<SafePasswordField fx:id="passwordField"/>
 		<Button fx:id="button" text="%greeting"/>

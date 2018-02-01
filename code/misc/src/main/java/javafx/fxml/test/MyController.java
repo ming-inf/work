@@ -1,4 +1,4 @@
-package javafx.fxml;
+package javafx.fxml.test;
 
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.ibm.icu.util.ULocale;
-import com.sun.javafx.PlatformUtil;
 
 import javafx.RESOURCE;
 import javafx.beans.binding.Bindings;
@@ -15,12 +14,13 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.custom.SafePasswordField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SafePasswordField;
 import javafx.util.StringConverter;
+import util.Platform;
 
 public class MyController {
 	static final Logger log = LogManager.getLogger(MyController.class);
@@ -72,7 +72,7 @@ public class MyController {
 	}
 
 	public void labelText() {
-		isWindows.setText("is windows: " + PlatformUtil.isWindows());
+		isWindows.setText("is windows: " + Platform.isWindows());
 	}
 
 	public String getString(RESOURCE resourceKey) {

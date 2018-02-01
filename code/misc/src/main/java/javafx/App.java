@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.inject.Injector;
 import com.ibm.icu.util.ULocale;
-import com.sun.javafx.PlatformUtil;
 
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -20,11 +19,11 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.custom.SafePasswordField;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SafePasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -186,7 +185,7 @@ public class App extends Application {
 		pane.getChildren().add(hidePassword);
 		pane.getChildren().add(locales);
 		pane.getChildren().add(theme);
-		pane.getChildren().add(new Label("is windows: " + PlatformUtil.isWindows()));
+		pane.getChildren().add(new Label("is windows: " + util.Platform.isWindows()));
 		return pane;
 	}
 

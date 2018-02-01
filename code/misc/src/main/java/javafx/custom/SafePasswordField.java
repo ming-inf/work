@@ -1,6 +1,8 @@
-package javafx.scene.control;
+package javafx.custom;
 
 import java.lang.reflect.Field;
+
+import javafx.scene.control.PasswordField;
 
 public class SafePasswordField extends PasswordField {
 	public final char[] getPassword() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
