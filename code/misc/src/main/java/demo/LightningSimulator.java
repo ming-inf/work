@@ -155,8 +155,8 @@ public class LightningSimulator extends Application {
 		}
 
 		@Override
-		public EventType<? extends LightningEvent> getEventType() {
-			return (EventType<? extends LightningEvent>) super.getEventType();
+		public EventType<? extends Event> getEventType() {
+			return super.getEventType();
 		}
 
 	}
