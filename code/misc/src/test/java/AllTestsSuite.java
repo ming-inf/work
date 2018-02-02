@@ -3,6 +3,7 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import algorithm.sort.SortTest;
 import javafx.AppTest;
 import structure.AVLTreeTest;
 import structure.BinarySearchTreeTest;
@@ -19,6 +20,7 @@ import structure.SinglyLinkedListTest;
 	, BinarySearchTreeTest.class
 	, HeapTest.class
 	, AVLTreeTest.class
+	, SortTest.class
 })
 
 public class AllTestsSuite {
