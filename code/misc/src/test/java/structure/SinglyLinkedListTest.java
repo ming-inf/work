@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import structure.api.List;
+
 public class SinglyLinkedListTest {
 	private List<Integer> objectUnderTest;
 

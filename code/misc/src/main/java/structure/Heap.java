@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import structure.api.Collection;
+
 public class Heap<T extends Comparable<T>> implements Collection<T> {
 	List<T> heap = new ArrayList<>();
 

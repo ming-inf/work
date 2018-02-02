@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Collection<T> {
 	boolean contains(T value);

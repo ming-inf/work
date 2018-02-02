@@ -1,13 +1,14 @@
 package practice;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
 public class KeyPlaintextRunningKeyEncryptionTest {
 	@Test
 	public void test() {
-		java.util.List<String> lines = Arrays.asList("SGZVQBUQAFRWSLC", "ACM");
+		List<String> lines = Arrays.asList("SGZVQBUQAFRWSLC", "ACM");
 
 		if (0 == lines.size() % 2) {
 			for (int i = 0; i < lines.size(); i += 2) {

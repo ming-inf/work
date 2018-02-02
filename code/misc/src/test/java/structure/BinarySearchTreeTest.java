@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import structure.api.Tree;
+
 public class BinarySearchTreeTest {
 	private Tree<Integer> objectUnderTest;
 

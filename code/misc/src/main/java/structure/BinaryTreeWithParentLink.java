@@ -13,6 +13,8 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Function;
 
+import structure.api.Tree;
+
 public class BinaryTreeWithParentLink<T> implements Tree<T> {
 	Node<T> root;
 

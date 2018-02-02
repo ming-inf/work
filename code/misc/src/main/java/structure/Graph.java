@@ -19,7 +19,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
 public class Graph {
-	java.util.List<GraphNode> node;
+	List<GraphNode> node;
 
 	List<GraphNode> allNodes = new ArrayList<>();
 	Multimap<GraphNode, GraphNode> allEdges = ArrayListMultimap.create();
@@ -129,7 +129,7 @@ public class Graph {
 		return visited.size() == idToNode.size() ? v : null;
 	}
 
-	public java.util.List<GraphNode> findRoots(Map<String, GraphNode> idToNode, java.util.Set<GraphNode> connections) {
+	public List<GraphNode> findRoots(Map<String, GraphNode> idToNode, java.util.Set<GraphNode> connections) {
 		java.util.Set<GraphNode> nodes = new HashSet<>(idToNode.values());
 		nodes.removeAll(connections);
 		return new ArrayList<>(nodes);
@@ -239,7 +239,7 @@ public class Graph {
 
 class GraphNode {
 	String id;
-	java.util.List<GraphNode> connectedTo = new ArrayList<>();
+	List<GraphNode> connectedTo = new ArrayList<>();
 
 	GraphNode(String id) {
 		this.id = id;

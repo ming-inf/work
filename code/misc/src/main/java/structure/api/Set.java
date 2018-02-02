@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Set<T> {
 	Set<T> union(Set<T> that);

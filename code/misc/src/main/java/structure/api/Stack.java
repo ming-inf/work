@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Stack<T> {
 	public void push(T value);

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class LevenshteinTest {
 		String filename = "words.txt";
 		InputStream is = DAFSA.class.getClassLoader().getResourceAsStream(filename);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		java.util.List<String> words = reader.lines().collect(Collectors.toList());
+		List<String> words = reader.lines().collect(Collectors.toList());
 
 		Set<String> expected = new HashSet<>(Arrays.asList("obtect", "abject", "objects", "objet", "object"));
 		Assert.assertEquals(expected, objectUnderTest.search("object", 1, words).keySet());

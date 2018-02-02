@@ -3,6 +3,7 @@ package structure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -13,9 +14,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class DAFSA {
 	String previousWord;
 	Node root;
-	java.util.List<Object[]> uncheckedNodes;
+	List<Object[]> uncheckedNodes;
 	Map<Node, Node> minimizedNodes;
-	java.util.List<String> data;
+	List<String> data;
 
 	public DAFSA() {
 		previousWord = "";
@@ -95,7 +96,7 @@ public class DAFSA {
 			if (!node.edges.containsKey(letter)) {
 				return null;
 			}
-			java.util.List<Character> list = new ArrayList<>(node.edges.keySet());
+			List<Character> list = new ArrayList<>(node.edges.keySet());
 			Collections.sort(list);
 			for (Character label : list) {
 				Node child = node.edges.get(label);
@@ -176,7 +177,7 @@ public class DAFSA {
 
 	@Override
 	public String toString() {
-		java.util.List<Node> nodes = new ArrayList<>();
+		List<Node> nodes = new ArrayList<>();
 		Stack<Node> stack = new Stack<>();
 		stack.push(root);
 		while (!stack.isEmpty()) {

@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Ordinal<T> {
 	public void insert(int i, T value);

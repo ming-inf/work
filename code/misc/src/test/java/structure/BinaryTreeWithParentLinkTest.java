@@ -14,6 +14,8 @@ import org.junit.Test;
 
 import com.google.common.base.Functions;
 
+import structure.api.Tree;
+
 public class BinaryTreeWithParentLinkTest {
 	private Tree<Integer> objectUnderTest;
 

@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Deque<T> {
 	public void addFirst(T value);

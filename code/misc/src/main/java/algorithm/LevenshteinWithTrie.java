@@ -3,6 +3,7 @@ package algorithm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,7 +18,7 @@ public class LevenshteinWithTrie {
 	public Map<String, Integer> search(String word, int maxCost) {
 		Map<String, Integer> results = new HashMap<>();
 
-		java.util.List<Integer> currentRow = IntStream.range(0, word.length() + 1).boxed().collect(Collectors.toList());
+		List<Integer> currentRow = IntStream.range(0, word.length() + 1).boxed().collect(Collectors.toList());
 
 		for (char letter : root.children.keySet()) {
 			searchRecursive(root.children.get(letter), letter, word, currentRow, results, maxCost);
@@ -26,9 +27,9 @@ public class LevenshteinWithTrie {
 		return results;
 	}
 
-	public void searchRecursive(TrieNode node, char letter, String word, java.util.List<Integer> previousRow, Map<String, Integer> results, int maxCost) {
+	public void searchRecursive(TrieNode node, char letter, String word, List<Integer> previousRow, Map<String, Integer> results, int maxCost) {
 		int columns = word.length() + 1;
-		java.util.List<Integer> currentRow = new ArrayList<>();
+		List<Integer> currentRow = new ArrayList<>();
 		currentRow.add(previousRow.get(0) + 1);
 
 		for (int column = 1; column < columns; column++) {

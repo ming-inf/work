@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 import java.util.List;
 

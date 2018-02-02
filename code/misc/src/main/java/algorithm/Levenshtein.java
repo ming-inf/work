@@ -2,6 +2,7 @@ package algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -11,9 +12,9 @@ public class Levenshtein {
 		int columns = word1.length() + 1;
 		int rows = word2.length() + 1;
 
-		java.util.List<Integer> currentRow = IntStream.range(0, columns).boxed().collect(Collectors.toList());
+		List<Integer> currentRow = IntStream.range(0, columns).boxed().collect(Collectors.toList());
 		for (int row = 1; row < rows; row++) {
-			java.util.List<Integer> previousRow = currentRow;
+			List<Integer> previousRow = currentRow;
 			currentRow = new ArrayList<>();
 			currentRow.add(previousRow.get(0) + 1);
 
@@ -27,7 +28,7 @@ public class Levenshtein {
 		return currentRow.get(currentRow.size() - 1);
 	}
 
-	public Map<String, Integer> search(String targetWord, int maxCost, java.util.List<String> words) {
+	public Map<String, Integer> search(String targetWord, int maxCost, List<String> words) {
 		Map<String, Integer> results = new HashMap<>();
 		for (String word : words) {
 			int cost = levenshtein(targetWord, word);

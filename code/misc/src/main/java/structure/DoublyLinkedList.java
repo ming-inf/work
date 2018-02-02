@@ -3,6 +3,8 @@ package structure;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+import structure.api.List;
+
 public class DoublyLinkedList<T> implements List<T> {
 	private Node<T> head;
 	private Node<T> last;

@@ -1,4 +1,4 @@
-package structure;
+package structure.api;
 
 public interface Queue<T> {
 	public void enqueue(T value);

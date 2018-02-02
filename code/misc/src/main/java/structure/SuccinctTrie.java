@@ -3,6 +3,7 @@ package structure;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
@@ -110,7 +111,7 @@ public class SuccinctTrie {
 	 * for memory or speed.
 	 */
 	class BitWriter {
-		java.util.List<Integer> bits = new ArrayList<>();
+		List<Integer> bits = new ArrayList<>();
 
 		/**
 		 * Write some data to the bit string. The number of bits must be 32 or fewer.
@@ -379,7 +380,7 @@ public class SuccinctTrie {
 	class TrieNode {
 		char letter;
 		boolean final1 = false;
-		java.util.List<TrieNode> children = new ArrayList<>();
+		List<TrieNode> children = new ArrayList<>();
 
 		public TrieNode(char letter) {
 			this.letter = letter;
@@ -389,7 +390,7 @@ public class SuccinctTrie {
 	class Trie {
 		String previousWord = "";
 		TrieNode root = new TrieNode(' ');
-		java.util.List<TrieNode> cache = new ArrayList<>();
+		List<TrieNode> cache = new ArrayList<>();
 		int nodeCount = 1;
 
 		public Trie() {
@@ -590,7 +591,7 @@ public class SuccinctTrie {
 	/**
 	 * Encode the trie.
 	 */
-	public void go(java.util.List<String> words) {
+	public void go(List<String> words) {
 		// create a trie
 		Trie trie = new Trie();
 
