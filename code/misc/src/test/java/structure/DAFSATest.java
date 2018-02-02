@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.stream.IntStream;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
@@ -13,30 +13,26 @@ import org.junit.Test;
 public class DAFSATest {
 	DAFSA objectUnderTest;
 
-// @Ignore
 	@Test
 	public void test() {
-		objectUnderTest = new DAFSA();
+		List<String> wordLists = Arrays.asList("dog log", "cities city pities pity", "a as i is");
 
-		String words;
-// words = "dog log";
-// words = "cities city pities pity";
-		words = "a as i is";
+		for (String words : wordLists) {
+			objectUnderTest = new DAFSA();
 
-		String[] splitWords = words.split(" ");
-		Arrays.stream(splitWords).forEach(w -> {
-			objectUnderTest.insert(w, null);
-		});
+			String[] splitWords = words.split(" ");
+			Arrays.stream(splitWords).forEach(w -> {
+				objectUnderTest.insert(w, null);
+			});
 
-		objectUnderTest.finish();
+			objectUnderTest.finish();
 
-		System.out.println(objectUnderTest);
-
-		Arrays.stream(splitWords).map(objectUnderTest::wordToIndex).forEach(System.out::println);
-
-		IntStream.range(0, splitWords.length).mapToObj(i -> {
-			return splitWords[i];
-		}).forEach(System.out::println);
+			for (String word : splitWords) {
+				int actual = objectUnderTest.wordToIndex(word);
+				Assert.assertTrue(0 < actual);
+				Assert.assertTrue(actual <= splitWords.length);
+			}
+		}
 	}
 
 	@Test
