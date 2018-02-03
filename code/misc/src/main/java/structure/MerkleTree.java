@@ -17,13 +17,17 @@ public class MerkleTree extends BinaryTreeWithParentLink<Hash> {
 	void digest(InputStream is) throws IOException {
 		LinkedList<Hash> leafHashes = new LinkedList<>();
 		byte[] data = new byte[SIZE];
-		int bytesRead = 0;
-		while (0 < is.available()) {
-			while (bytesRead < SIZE) {
-				bytesRead = is.read(data, bytesRead, SIZE - bytesRead);
+		int available;
+		while (0 < (available = is.available())) {
+			if (available < SIZE) {
+				data = new byte[available];
 			}
+
+			int bytesRead = 0;
+			do {
+				bytesRead = is.read(data, bytesRead, data.length - bytesRead);
+			} while (0 < bytesRead);
 			leafHashes.add(lh(data));
-			bytesRead = 0;
 		}
 
 		for (Hash h : leafHashes) {
@@ -47,7 +51,7 @@ public class MerkleTree extends BinaryTreeWithParentLink<Hash> {
 	Hash lh(byte[] data) {
 		byte[] hash = new byte[digest.getDigestSize()];
 		digest.update((byte) 0);
-		digest.update(data, 0, SIZE);
+		digest.update(data, 0, data.length);
 		digest.doFinal(hash, 0);
 		return Hash.hash(hash);
 	}

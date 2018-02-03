@@ -20,6 +20,16 @@ public class MerkleTreeTest {
 	}
 
 	@Test
+	public void testMerkleTreeNotFullBuffer() throws IOException {
+		InputStream is = new ByteArrayInputStream("aaaaaaaa".getBytes());
+		objectUnderTest.digest(is);
+
+		String expected = "TxiaFQ8BQkQuX/F9EMeo714YQt2yWYN3u5momWMXw+U=";
+		String actual = new String(Base64.encode(objectUnderTest.root.value.hash));
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
 	public void testMerkleTree() throws IOException {
 		objectUnderTest.SIZE = 1;
 		InputStream is = new ByteArrayInputStream("aaaaaaaa".getBytes());
