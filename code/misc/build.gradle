@@ -16,13 +16,28 @@ apply plugin: 'maven'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
+/*
 	maven {
 		url uri('C:/Users/miwong/.m2/repository')
 	}
+*/
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
-//    jcenter()
+    jcenter()
 }
+
+/*
+configurations {
+	all*.exclude group: 'log4j', module: 'log4j'
+	all*.exclude group: 'org.slf4j', module: 'jcl-over-slf4j'
+	all*.exclude group: 'org.slf4j', module: 'jul-to-slf4j'
+	all*.exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+	all*.exclude group: 'org.slf4j', module: 'slf4j-api'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-core'
+	all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+	all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+}
+*/
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
@@ -34,8 +49,13 @@ dependencies {
 
 	compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
 
-	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
-	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
+/*
+	compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.10.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-jul', version: '2.10.0'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.10.0'
+*/
 
 	compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.7'
 	compile group: 'io.reactivex.rxjava2', name: 'rxjavafx', version: '2.2.2'
