@@ -1,6 +1,5 @@
 package math.prime;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,9 +11,9 @@ import util.Log;
 
 public class First10000 implements Log {
 	public int[] deserialize() throws FileNotFoundException, IOException, ClassNotFoundException {
-		String filename = "10000primes.ser";
+		String filename = "/10000primes.ser";
 
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+		try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream(filename))) {
 			int[] primes = (int[]) in.readObject();
 			return primes;
 		}
