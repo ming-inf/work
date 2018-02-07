@@ -15,7 +15,7 @@ public class PropertyChangeListeners<T> {
   }
 
   public void firePropertyChange(T oldValue, T newValue) {
-    PropertyChangeEvent<T> event = new PropertyChangeEvent<T>(oldValue, newValue);
+    PropertyChangeEvent<T> event = new PropertyChangeEvent<>(oldValue, newValue);
     fire(event);
   }
 

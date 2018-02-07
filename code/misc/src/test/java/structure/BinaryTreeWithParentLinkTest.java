@@ -26,15 +26,15 @@ public class BinaryTreeWithParentLinkTest {
 
   @Test
   public void testCustomTree() {
-    BinaryTree.Node<Integer> root = new BinaryTree.Node<Integer>(0);
-    BinaryTree.Node<Integer> left = new BinaryTree.Node<Integer>(1);
-    BinaryTree.Node<Integer> right = new BinaryTree.Node<Integer>(2);
-    BinaryTree.Node<Integer> rightRight = new BinaryTree.Node<Integer>(3);
+    BinaryTree.Node<Integer> root = new BinaryTree.Node<>(0);
+    BinaryTree.Node<Integer> left = new BinaryTree.Node<>(1);
+    BinaryTree.Node<Integer> right = new BinaryTree.Node<>(2);
+    BinaryTree.Node<Integer> rightRight = new BinaryTree.Node<>(3);
     right.right = rightRight;
     root.left = left;
     root.right = right;
 
-    objectUnderTest = new BinaryTree<Integer>(root);
+    objectUnderTest = new BinaryTree<>(root);
 
     assertEquals(Arrays.asList(0, 1, 2, 3), objectUnderTest.preorder());
     assertEquals(Arrays.asList(1, 3, 2, 0), objectUnderTest.postorder());
@@ -279,20 +279,20 @@ public class BinaryTreeWithParentLinkTest {
 
   @Test
   public void testSerialize() {
-    BinaryTree.Node<Character> a = new BinaryTree.Node<Character>('a');
-    BinaryTree.Node<Character> b = new BinaryTree.Node<Character>('b');
-    BinaryTree.Node<Character> c = new BinaryTree.Node<Character>('c');
-    BinaryTree.Node<Character> d = new BinaryTree.Node<Character>('d');
-    BinaryTree.Node<Character> e = new BinaryTree.Node<Character>('e');
-    BinaryTree.Node<Character> f = new BinaryTree.Node<Character>('f');
-    BinaryTree.Node<Character> g = new BinaryTree.Node<Character>('g');
+    BinaryTree.Node<Character> a = new BinaryTree.Node<>('a');
+    BinaryTree.Node<Character> b = new BinaryTree.Node<>('b');
+    BinaryTree.Node<Character> c = new BinaryTree.Node<>('c');
+    BinaryTree.Node<Character> d = new BinaryTree.Node<>('d');
+    BinaryTree.Node<Character> e = new BinaryTree.Node<>('e');
+    BinaryTree.Node<Character> f = new BinaryTree.Node<>('f');
+    BinaryTree.Node<Character> g = new BinaryTree.Node<>('g');
     a.left = b;
     a.right = c;
     b.left = d;
     b.right = e;
     e.left = g;
     c.right = f;
-    BinaryTree<Character> objectUnderTest = new BinaryTree<Character>(a);
+    BinaryTree<Character> objectUnderTest = new BinaryTree<>(a);
 
     String expected = "abd!!eg!!!c!f!!";
     Assert.assertEquals(expected, objectUnderTest.serialize(Functions.identity()));
@@ -300,7 +300,7 @@ public class BinaryTreeWithParentLinkTest {
 
   @Test
   public void testDeserialize() {
-    BinaryTree<Character> objectUnderTest = new BinaryTree<Character>();
+    BinaryTree<Character> objectUnderTest = new BinaryTree<>();
     objectUnderTest.deserialize("abd!!eg!!!c!f!!", Functions.identity());
 
     List<Character> expected = Arrays.asList('a', 'b', 'd', 'e', 'g', 'c', 'f');

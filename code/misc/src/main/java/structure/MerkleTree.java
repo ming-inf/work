@@ -59,9 +59,9 @@ public class MerkleTree extends BinaryTreeWithParentLink<Hash> {
   private Node<Hash> addLeaf(Node<Hash> root, Hash h) {
     if (powerOf2(root.leavesSize())) {
       Node<Hash> left = root;
-      Node<Hash> right = new Node<Hash>(h);
+      Node<Hash> right = new Node<>(h);
       Hash internalHash = ih(left.value, right.value);
-      Node<Hash> newRoot = new Node<Hash>(internalHash, null, left, right);
+      Node<Hash> newRoot = new Node<>(internalHash, null, left, right);
       left.parent = newRoot;
       right.parent = newRoot;
       return newRoot;

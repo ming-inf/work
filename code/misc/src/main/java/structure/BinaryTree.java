@@ -68,7 +68,7 @@ public class BinaryTree<T> implements Tree<T> {
   }
 
   private void insertNode(Node<T> tree, Node<T> value) {
-    Queue<Node<T>> q = new LinkedList<Node<T>>();
+    Queue<Node<T>> q = new LinkedList<>();
     q.add(tree);
 
     while (!q.isEmpty()) {
@@ -209,7 +209,7 @@ public class BinaryTree<T> implements Tree<T> {
       return null;
     }
 
-    Node<T> current = new Node<T>(tokens.get(0).get());
+    Node<T> current = new Node<>(tokens.get(0).get());
     tokens.remove(0);
     current.left = preorderDeserialize(tokens);
     current.right = preorderDeserialize(tokens);

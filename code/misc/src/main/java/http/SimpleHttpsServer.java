@@ -88,7 +88,7 @@ public class SimpleHttpsServer {
         }
       });
       httpsServer.createContext("/test", new MyHandler());
-      httpsServer.setExecutor(new ThreadPoolExecutor(4, 8, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100)));
+      httpsServer.setExecutor(new ThreadPoolExecutor(4, 8, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100)));
       httpsServer.start();
     } catch (Exception exception) {
       System.out.println("Failed to create HTTPS server on port " + 8000 + " of localhost");

@@ -12,7 +12,7 @@ public class MiscTest {
 
   @Test
   public void testPowerSet() {
-    objectUnderTest = new Misc<String>();
+    objectUnderTest = new Misc<>();
 
     String elements = "a b c d";
     Set<String> set = new HashSet<>(Arrays.asList(elements.split(" ")));
