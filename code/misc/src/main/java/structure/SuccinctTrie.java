@@ -135,8 +135,8 @@ public class SuccinctTrie {
       int b = 0;
       int i = 0;
 
-      for (int j = 0; j < bits.size(); j++) {
-        b = (b << 1) | bits.get(j);
+      for (Integer bit : bits) {
+        b = (b << 1) | bit;
         i += 1;
         if (i == W) {
           chars.append(CHR(b));
@@ -158,8 +158,8 @@ public class SuccinctTrie {
       StringBuffer chars = new StringBuffer();
       int i = 0;
 
-      for (int j = 0; j < bits.size(); j++) {
-        chars.append(bits.get(j));
+      for (Integer bit : bits) {
+        chars.append(bit);
         i++;
         if (i == group) {
           chars.append(" ");
