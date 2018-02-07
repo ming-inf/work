@@ -2,7 +2,6 @@ package icu4j;
 
 import com.ibm.icu.text.Transliterator;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 
 public class ICU4JUtil {
