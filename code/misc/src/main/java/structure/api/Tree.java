@@ -3,13 +3,13 @@ package structure.api;
 import java.util.List;
 
 public interface Tree<T> extends Collection<T> {
-  public int height();
+  int height();
 
-  public List<T> preorder();
+  List<T> preorder();
 
-  public List<T> postorder();
+  List<T> postorder();
 
-  public List<T> inorder();
+  List<T> inorder();
 
-  public List<T> breadthFirst();
+  List<T> breadthFirst();
 }

@@ -1,7 +1,7 @@
 package structure.api;
 
 public interface Queue<T> {
-  public void enqueue(T value);
+  void enqueue(T value);
 
-  public boolean dequeue();
+  boolean dequeue();
 }

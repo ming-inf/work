@@ -5,7 +5,7 @@ public enum RESOURCE {
 
   private String key;
 
-  private RESOURCE(String key) {
+  RESOURCE(String key) {
     this.key = key;
   }
 
