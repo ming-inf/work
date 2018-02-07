@@ -203,24 +203,24 @@ public class SuccinctTrie {
       int mask = maskTop(p % W);
       // case 1: bits lie within the given byte
       if ((p % W) + n <= W) {
-        return (ORD(bytes.charAt(p / W | 0)) & mask) >> (W - p % W - n);
+        return (ORD(bytes.charAt(p / W)) & mask) >> (W - p % W - n);
 
         // case 2: bits lie incompletely in the given byte
       } else {
-        int result = (ORD(bytes.charAt(p / W | 0)) & mask);
+        int result = (ORD(bytes.charAt(p / W)) & mask);
 
         int l = W - p % W;
         p += l;
         n -= l;
 
         while (n >= W) {
-          result = (result << W) | ORD(bytes.charAt(p / W | 0));
+          result = (result << W) | ORD(bytes.charAt(p / W));
           p += W;
           n -= W;
         }
 
         if (n > 0) {
-          result = (result << n) | (ORD(bytes.charAt(p / W | 0)) >> (W - n));
+          result = (result << n) | (ORD(bytes.charAt(p / W)) >> (W - n));
         }
 
         return result;
@@ -335,13 +335,13 @@ public class SuccinctTrie {
       int sectionPos = 0;
 
       if (o >= l1Size) {
-        sectionPos = (int) ((o / l1Size | 0) * sectionBits);
+        sectionPos = (int) ((o / l1Size) * sectionBits);
         rank = directory.get(sectionPos - l1Bits, l1Bits);
         o = o % l1Size;
       }
 
       if (o >= l2Size) {
-        sectionPos += (o / l2Size | 0) * l2Bits;
+        sectionPos += (o / l2Size) * l2Bits;
         rank += directory.get(sectionPos - l2Bits, l2Bits);
       }
 
@@ -359,7 +359,7 @@ public class SuccinctTrie {
       int val = -1;
 
       while (high - low > 1) {
-        int probe = (high + low) / 2 | 0;
+        int probe = (high + low) / 2;
         int r = rank(which, probe);
 
         if (r == y) {
