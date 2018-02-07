@@ -97,8 +97,6 @@ public class SuccinctTrie {
     BASE64_CACHE.put('_', 63);
   }
 
-  ;
-
   public int ORD(char ch) {
     return BASE64_CACHE.get(ch);
   }

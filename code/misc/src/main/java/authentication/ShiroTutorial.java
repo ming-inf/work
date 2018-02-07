@@ -51,7 +51,6 @@ public class ShiroTutorial {
   public void action() {
     Subject user = SecurityUtils.getSubject();
     user.checkRole("goodguy");
-    ;
     System.out.println("goodguy action");
   }
 }

@@ -143,7 +143,7 @@ public class Peer {
               @Override
               public void run() {
                 try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
+                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                   peers.add(out);
                   new Thread() {
                     @Override
