@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.concurrent.Callable;
 
+import org.bouncycastle.util.encoders.Hex;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -32,7 +33,7 @@ class CheckSum implements Callable<Void> {
     // your business logic goes here...
     byte[] fileContents = Files.readAllBytes(file.toPath());
     byte[] digest = MessageDigest.getInstance(algorithm).digest(fileContents);
-    System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(digest));
+    System.out.println(Hex.toHexString(digest));
     return null;
   }
 }
