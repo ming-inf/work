@@ -92,7 +92,7 @@ public class DoublyLinkedList<T> implements List<T> {
   }
 
   public String toString() {
-    StringBuffer sb = new StringBuffer(head.value.toString());
+    StringBuilder sb = new StringBuilder(head.value.toString());
     Node<T> current = head.next;
     while (nonNull(current)) {
       sb.append(current.value + ", ");

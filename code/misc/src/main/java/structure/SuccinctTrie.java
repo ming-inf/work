@@ -131,7 +131,7 @@ public class SuccinctTrie {
      * Get the bitstring represented as a string of bytes
      */
     public String getData() {
-      StringBuffer chars = new StringBuffer();
+      StringBuilder chars = new StringBuilder();
       int b = 0;
       int i = 0;
 
@@ -155,7 +155,7 @@ public class SuccinctTrie {
      * Returns the bits as a human readable binary string for debugging
      */
     public String getDebugString(int group) {
-      StringBuffer chars = new StringBuffer();
+      StringBuilder chars = new StringBuilder();
       int i = 0;
 
       for (Integer bit : bits) {
