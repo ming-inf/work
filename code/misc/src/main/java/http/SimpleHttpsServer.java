@@ -44,7 +44,7 @@ public class SimpleHttpsServer {
   /**
    * @param args
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     try {
       // setup the socket address
       InetSocketAddress address = new InetSocketAddress(8000);

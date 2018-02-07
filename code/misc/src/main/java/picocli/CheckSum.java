@@ -22,7 +22,7 @@ class CheckSum implements Callable<Void> {
   @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
   private boolean helpRequested;
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     // CheckSum implements Callable, so parsing, error handling and handling user
     // requests for usage help or version help can be done with one line of code.
     CommandLine.call(new CheckSum(), System.err, args);

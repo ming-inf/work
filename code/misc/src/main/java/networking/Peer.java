@@ -21,7 +21,7 @@ public class Peer {
   static final LinkedBlockingQueue<String> disconnectQ = new LinkedBlockingQueue<>();
   static final List<PrintWriter> peers = new ArrayList<>();
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
     new Thread() {
       @Override
@@ -63,7 +63,7 @@ public class Peer {
     }
   }
 
-  private static void connected(ServerSocket listenerSocket) throws IOException, InterruptedException {
+  private static void connected(ServerSocket listenerSocket) throws InterruptedException {
     AtomicBoolean connectAgain = new AtomicBoolean(true);
     String userInput;
     while (connectAgain.get()) {

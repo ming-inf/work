@@ -84,7 +84,7 @@ public class App extends Application {
     return getString(RESOURCE.GREETING);
   }
 
-  public void run(String[] args) throws IOException {
+  public void run(String[] args) {
     if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
       launch(args);
       land();
@@ -165,7 +165,7 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     Pane pane = createPane();
     scene = new Scene(pane);
     primaryStage.setScene(scene);

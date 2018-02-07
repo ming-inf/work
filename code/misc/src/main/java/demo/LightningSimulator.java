@@ -18,7 +18,7 @@ public class LightningSimulator extends Application {
   private static final Random random = new Random(42);
 
   @Override
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage) {
     TilePane field = generateField();
 
     Scene scene = new Scene(field);

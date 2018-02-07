@@ -205,7 +205,7 @@ public class BouncyCastleTest {
   }
 
   @Test
-  public void testAsymmetricRSA() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidCipherTextException {
+  public void testAsymmetricRSA() throws InvalidCipherTextException {
     Security.addProvider(new BouncyCastleProvider());
 
     // This object generates individual key-pairs.
@@ -256,7 +256,7 @@ public class BouncyCastleTest {
   }
 
   @Test
-  public void testKeyExchange() throws DataLengthException, CryptoException {
+  public void testKeyExchange() throws DataLengthException {
     Security.addProvider(new BouncyCastleProvider());
 
     DHKeyPairGenerator dhkpg = new DHKeyPairGenerator();
