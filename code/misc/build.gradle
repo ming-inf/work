@@ -14,6 +14,14 @@ apply plugin: 'application'
 
 apply plugin: 'maven'
 
+tasks.withType(JavaCompile) {
+    //enable compilation in a separate daemon process
+    options.fork = true
+
+    //enable incremental compilation
+    options.incremental = true
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
 /*
