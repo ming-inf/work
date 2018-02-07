@@ -22,3 +22,7 @@
 .gitignore
 .project
 .settings/
+
+.idea/
+misc.iml
+
