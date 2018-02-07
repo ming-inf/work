@@ -111,8 +111,6 @@ class Hash {
     if (getClass() != obj.getClass())
       return false;
     Hash other = (Hash) obj;
-    if (!Arrays.equals(hash, other.hash))
-      return false;
-    return true;
+    return Arrays.equals(hash, other.hash);
   }
 }

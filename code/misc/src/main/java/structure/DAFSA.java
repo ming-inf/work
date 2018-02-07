@@ -277,9 +277,7 @@ class Node {
         return false;
     } else if (!edges.equals(other.edges))
       return false;
-    if (finalNode != other.finalNode)
-      return false;
-    return true;
+    return finalNode == other.finalNode;
   }
 
   public int numReachable() {
