@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import util.Log;
 
 public class First10000 implements Log {
-  public int[] deserialize() throws FileNotFoundException, IOException, ClassNotFoundException {
+  public int[] deserialize() throws IOException, ClassNotFoundException {
     String filename = "/10000primes.ser";
 
     try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream(filename))) {
