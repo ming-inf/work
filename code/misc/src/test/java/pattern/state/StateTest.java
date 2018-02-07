@@ -4,14 +4,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class StateTest {
-	Context objectUnderTest;
+  Context objectUnderTest;
 
-	@Test
-	public void testState() {
-		objectUnderTest = new Context();
-		Assert.assertTrue(objectUnderTest.getState().contains("StateA"));
+  @Test
+  public void testState() {
+    objectUnderTest = new Context();
+    Assert.assertTrue(objectUnderTest.getState().contains("StateA"));
 
-		objectUnderTest.execute();
-		Assert.assertTrue(objectUnderTest.getState().contains("StateB"));
-	}
+    objectUnderTest.execute();
+    Assert.assertTrue(objectUnderTest.getState().contains("StateB"));
+  }
 }

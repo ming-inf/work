@@ -1,5 +1,5 @@
 package pattern.state;
 
 public interface State {
-	public State transition();
+  public State transition();
 }

@@ -12,25 +12,25 @@ import com.google.inject.Injector;
 import javafx.App;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		App app = new App();
-		app.run(args);
-	}
+  public static void main(String[] args) throws IOException {
+    App app = new App();
+    app.run(args);
+  }
 
-	public static Injector getInjector() {
-		return Guice.createInjector(new AbstractModule() {
-			@Override
-			protected void configure() {
-				ObjectMapper mapper = new ObjectMapper(new YAMLFactory().enable(Feature.MINIMIZE_QUOTES));
+  public static Injector getInjector() {
+    return Guice.createInjector(new AbstractModule() {
+      @Override
+      protected void configure() {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().enable(Feature.MINIMIZE_QUOTES));
 
-				try {
-					Config config = mapper.readValue(Main.class.getResource("/default.yaml"), Config.class);
+        try {
+          Config config = mapper.readValue(Main.class.getResource("/default.yaml"), Config.class);
 
-					bind(Config.class).toInstance(config);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+          bind(Config.class).toInstance(config);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 }

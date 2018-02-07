@@ -23,75 +23,75 @@ import javafx.util.StringConverter;
 import util.Platform;
 
 public class MyController {
-	static final Logger log = LogManager.getLogger(MyController.class);
+  static final Logger log = LogManager.getLogger(MyController.class);
 
-	@FXML
-	private Button button;
+  @FXML
+  private Button button;
 
-	@FXML
-	private SafePasswordField passwordField;
+  @FXML
+  private SafePasswordField passwordField;
 
-	@FXML
-	private Label isWindows;
+  @FXML
+  private Label isWindows;
 
-	@FXML
-	private ResourceBundle resources;
+  @FXML
+  private ResourceBundle resources;
 
-	@FXML
-	private ChoiceBox<ULocale> locales;
+  @FXML
+  private ChoiceBox<ULocale> locales;
 
-	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
+  ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
 
-	ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
-	ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
+  ObjectProperty<ULocale> currentLocale = new SimpleObjectProperty<>();
+  ObjectProperty<ResourceBundle> appBundle = new SimpleObjectProperty<>();
 
-	@FXML
-	protected void initialize() {
-		appBundle.set(resources);
-		button.setOnAction(event -> {
-			System.out.println("You clicked me!");
-		});
+  @FXML
+  protected void initialize() {
+    appBundle.set(resources);
+    button.setOnAction(event -> {
+      System.out.println("You clicked me!");
+    });
 
-		passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
-		passwordField.setOnAction(event -> {
-			try {
-				System.out.println(passwordField.getPassword());
-			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-				log.catching(e);
-			}
-		});
-		createLocales(localeList);
-		locales.getSelectionModel().select(ULocale.ROOT);
-		labelText();
-	}
+    passwordField.promptTextProperty().bind(Bindings.createStringBinding(getCallableString(RESOURCE.PASSWORD_LABEL), appBundle));
+    passwordField.setOnAction(event -> {
+      try {
+        System.out.println(passwordField.getPassword());
+      } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+        log.catching(e);
+      }
+    });
+    createLocales(localeList);
+    locales.getSelectionModel().select(ULocale.ROOT);
+    labelText();
+  }
 
-	private void createLocales(ObservableList<ULocale> localeList) {
-		locales.setItems(localeList);
-		locales.setConverter(new LocaleConverter());
-		locales.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
-	}
+  private void createLocales(ObservableList<ULocale> localeList) {
+    locales.setItems(localeList);
+    locales.setConverter(new LocaleConverter());
+    locales.valueProperty().addListener((observable, oldValue, newValue) -> currentLocale.set(newValue));
+  }
 
-	public void labelText() {
-		isWindows.setText("is windows: " + Platform.isWindows());
-	}
+  public void labelText() {
+    isWindows.setText("is windows: " + Platform.isWindows());
+  }
 
-	public String getString(RESOURCE resourceKey) {
-		return appBundle.getValue().getString(resourceKey.toString());
-	}
+  public String getString(RESOURCE resourceKey) {
+    return appBundle.getValue().getString(resourceKey.toString());
+  }
 
-	public Callable<String> getCallableString(RESOURCE resourceKey) {
-		return () -> getString(resourceKey);
-	}
+  public Callable<String> getCallableString(RESOURCE resourceKey) {
+    return () -> getString(resourceKey);
+  }
 
-	class LocaleConverter extends StringConverter<ULocale> {
-		@Override
-		public String toString(ULocale object) {
-			return ULocale.ROOT == object ? "default" : object.toString();
-		}
+  class LocaleConverter extends StringConverter<ULocale> {
+    @Override
+    public String toString(ULocale object) {
+      return ULocale.ROOT == object ? "default" : object.toString();
+    }
 
-		@Override
-		public ULocale fromString(String string) {
-			return null;
-		}
-	}
+    @Override
+    public ULocale fromString(String string) {
+      return null;
+    }
+  }
 }

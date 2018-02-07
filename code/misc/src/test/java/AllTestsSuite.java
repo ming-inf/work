@@ -24,23 +24,23 @@ import structure.TrieTest;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-	AppTest.class
-	, SinglyLinkedListTest.class
-	, DoublyLinkedListTest.class
-	, BinarySearchTreeTest.class
-	, HeapTest.class
-	, AVLTreeTest.class
-	, SortTest.class
-	, LevenshteinTest.class
-	, LevenshteinWithTrieTest.class
-	, KeyPlaintextRunningKeyEncryptionTest.class
-	, BinaryTreeWithParentLinkTest.class
-	, BinaryTreeTest.class
-	, DAFSATest.class
-	, GraphTest.class
-	, MerkleTreeTest.class
-	, SuccinctTrieTest.class
-	, TrieTest.class
+    AppTest.class
+    , SinglyLinkedListTest.class
+    , DoublyLinkedListTest.class
+    , BinarySearchTreeTest.class
+    , HeapTest.class
+    , AVLTreeTest.class
+    , SortTest.class
+    , LevenshteinTest.class
+    , LevenshteinWithTrieTest.class
+    , KeyPlaintextRunningKeyEncryptionTest.class
+    , BinaryTreeWithParentLinkTest.class
+    , BinaryTreeTest.class
+    , DAFSATest.class
+    , GraphTest.class
+    , MerkleTreeTest.class
+    , SuccinctTrieTest.class
+    , TrieTest.class
 })
 
 public class AllTestsSuite {

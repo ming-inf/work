@@ -9,28 +9,28 @@ import java.util.Enumeration;
 
 public class ListNetsEx {
 
-	public static void main(String args[]) throws SocketException {
-		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-		for (NetworkInterface netint : Collections.list(nets))
-			displayInterfaceInformation(netint);
-	}
+  public static void main(String args[]) throws SocketException {
+    Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+    for (NetworkInterface netint : Collections.list(nets))
+      displayInterfaceInformation(netint);
+  }
 
-	static void displayInterfaceInformation(NetworkInterface netint) throws SocketException {
-		System.out.printf("Display name: %s\n", netint.getDisplayName());
-		System.out.printf("Name: %s\n", netint.getName());
-		Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+  static void displayInterfaceInformation(NetworkInterface netint) throws SocketException {
+    System.out.printf("Display name: %s\n", netint.getDisplayName());
+    System.out.printf("Name: %s\n", netint.getName());
+    Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
 
-		for (InetAddress inetAddress : Collections.list(inetAddresses)) {
-			System.out.printf("InetAddress: %s\n", inetAddress);
-		}
+    for (InetAddress inetAddress : Collections.list(inetAddresses)) {
+      System.out.printf("InetAddress: %s\n", inetAddress);
+    }
 
-		System.out.printf("Up? %s\n", netint.isUp());
-		System.out.printf("Loopback? %s\n", netint.isLoopback());
-		System.out.printf("PointToPoint? %s\n", netint.isPointToPoint());
-		System.out.printf("Supports multicast? %s\n", netint.supportsMulticast());
-		System.out.printf("Virtual? %s\n", netint.isVirtual());
-		System.out.printf("Hardware address: %s\n", Arrays.toString(netint.getHardwareAddress()));
-		System.out.printf("MTU: %s\n", netint.getMTU());
-		System.out.printf("\n");
-	}
+    System.out.printf("Up? %s\n", netint.isUp());
+    System.out.printf("Loopback? %s\n", netint.isLoopback());
+    System.out.printf("PointToPoint? %s\n", netint.isPointToPoint());
+    System.out.printf("Supports multicast? %s\n", netint.supportsMulticast());
+    System.out.printf("Virtual? %s\n", netint.isVirtual());
+    System.out.printf("Hardware address: %s\n", Arrays.toString(netint.getHardwareAddress()));
+    System.out.printf("MTU: %s\n", netint.getMTU());
+    System.out.printf("\n");
+  }
 }

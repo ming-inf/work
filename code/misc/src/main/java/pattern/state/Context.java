@@ -1,17 +1,17 @@
 package pattern.state;
 
 public class Context {
-	State state;
+  State state;
 
-	public Context() {
-		state = new StateA();
-	}
+  public Context() {
+    state = new StateA();
+  }
 
-	public void execute() {
-		state = state.transition();
-	}
+  public void execute() {
+    state = state.transition();
+  }
 
-	public String getState() {
-		return state.toString();
-	}
+  public String getState() {
+    return state.toString();
+  }
 }

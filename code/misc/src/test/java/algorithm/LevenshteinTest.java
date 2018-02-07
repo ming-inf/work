@@ -15,18 +15,18 @@ import org.junit.Test;
 import structure.DAFSA;
 
 public class LevenshteinTest {
-	Levenshtein objectUnderTest;
+  Levenshtein objectUnderTest;
 
-	@Test
-	public void testLevenshteinDistance() {
-		objectUnderTest = new Levenshtein();
+  @Test
+  public void testLevenshteinDistance() {
+    objectUnderTest = new Levenshtein();
 
-		String filename = "words.txt";
-		InputStream is = DAFSA.class.getClassLoader().getResourceAsStream(filename);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		List<String> words = reader.lines().collect(Collectors.toList());
+    String filename = "words.txt";
+    InputStream is = DAFSA.class.getClassLoader().getResourceAsStream(filename);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    List<String> words = reader.lines().collect(Collectors.toList());
 
-		Set<String> expected = new HashSet<>(Arrays.asList("obtect", "abject", "objects", "objet", "object"));
-		Assert.assertEquals(expected, objectUnderTest.search("object", 1, words).keySet());
-	}
+    Set<String> expected = new HashSet<>(Arrays.asList("obtect", "abject", "objects", "objet", "object"));
+    Assert.assertEquals(expected, objectUnderTest.search("object", 1, words).keySet());
+  }
 }

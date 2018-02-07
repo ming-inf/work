@@ -33,175 +33,176 @@ import root.Config;
 import root.Main;
 
 public class App extends Application {
-	static {
-		try {
-			InputStream is = App.class.getResourceAsStream("/logging.properties");
-			java.util.logging.LogManager.getLogManager().readConfiguration(is);
-		} catch (SecurityException | IOException e) {
-			e.printStackTrace();
-		}
-	}
+  static {
+    try {
+      InputStream is = App.class.getResourceAsStream("/logging.properties");
+      java.util.logging.LogManager.getLogManager().readConfiguration(is);
+    } catch (SecurityException | IOException e) {
+      e.printStackTrace();
+    }
+  }
 
-	static final Logger log = LogManager.getLogger(App.class);
+  static final Logger log = LogManager.getLogger(App.class);
 
-	ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
-	ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
+  ObservableList<ULocale> localeList = FXCollections.observableArrayList(ULocale.ROOT, ULocale.CANADA);
+  ObservableList<String> styles = FXCollections.observableArrayList("default.css", "light.css", "dark.css");
 
-	ULocale confLocale;
-	String confStylesheet;
+  ULocale confLocale;
+  String confStylesheet;
 
-	BehaviorSubject<ULocale> currentLocale;
-	BehaviorSubject<ResourceBundle> appBundle;
+  BehaviorSubject<ULocale> currentLocale;
+  BehaviorSubject<ResourceBundle> appBundle;
 
-	ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
+  ObjectProperty<String> currentStylesheet = new SimpleObjectProperty<>();
 
-	SafePasswordField password;
-	ChoiceBox<ULocale> locales;
-	ChoiceBox<String> theme;
+  SafePasswordField password;
+  ChoiceBox<ULocale> locales;
+  ChoiceBox<String> theme;
 
-	Scene scene;
+  Scene scene;
 
-	Injector injector = Main.getInjector();
+  Injector injector = Main.getInjector();
 
-	public App() {
-		Config config = injector.getInstance(Config.class);
-		confLocale = new ULocale(config.getLocale());
-		confStylesheet = config.getStylesheet();
+  public App() {
+    Config config = injector.getInstance(Config.class);
+    confLocale = new ULocale(config.getLocale());
+    confStylesheet = config.getStylesheet();
 
-		appBundle = BehaviorSubject.create();
+    appBundle = BehaviorSubject.create();
 
-		currentLocale = BehaviorSubject.createDefault(confLocale);
-		currentLocale.subscribe(newValue -> {
-			appBundle.onNext(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
-		});
-	}
+    currentLocale = BehaviorSubject.createDefault(confLocale);
+    currentLocale.subscribe(newValue -> {
+      appBundle.onNext(ResourceBundle.getBundle("AppBundle", newValue.toLocale()));
+    });
+  }
 
-	public String getString(RESOURCE resourceKey) {
-		return appBundle.getValue().getString(resourceKey.toString());
-	}
+  public String getString(RESOURCE resourceKey) {
+    return appBundle.getValue().getString(resourceKey.toString());
+  }
 
-	public String getGreeting() {
-		return getString(RESOURCE.GREETING);
-	}
+  public String getGreeting() {
+    return getString(RESOURCE.GREETING);
+  }
 
-	public void run(String[] args) throws IOException {
-		if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
-			launch(args);
-			land();
-		} else if (null != System.console()) {
-			char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT) + " ");
-			for (char c : pass) {
-				System.out.println(c);
-			}
-		}
-	}
+  public void run(String[] args) throws IOException {
+    if (!GraphicsEnvironment.isHeadless() && !Boolean.getBoolean("headless")) {
+      launch(args);
+      land();
+    } else if (null != System.console()) {
+      char[] pass = System.console().readPassword(getString(RESOURCE.PASSWORD_PROMPT) + " ");
+      for (char c : pass) {
+        System.out.println(c);
+      }
+    }
+  }
 
-	@Override
-	public void init() throws Exception {
-		super.init();
+  @Override
+  public void init() throws Exception {
+    super.init();
 
-		currentStylesheet.addListener((ob, o, n) -> {
-			ObservableList<String> css = scene.getStylesheets();
-			css.remove(o);
-			css.add(n);
-		});
+    currentStylesheet.addListener((ob, o, n) -> {
+      ObservableList<String> css = scene.getStylesheets();
+      css.remove(o);
+      css.add(n);
+    });
 
-		password = createPassword();
-		locales = createLocales(localeList);
-		theme = createTheme(styles);
-	}
+    password = createPassword();
+    locales = createLocales(localeList);
+    theme = createTheme(styles);
+  }
 
-	private CheckBox hidePassword;
-	private TextField textField;
-	private SafePasswordField createPassword() {
-		// text field to show password as unmasked
-		textField = new TextField();
-		// Set initial state
-		textField.setManaged(false);
-		textField.setVisible(false);
+  private CheckBox hidePassword;
+  private TextField textField;
 
-		hidePassword = new CheckBox("Show/Hide password");
+  private SafePasswordField createPassword() {
+    // text field to show password as unmasked
+    textField = new TextField();
+    // Set initial state
+    textField.setManaged(false);
+    textField.setVisible(false);
 
-		SafePasswordField passwordField = new SafePasswordField();
+    hidePassword = new CheckBox("Show/Hide password");
 
-		// Bind properties. Toggle textField and passwordField
-		// visibility and managability properties mutually when checkbox's state is changed.
-		// Because we want to display only one component (textField or passwordField)
-		// on the scene at a time.
-		textField.managedProperty().bind(hidePassword.selectedProperty());
-		textField.visibleProperty().bind(hidePassword.selectedProperty());
+    SafePasswordField passwordField = new SafePasswordField();
 
-		passwordField.managedProperty().bind(hidePassword.selectedProperty().not());
-		passwordField.visibleProperty().bind(hidePassword.selectedProperty().not());
+    // Bind properties. Toggle textField and passwordField
+    // visibility and managability properties mutually when checkbox's state is changed.
+    // Because we want to display only one component (textField or passwordField)
+    // on the scene at a time.
+    textField.managedProperty().bind(hidePassword.selectedProperty());
+    textField.visibleProperty().bind(hidePassword.selectedProperty());
 
-		// Bind the textField and passwordField text values bidirectionally.
-		textField.textProperty().bindBidirectional(passwordField.textProperty());
+    passwordField.managedProperty().bind(hidePassword.selectedProperty().not());
+    passwordField.visibleProperty().bind(hidePassword.selectedProperty().not());
 
-		appBundle.subscribe(newValue -> {
-			passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
-		});
-		passwordField.setOnAction(event -> {
-			try {
-				System.out.println(passwordField.getPassword());
-			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-				log.catching(e);
-			}
-		});
-		return passwordField;
-	}
+    // Bind the textField and passwordField text values bidirectionally.
+    textField.textProperty().bindBidirectional(passwordField.textProperty());
 
-	private ChoiceBox<ULocale> createLocales(ObservableList<ULocale> localeList) {
-		ChoiceBox<ULocale> localesDropdown = new ChoiceBox<>(localeList);
-		localesDropdown.setConverter(new LocaleConverter());
-		JavaFxObservable.valuesOf(localesDropdown.valueProperty()).subscribe(newValue -> currentLocale.onNext(newValue));
-		return localesDropdown;
-	}
+    appBundle.subscribe(newValue -> {
+      passwordField.setPromptText(getString(RESOURCE.PASSWORD_LABEL));
+    });
+    passwordField.setOnAction(event -> {
+      try {
+        System.out.println(passwordField.getPassword());
+      } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+        log.catching(e);
+      }
+    });
+    return passwordField;
+  }
 
-	private ChoiceBox<String> createTheme(ObservableList<String> styles) {
-		ChoiceBox<String> stylesheetDropdown = new ChoiceBox<>(styles);
-		stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentStylesheet.set(newValue));
-		return stylesheetDropdown;
-	}
+  private ChoiceBox<ULocale> createLocales(ObservableList<ULocale> localeList) {
+    ChoiceBox<ULocale> localesDropdown = new ChoiceBox<>(localeList);
+    localesDropdown.setConverter(new LocaleConverter());
+    JavaFxObservable.valuesOf(localesDropdown.valueProperty()).subscribe(newValue -> currentLocale.onNext(newValue));
+    return localesDropdown;
+  }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Pane pane = createPane();
-		scene = new Scene(pane);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+  private ChoiceBox<String> createTheme(ObservableList<String> styles) {
+    ChoiceBox<String> stylesheetDropdown = new ChoiceBox<>(styles);
+    stylesheetDropdown.valueProperty().addListener((observable, oldValue, newValue) -> currentStylesheet.set(newValue));
+    return stylesheetDropdown;
+  }
 
-		locales.getSelectionModel().select(confLocale);
-		theme.getSelectionModel().select(confStylesheet);
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    Pane pane = createPane();
+    scene = new Scene(pane);
+    primaryStage.setScene(scene);
+    primaryStage.show();
 
-		pane.requestFocus();
+    locales.getSelectionModel().select(confLocale);
+    theme.getSelectionModel().select(confStylesheet);
 
-		log.info("application started");
-	}
+    pane.requestFocus();
 
-	private Pane createPane() {
-		Pane pane = new FlowPane();
-		pane.getChildren().add(password);
-		pane.getChildren().add(textField);
-		pane.getChildren().add(hidePassword);
-		pane.getChildren().add(locales);
-		pane.getChildren().add(theme);
-		pane.getChildren().add(new Label("is windows: " + util.Platform.isWindows()));
-		return pane;
-	}
+    log.info("application started");
+  }
 
-	public void land() {
-		Platform.exit();
-	}
+  private Pane createPane() {
+    Pane pane = new FlowPane();
+    pane.getChildren().add(password);
+    pane.getChildren().add(textField);
+    pane.getChildren().add(hidePassword);
+    pane.getChildren().add(locales);
+    pane.getChildren().add(theme);
+    pane.getChildren().add(new Label("is windows: " + util.Platform.isWindows()));
+    return pane;
+  }
 
-	class LocaleConverter extends StringConverter<ULocale> {
-		@Override
-		public String toString(ULocale object) {
-			return ULocale.ROOT == object ? "default" : object.toString();
-		}
+  public void land() {
+    Platform.exit();
+  }
 
-		@Override
-		public ULocale fromString(String string) {
-			return null;
-		}
-	}
+  class LocaleConverter extends StringConverter<ULocale> {
+    @Override
+    public String toString(ULocale object) {
+      return ULocale.ROOT == object ? "default" : object.toString();
+    }
+
+    @Override
+    public ULocale fromString(String string) {
+      return null;
+    }
+  }
 }

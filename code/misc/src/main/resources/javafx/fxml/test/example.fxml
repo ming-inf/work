@@ -7,10 +7,10 @@
 <?import javafx.custom.SafePasswordField?>
 
 <FlowPane fx:controller="javafx.fxml.test.MyController" xmlns:fx="http://javafx.com/fxml">
-	<children>
-		<SafePasswordField fx:id="passwordField"/>
-		<Button fx:id="button" text="%greeting"/>
-		<ChoiceBox fx:id="locales"/>
-		<Label fx:id="isWindows"/>
-	</children>
+    <children>
+        <SafePasswordField fx:id="passwordField"/>
+        <Button fx:id="button" text="%greeting"/>
+        <ChoiceBox fx:id="locales"/>
+        <Label fx:id="isWindows"/>
+    </children>
 </FlowPane>
