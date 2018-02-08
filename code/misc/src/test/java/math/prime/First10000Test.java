@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +30,7 @@ public class First10000Test {
   }
 
   @Test
-  public void testLookup() throws IOException, ClassNotFoundException {
-    objectUnderTest.deserialize();
+  public void testLookup() {
     Assert.assertEquals(2, objectUnderTest.lookup(1));
     Assert.assertEquals(104729, objectUnderTest.lookup(10000));
   }

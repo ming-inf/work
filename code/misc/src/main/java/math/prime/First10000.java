@@ -10,27 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class First10000 implements Log {
-  int[] primes;
+  static int[] primes;
+  static String filename = "/10000primes.ser";
 
-  public void deserialize() throws IOException, ClassNotFoundException {
-    String filename = "/10000primes.ser";
-
-    try (ObjectInputStream in = new ObjectInputStream(getClass().getResourceAsStream(filename))) {
+  static {
+    try (ObjectInputStream in = new ObjectInputStream(First10000.class.getResourceAsStream(filename))) {
       primes = (int[]) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
     }
   }
 
   public static List<Integer> primeFactors(int number) {
     int n = number;
     List<Integer> factors = new ArrayList<>();
-    for (int i = 2; i <= n / i; i++) {
-      while (n % i == 0) {
-        factors.add(i);
-        n /= i;
+    for (int i = 0; primes[i] <= n; i++) {
+      while (n % primes[i] == 0) {
+        factors.add(primes[i]);
+        n /= primes[i];
       }
-    }
-    if (n > 1) {
-      factors.add(n);
     }
     return factors;
   }
