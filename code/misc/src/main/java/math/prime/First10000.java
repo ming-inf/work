@@ -33,6 +33,17 @@ public class First10000 implements Log {
     return factors;
   }
 
+  public int isPrime(int i) {
+    for (int j = 0; j < primes.length; j++) {
+      if (i == primes[j]) {
+        return j;
+      } else if (i < primes[j]) {
+        break;
+      }
+    }
+    return -1;
+  }
+
   public int lookup(int nth) {
     if (nth < 1 || 10000 < nth) {
       throw new IllegalArgumentException();
