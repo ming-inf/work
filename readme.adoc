@@ -1,6 +1,8 @@
 = readme
 
 == articles
+- http://habitatchronicles.com/2008/10/the-tripartite-identity-pattern/[The Tripartite Identity Pattern]
+- https://news.ycombinator.com/item?id=16356397[Let’s talk about usernames]
 - https://news.ycombinator.com/item?id=16285104[The introduction to Reactive Programming you've been missing]
 - https://news.ycombinator.com/item?id=16242955[Moving efficiently in the CLI]
 - https://github.com/javaterminal/TerminalFX[Java FX Terminal Emulator]
