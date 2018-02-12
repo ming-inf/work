@@ -321,11 +321,7 @@ public class BinaryTreeWithParentLink<T> implements Tree<T> {
       this.right = right;
     }
 
-    public int leavesSize() {
-      return leavesSize(this);
-    }
-
-    public int leavesSize(Node<S> current) {
+    public static int leavesSize(Node<?> current) {
       if (isNull(current.left) && isNull(current.right)) {
         return 1;
       }
