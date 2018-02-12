@@ -1,15 +1,10 @@
 package structure;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.Stack;
-import java.util.TreeMap;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class DAFSA {
   String previousWord;
@@ -235,7 +230,9 @@ public class DAFSA {
 }
 
 class Node {
-  static int nextId = 0;
+  Iterator<Integer> stream =
+      Stream.iterate(0, i -> i + 1).iterator();
+//      new Random().ints().boxed().iterator();
 
   int id;
   boolean finalNode;
@@ -243,7 +240,7 @@ class Node {
   int wordsReachable;
 
   public Node() {
-    id = nextId++;
+    id = stream.next();
     finalNode = false;
     edges = new TreeMap<>();
     wordsReachable = -1;
