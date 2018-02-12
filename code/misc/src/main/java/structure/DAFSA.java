@@ -64,7 +64,7 @@ public class DAFSA {
   public void finish() {
     minimize(0);
 
-    root.numReachable();
+    Node.numReachable(root);
   }
 
   public void minimize(int downTo) {
@@ -277,16 +277,16 @@ class Node {
     return finalNode == other.finalNode;
   }
 
-  public int numReachable() {
+  public static int numReachable(Node current) {
     int count = 0;
-    if (finalNode) {
+    if (current.finalNode) {
       count++;
     }
-    for (Entry<Character, Node> e : edges.entrySet()) {
-      count += e.getValue().numReachable();
+    for (Entry<Character, Node> e : current.edges.entrySet()) {
+      count += numReachable(e.getValue());
     }
 
-    wordsReachable = count;
+    current.wordsReachable = count;
     return count;
   }
 }
