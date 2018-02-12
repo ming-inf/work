@@ -243,7 +243,7 @@ class Node {
     id = stream.next();
     finalNode = false;
     edges = new TreeMap<>();
-    wordsReachable = -1;
+    wordsReachable = 0;
   }
 
   @Override
