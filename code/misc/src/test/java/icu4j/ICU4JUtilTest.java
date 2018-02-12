@@ -15,6 +15,8 @@ public class ICU4JUtilTest {
   String ascii = "jane_doe";
   String unicode = "jаne_doe"; // with Cyrillic 'а' characters
   String unicode2 = "pаypаl"; // with Cyrillic 'а' characters
+  String confusable = "gmail";
+  String confusable2 = "gmаil"; // with Cyrillic 'а' characters
 
   @Test
   public void testTranscodingFromUniToBig5ToUni() {
@@ -52,9 +54,19 @@ public class ICU4JUtilTest {
   @Test
   public void testIDNA() {
     IDNA idna = IDNA.getUTS46Instance(IDNA.DEFAULT);
-    StringBuilder sb = new StringBuilder();
+
     IDNA.Info info = new IDNA.Info();
-    Assert.assertNotEquals(idna.labelToASCII(ascii, sb, info).toString(), idna.labelToASCII(unicode, sb, info).toString());
+
+    StringBuilder asciiResult = new StringBuilder();
+    StringBuilder unicodeResult = new StringBuilder();
+
+    idna.labelToASCII(ascii, asciiResult, info);
+    idna.labelToASCII(unicode, unicodeResult, info);
+    Assert.assertNotEquals(asciiResult, unicodeResult);
+
+    idna.labelToASCII(confusable, asciiResult, info);
+    idna.labelToASCII(confusable2, unicodeResult, info);
+    Assert.assertNotEquals(asciiResult, unicodeResult);
   }
 
   @Test
