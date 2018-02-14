@@ -14,7 +14,7 @@ import org.junit.Test;
 import structure.api.Tree;
 
 public class AVLTreeTest {
-  private Tree<Integer> objectUnderTest;
+  Tree<Integer> objectUnderTest;
 
   @Before
   public void setup() {

@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import structure.api.Tree;
 
 public class AVLTree<T extends Comparable<T>> implements Tree<T> {
-  private Node<T> root;
+  Node<T> root;
 
   public boolean contains(T value) {
     if (isNull(value)) {
@@ -21,7 +21,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return nonNull(searchNode(null, root, new Node<>(value)).target);
   }
 
-  private Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
+  Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
     if (isNull(current)) {
       return new Tuple<>(null, null);
     }
@@ -35,7 +35,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private Tuple3<Node<T>, Node<T>, List<Node<T>>> searchNodeWithPath(Node<T> parent, Node<T> current, Node<T> value, List<Node<T>> path) {
+  Tuple3<Node<T>, Node<T>, List<Node<T>>> searchNodeWithPath(Node<T> parent, Node<T> current, Node<T> value, List<Node<T>> path) {
     if (isNull(current)) {
       return new Tuple3<>(null, null, null);
     }
@@ -65,7 +65,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private void insertNode(Node<T> current, Node<T> value) {
+  void insertNode(Node<T> current, Node<T> value) {
     if (-1 == value.compareTo(current)) {
       if (isNull(current.left)) {
         current.left = value;
@@ -87,11 +87,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return root.height;
   }
 
-  private void updateHeight(Node<T> current) {
+  void updateHeight(Node<T> current) {
     current.height = 1 + Math.max(nonNull(current.left) ? current.left.height : 0, nonNull(current.right) ? current.right.height : 0);
   }
 
-  private void rebalance(Node<T> current) {
+  void rebalance(Node<T> current) {
     int leftHeight = nonNull(current.left) ? current.left.height : 0;
     int rightHeight = nonNull(current.right) ? current.right.height : 0;
 
@@ -114,7 +114,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private void leftRotation(Node<T> current) {
+  void leftRotation(Node<T> current) {
     Node<T> rightNode = current.right;
     current.right = rightNode.left;
     rightNode.left = current;
@@ -130,7 +130,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     updateHeight(rightNode);
   }
 
-  private void rightRotation(Node<T> current) {
+  void rightRotation(Node<T> current) {
     Node<T> leftNode = current.left;
     current.left = leftNode.right;
     leftNode.right = current;
@@ -146,12 +146,12 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     updateHeight(leftNode);
   }
 
-  private void leftThenRightRotation(Node<T> current) {
+  void leftThenRightRotation(Node<T> current) {
     leftRotation(current.left);
     rightRotation(current);
   }
 
-  private void rightThenLeftRotation(Node<T> current) {
+  void rightThenLeftRotation(Node<T> current) {
     rightRotation(current.right);
     leftRotation(current);
   }
@@ -234,17 +234,17 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return "AVLTree [root=" + root + "]";
   }
 
-  private static class Node<S extends Comparable<S>> implements Comparable<Node<S>> {
-    S value;
-    Node<S> left;
-    Node<S> right;
+  static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+    T value;
+    Node<T> left;
+    Node<T> right;
     int height;
 
-    public Node(S value) {
+    public Node(T value) {
       this(value, null, null);
     }
 
-    public Node(S value, Node<S> left, Node<S> right) {
+    public Node(T value, Node<T> left, Node<T> right) {
       this.value = value;
       this.left = left;
       this.right = right;
@@ -252,7 +252,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public int compareTo(Node<S> o) {
+    public int compareTo(Node<T> o) {
       return value.compareTo(o.value);
     }
 
@@ -263,7 +263,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private static class Tuple<X, Y> {
+  static class Tuple<X, Y> {
     public X parent;
     public Y target;
 
@@ -273,7 +273,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private static class Tuple3<X, Y, Z> {
+  static class Tuple3<X, Y, Z> {
     public X parent;
     public Y target;
     public Z path;
@@ -290,7 +290,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return preorder(root);
   }
 
-  private List<T> preorder(Node<T> current) {
+  List<T> preorder(Node<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -307,7 +307,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return postorder(root);
   }
 
-  private List<T> postorder(Node<T> current) {
+  List<T> postorder(Node<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -324,7 +324,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return inorder(root);
   }
 
-  private List<T> inorder(Node<T> current) {
+  List<T> inorder(Node<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -341,7 +341,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return breadthFirst(root);
   }
 
-  private List<T> breadthFirst(Node<T> current) {
+  List<T> breadthFirst(Node<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
