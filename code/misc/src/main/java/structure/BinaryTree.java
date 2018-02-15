@@ -447,8 +447,8 @@ a┐
     return result;
   }
 
-  public String toUI3() {
-    return toUI3(root).stream().collect(Collectors.joining("\n"));
+  public String toUI3(int padTo) {
+    return toUI3(root, padTo).stream().collect(Collectors.joining("\n"));
   }
 
   /*
@@ -468,41 +468,47 @@ a
   ├n
   └o
    */
-  public static List<String> toUI3(BinaryTree.Node<?> current) {
+  public static List<String> toUI3(BinaryTree.Node<?> current, int padTo) {
+    String rootPattern = "%" + padTo + "s";
+    String leftChildPattern = "├" + rootPattern;
+    String rightChildPattern = "└" + rootPattern;
+    String leftDescendantPattern = "│" + rootPattern;
+    String rightDescendantPattern = " " + rootPattern;
+
     List<String> result = new ArrayList<>();
     if (isNull(current)) {
       return result;
     }
 
-    if (isNull(current.left) && isNull(current.right)) {
-      result.add(current.value.toString());
-    } else if (nonNull(current.left) && nonNull(current.right)) {
-      List<String> leftChild = toUI3(current.left);
-      List<String> rightChild = toUI3(current.right);
+    String root = String.format(rootPattern, current.value.toString());
+    result.add(root);
 
-      String root = String.format("%s", current.value.toString());
-      String left = String.format("├%s", leftChild.get(0));
-      String child = String.format("└%s", rightChild.get(0));
+    if (nonNull(current.left) && nonNull(current.right)) {
+      List<String> leftChild = toUI3(current.left, padTo);
+      List<String> rightChild = toUI3(current.right, padTo);
+
+      String left = String.format(leftChildPattern, leftChild.get(0));
+      String child = String.format(rightChildPattern, rightChild.get(0));
 
       List<String> leftDescendants = new ArrayList<>();
       for (int i = 1; i < leftChild.size(); i++) {
-        leftDescendants.add(String.format("│%s", leftChild.get(i)));
+        leftDescendants.add(String.format(leftDescendantPattern, leftChild.get(i)));
       }
 
       List<String> rightDescendants = new ArrayList<>();
       for (int i = 1; i < rightChild.size(); i++) {
-        rightDescendants.add(String.format(" %s", rightChild.get(i)));
+        rightDescendants.add(String.format(rightDescendantPattern, rightChild.get(i)));
       }
 
-      result.add(root);
       result.add(left);
       result.addAll(leftDescendants);
       result.add(child);
       result.addAll(rightDescendants);
-    } else {
+    } else if (nonNull(current.left) || nonNull(current.right)) {
       Node<?> child = nonNull(current.left) ? current.left : current.right;
-      String root = String.format("%s\n└%s", current.value.toString(), child.value.toString());
-      result.add(root);
+      List<String> onlyChild = toUI3(child, padTo);
+      String onlyChildString = String.format(rightChildPattern, onlyChild.get(0));
+      result.add(onlyChildString);
     }
 
     return result;
