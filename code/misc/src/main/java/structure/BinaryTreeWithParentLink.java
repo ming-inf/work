@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import structure.api.Tree;
 
@@ -102,55 +103,39 @@ public class BinaryTreeWithParentLink<T> implements Tree<T> {
       return false;
     }
 
-    Node<T> left = target.left;
-    Node<T> right = target.right;
+    return removeNode(root, target);
+  }
 
-    boolean isParentNull = isNull(target.parent);
-    boolean isBothNull = isNull(left) && isNull(right);
-    boolean isLeftOnly = nonNull(left) && isNull(right);
-    boolean isRightOnly = isNull(left) && nonNull(right);
-    boolean isBothNonNull = nonNull(left) && nonNull(right);
+  private boolean removeNode(Node<T> tree, Node<T> value) {
+    Node<T> temp = null;
+    Queue<Node<T>> q = new LinkedList<>();
+    q.add(tree);
 
-    if (!isParentNull) {
-      boolean isLeftChild = target.parent.left == target;
-      Node<T> newChild;
-      if (isBothNull) {
-        newChild = null;
-      } else if (isLeftOnly) {
-        newChild = left;
-      } else if (isRightOnly) {
-        newChild = right;
-      } else {
-        newChild = isLeftChild ? target.parent.left : target.parent.right;
+    while (!q.isEmpty()) {
+      temp = q.remove();
+
+      if (nonNull(temp.left)) {
+        q.add(temp.left);
       }
-
-      if (isLeftChild) {
-        target.parent.left = newChild;
-      } else {
-        target.parent.right = newChild;
-      }
-    } else {
-      if (isBothNull) {
-        root = null;
-      } else if (isLeftOnly) {
-        root.value = left.value;
-        left = null;
-      } else if (isRightOnly) {
-        root.value = right.value;
-        right = null;
+      if (nonNull(temp.right)) {
+        q.add(temp.right);
       }
     }
 
-    if (isBothNonNull) {
-      Node<T> largest = left;
-      while (nonNull(largest.right)) {
-        largest = largest.right;
+    if (temp == tree) {
+      root = null;
+    }
+
+    value.value = temp.value;
+    boolean isNotRoot = null != temp.parent;
+    boolean isLeftChild = isNotRoot && temp.parent.left == temp;
+
+    if (isNotRoot) {
+      if (isLeftChild) {
+        temp.parent.left = null;
+      } else {
+        temp.parent.right = null;
       }
-      Node<T> parent = largest.parent;
-      if (parent != target) {
-        parent.right = null;
-      }
-      target.value = largest.value;
     }
 
     return true;
@@ -346,5 +331,58 @@ public class BinaryTreeWithParentLink<T> implements Tree<T> {
     } else {
       return 1 + Math.max(heightNode(current.left), heightNode(current.right));
     }
+  }
+
+  public String toUI() {
+    return toUI(root).stream().collect(Collectors.joining("\n"));
+  }
+
+  /*
+a┬b┬d┬h
+ │ │ └i
+ │ └e┬j
+ │   └k
+ └c┬f┬l
+   │ └m
+   └g┬n
+     └o
+   */
+  public static List<String> toUI(BinaryTreeWithParentLink.Node<?> current) {
+    List<String> result = new ArrayList<>();
+    if (isNull(current)) {
+      return result;
+    }
+
+    if (isNull(current.left) && isNull(current.right)) {
+      result.add(current.value.toString());
+    } else if (nonNull(current.left) && nonNull(current.right)) {
+      List<String> leftChild = toUI(current.left);
+      List<String> rightChild = toUI(current.right);
+
+      String root = String.format("%s┬%s", current.value.toString(), leftChild.get(0));
+
+      List<String> leftDescendants = new ArrayList<>();
+      for (int i = 1; i < leftChild.size(); i++) {
+        leftDescendants.add(String.format(" │%s", leftChild.get(i)));
+      }
+
+      String child = String.format(" └%s", rightChild.get(0));
+
+      List<String> rightDescendants = new ArrayList<>();
+      for (int i = 1; i < rightChild.size(); i++) {
+        rightDescendants.add(String.format("  %s", rightChild.get(i)));
+      }
+
+      result.add(root);
+      result.addAll(leftDescendants);
+      result.add(child);
+      result.addAll(rightDescendants);
+    } else {
+      Node<?> child = nonNull(current.left) ? current.left : current.right;
+      String root = String.format("%s─%s", current.value.toString(), child.value.toString());
+      result.add(root);
+    }
+
+    return result;
   }
 }
