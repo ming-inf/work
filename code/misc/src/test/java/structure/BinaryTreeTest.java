@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import algorithm.TreeNaturalNumber;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -390,28 +389,28 @@ public class BinaryTreeTest {
   }
 
   @Test
-  public void testToUINull() {
-    Assert.assertEquals("", ((BinaryTree) objectUnderTest).toUI());
+  public void testToUI1Null() {
+    Assert.assertEquals("", ((BinaryTree) objectUnderTest).toUI1());
   }
 
   @Test
-  public void testToUINoChildren() {
+  public void testToUI1NoChildren() {
     objectUnderTest.add(1);
 
-    Assert.assertEquals("1", ((BinaryTree) objectUnderTest).toUI());
+    Assert.assertEquals("1", ((BinaryTree) objectUnderTest).toUI1());
   }
 
   @Test
-  public void testToUIBothChildren() {
+  public void testToUI1BothChildren() {
     objectUnderTest.add(1);
     objectUnderTest.add(0);
     objectUnderTest.add(2);
 
-    Assert.assertEquals("1┬0\n └2", ((BinaryTree) objectUnderTest).toUI());
+    Assert.assertEquals("1┬0\n └2", ((BinaryTree) objectUnderTest).toUI1());
   }
 
   @Test
-  public void testToUIMultipleLevels() {
+  public void testToUI1MultipleLevels() {
     objectUnderTest.add(1);
     objectUnderTest.add(2);
     objectUnderTest.add(3);
@@ -420,18 +419,18 @@ public class BinaryTreeTest {
     objectUnderTest.add(6);
     objectUnderTest.add(7);
 
-    Assert.assertEquals("1┬2┬4\n │ └5\n └3┬6\n   └7", ((BinaryTree) objectUnderTest).toUI());
+    Assert.assertEquals("1┬2┬4\n │ └5\n └3┬6\n   └7", ((BinaryTree) objectUnderTest).toUI1());
   }
 
   @Test
-  public void testToUIMultipleLevelsNonFull() {
+  public void testToUI1MultipleLevelsNonFull() {
     objectUnderTest.add(1);
     objectUnderTest.add(2);
     objectUnderTest.add(3);
     objectUnderTest.add(4);
     objectUnderTest.add(5);
 
-    Assert.assertEquals("1┬2┬4\n │ └5\n └3", ((BinaryTree) objectUnderTest).toUI());
+    Assert.assertEquals("1┬2┬4\n │ └5\n └3", ((BinaryTree) objectUnderTest).toUI1());
   }
 
   @Test

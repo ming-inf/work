@@ -333,8 +333,8 @@ public class BinaryTree<T> implements Tree<T> {
     }
   }
 
-  public String toUI() {
-    return toUI(root).stream().collect(Collectors.joining("\n"));
+  public String toUI1() {
+    return toUI1(root).stream().collect(Collectors.joining("\n"));
   }
 
   /*
@@ -347,7 +347,7 @@ a┬b┬d┬h
    └g┬n
      └o
    */
-  public static List<String> toUI(BinaryTree.Node<?> current) {
+  public static List<String> toUI1(BinaryTree.Node<?> current) {
     List<String> result = new ArrayList<>();
     if (isNull(current)) {
       return result;
@@ -356,8 +356,8 @@ a┬b┬d┬h
     if (isNull(current.left) && isNull(current.right)) {
       result.add(current.value.toString());
     } else if (nonNull(current.left) && nonNull(current.right)) {
-      List<String> leftChild = toUI(current.left);
-      List<String> rightChild = toUI(current.right);
+      List<String> leftChild = toUI1(current.left);
+      List<String> rightChild = toUI1(current.right);
 
       String root = String.format("%s┬%s", current.value.toString(), leftChild.get(0));
 
