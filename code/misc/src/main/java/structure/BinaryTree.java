@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 import structure.api.Tree;
 
 public class BinaryTree<T> implements Tree<T> {
-  Node<T> root;
+  TreeNode<T> root;
 
   public BinaryTree() {
   }
 
-  public BinaryTree(Node<T> root) {
+  public BinaryTree(TreeNode<T> root) {
     this.root = root;
   }
 
@@ -30,10 +30,10 @@ public class BinaryTree<T> implements Tree<T> {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new Node<>(value)));
+    return nonNull(searchNode(null, root, new TreeNode<>(value)));
   }
 
-  private Node<T> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
+  private TreeNode<T> searchNode(TreeNode<T> parent, TreeNode<T> current, TreeNode<T> value) {
     if (isNull(current)) {
       return null;
     }
@@ -41,7 +41,7 @@ public class BinaryTree<T> implements Tree<T> {
     if (current.value.equals(value.value)) {
       return current;
     } else {
-      Node<T> result = searchNode(current, current.left, value);
+      TreeNode<T> result = searchNode(current, current.left, value);
       if (nonNull(result)) {
         return result;
       }
@@ -60,7 +60,7 @@ public class BinaryTree<T> implements Tree<T> {
       return;
     }
 
-    Node<T> newNode = new Node<>(value);
+    TreeNode<T> newNode = new TreeNode<>(value);
     if (isNull(root)) {
       root = newNode;
     } else {
@@ -68,12 +68,12 @@ public class BinaryTree<T> implements Tree<T> {
     }
   }
 
-  private void insertNode(Node<T> tree, Node<T> value) {
-    Queue<Node<T>> q = new LinkedList<>();
+  private void insertNode(TreeNode<T> tree, TreeNode<T> value) {
+    Queue<TreeNode<T>> q = new LinkedList<>();
     q.add(tree);
 
     while (!q.isEmpty()) {
-      Node<T> current = q.remove();
+      TreeNode<T> current = q.remove();
 
       if (isNull(current.left)) {
         current.left = value;
@@ -98,7 +98,7 @@ public class BinaryTree<T> implements Tree<T> {
       return false;
     }
 
-    Node<T> target = searchNode(null, root, new Node<>(value));
+    TreeNode<T> target = searchNode(null, root, new TreeNode<>(value));
     if (isNull(target)) {
       return false;
     }
@@ -106,9 +106,9 @@ public class BinaryTree<T> implements Tree<T> {
     return removeNode(root, target);
   }
 
-  private boolean removeNode(Node<T> tree, Node<T> value) {
-    Node<T> temp = null;
-    Queue<Node<T>> q = new LinkedList<>();
+  private boolean removeNode(TreeNode<T> tree, TreeNode<T> value) {
+    TreeNode<T> temp = null;
+    Queue<TreeNode<T>> q = new LinkedList<>();
     q.add(tree);
 
     while (!q.isEmpty()) {
@@ -149,7 +149,7 @@ public class BinaryTree<T> implements Tree<T> {
     return result;
   }
 
-  private List<Optional<T>> preorderSerialize(Node<T> current) {
+  private List<Optional<T>> preorderSerialize(TreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -172,7 +172,7 @@ public class BinaryTree<T> implements Tree<T> {
 
   public void deserialize(String serial, Function<Character, T> fromCharacter) {
     List<Optional<T>> tokens = tokenize(serial, fromCharacter);
-    Node<T> result = preorderDeserialize(tokens);
+    TreeNode<T> result = preorderDeserialize(tokens);
     root = result;
   }
 
@@ -188,13 +188,13 @@ public class BinaryTree<T> implements Tree<T> {
     return result;
   }
 
-  private Node<T> preorderDeserialize(List<Optional<T>> tokens) {
+  private TreeNode<T> preorderDeserialize(List<Optional<T>> tokens) {
     if (tokens.isEmpty() || !tokens.get(0).isPresent()) {
       tokens.remove(0);
       return null;
     }
 
-    Node<T> current = new Node<>(tokens.get(0).get());
+    TreeNode<T> current = new TreeNode<>(tokens.get(0).get());
     tokens.remove(0);
     current.left = preorderDeserialize(tokens);
     current.right = preorderDeserialize(tokens);
@@ -214,7 +214,7 @@ public class BinaryTree<T> implements Tree<T> {
     return preorder(root);
   }
 
-  private List<T> preorder(Node<T> current) {
+  private List<T> preorder(TreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -231,7 +231,7 @@ public class BinaryTree<T> implements Tree<T> {
     return postorder(root);
   }
 
-  private List<T> postorder(Node<T> current) {
+  private List<T> postorder(TreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -248,7 +248,7 @@ public class BinaryTree<T> implements Tree<T> {
     return inorder(root);
   }
 
-  private List<T> inorder(Node<T> current) {
+  private List<T> inorder(TreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -265,17 +265,17 @@ public class BinaryTree<T> implements Tree<T> {
     return breadthFirst(root);
   }
 
-  private List<T> breadthFirst(Node<T> current) {
+  private List<T> breadthFirst(TreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
 
     List<T> l = new ArrayList<>();
 
-    Queue<Node<T>> q = new ArrayBlockingQueue<>(4);
+    Queue<TreeNode<T>> q = new ArrayBlockingQueue<>(4);
     q.add(current);
     while (!q.isEmpty()) {
-      Node<T> n = q.remove();
+      TreeNode<T> n = q.remove();
       l.add(n.value);
       if (nonNull(n.left)) {
         q.add(n.left);
@@ -289,43 +289,12 @@ public class BinaryTree<T> implements Tree<T> {
     return l;
   }
 
-  public static class Node<S> {
-    S value;
-    Node<S> parent;
-    Node<S> left;
-    Node<S> right;
-
-    public Node(S value) {
-      this(value, null, null, null);
-    }
-
-    public Node(S value, Node<S> parent, Node<S> left, Node<S> right) {
-      this.value = value;
-      this.parent = parent;
-      this.left = left;
-      this.right = right;
-    }
-
-    public static int leavesSize(Node<?> current) {
-      if (isNull(current.left) && isNull(current.right)) {
-        return 1;
-      }
-
-      return leavesSize(current.left) + leavesSize(current.right);
-    }
-
-    @Override
-    public String toString() {
-      return "Node [value=" + value + ", parent=" + parent + ", left=" + left + ", right=" + right + "]";
-    }
-  }
-
   @Override
   public int height() {
     return heightNode(root);
   }
 
-  public int heightNode(Node<T> current) {
+  public int heightNode(TreeNode<T> current) {
     if (isNull(current)) {
       return 0;
     } else {
@@ -351,7 +320,7 @@ a┬b┬d┬h
    └g┬n
      └o
    */
-  public static List<String> toUI1(BinaryTree.Node<?> current) {
+  public static List<String> toUI1(TreeNode<?> current) {
     List<String> result = new ArrayList<>();
     if (isNull(current)) {
       return result;
@@ -382,7 +351,7 @@ a┬b┬d┬h
       result.add(child);
       result.addAll(rightDescendants);
     } else {
-      Node<?> child = nonNull(current.left) ? current.left : current.right;
+      TreeNode<?> child = nonNull(current.left) ? current.left : current.right;
       String root = String.format("%s─%s", current.value.toString(), child.value.toString());
       result.add(root);
     }
@@ -411,7 +380,7 @@ a┐
      ├n
      └o
    */
-  public static List<String> toUI2(BinaryTree.Node<?> current) {
+  public static List<String> toUI2(TreeNode<?> current) {
     List<String> result = new ArrayList<>();
     if (isNull(current)) {
       return result;
@@ -443,7 +412,7 @@ a┐
       result.add(child);
       result.addAll(rightDescendants);
     } else {
-      Node<?> child = nonNull(current.left) ? current.left : current.right;
+      TreeNode<?> child = nonNull(current.left) ? current.left : current.right;
       String root = String.format("%s┐\n └%s", current.value.toString(), child.value.toString());
       result.add(root);
     }
@@ -472,7 +441,7 @@ a
   ├n
   └o
    */
-  public static List<String> toUI3(BinaryTree.Node<?> current, int padTo) {
+  public static List<String> toUI3(TreeNode<?> current, int padTo) {
     String rootPattern = "%" + padTo + "s";
     String leftChildPattern = "├" + rootPattern;
     String rightChildPattern = "└" + rootPattern;
@@ -509,12 +478,63 @@ a
       result.add(child);
       result.addAll(rightDescendants);
     } else if (nonNull(current.left) || nonNull(current.right)) {
-      Node<?> child = nonNull(current.left) ? current.left : current.right;
+      TreeNode<?> child = nonNull(current.left) ? current.left : current.right;
       List<String> onlyChild = toUI3(child, padTo);
       String onlyChildString = String.format(rightChildPattern, onlyChild.get(0));
       result.add(onlyChildString);
     }
 
     return result;
+  }
+
+  public static <T> BinaryTree<T> fromUI3(String tree) {
+    if (isNull(tree) || tree.isEmpty()) {
+      return null;
+    }
+
+    String[] split = tree.split("\n");
+    TreeNode<T> treeNode = fromUI3(split);
+    return new BinaryTree<>(treeNode);
+  }
+
+  public static <T> TreeNode<T> fromUI3(String[] tree) {
+    TreeNode<T> root = null;
+
+    for (String line : tree) {
+
+    }
+
+    return root;
+  }
+}
+
+class TreeNode<S> {
+  S value;
+  TreeNode<S> parent;
+  TreeNode<S> left;
+  TreeNode<S> right;
+
+  public TreeNode(S value) {
+    this(value, null, null, null);
+  }
+
+  public TreeNode(S value, TreeNode<S> parent, TreeNode<S> left, TreeNode<S> right) {
+    this.value = value;
+    this.parent = parent;
+    this.left = left;
+    this.right = right;
+  }
+
+  public static int leavesSize(TreeNode<?> current) {
+    if (isNull(current.left) && isNull(current.right)) {
+      return 1;
+    }
+
+    return leavesSize(current.left) + leavesSize(current.right);
+  }
+
+  @Override
+  public String toString() {
+    return "TreeNode [value=" + value + ", parent=" + parent + ", left=" + left + ", right=" + right + "]";
   }
 }

@@ -247,7 +247,7 @@ public class DAFSA {
 
     @Override
     public String toString() {
-      return "Node [finalNode=" + finalNode + ", edges=" + edges + "]";
+      return "TreeNode [finalNode=" + finalNode + ", edges=" + edges + "]";
     }
 
     @Override

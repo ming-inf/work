@@ -32,7 +32,7 @@ public class MerkleTree extends BinaryTree<Hash> {
 
     for (Hash h : leafHashes) {
       if (isNull(root)) {
-        root = new Node<>(h);
+        root = new TreeNode<>(h);
       } else {
         root = addLeaf(root, h);
       }
@@ -56,17 +56,17 @@ public class MerkleTree extends BinaryTree<Hash> {
     return Hash.hash(hash);
   }
 
-  private Node<Hash> addLeaf(Node<Hash> root, Hash h) {
-    if (powerOf2(Node.leavesSize(root))) {
-      Node<Hash> left = root;
-      Node<Hash> right = new Node<>(h);
+  private TreeNode<Hash> addLeaf(TreeNode<Hash> root, Hash h) {
+    if (powerOf2(TreeNode.leavesSize(root))) {
+      TreeNode<Hash> left = root;
+      TreeNode<Hash> right = new TreeNode<>(h);
       Hash internalHash = ih(left.value, right.value);
-      Node<Hash> newRoot = new Node<>(internalHash, null, left, right);
+      TreeNode<Hash> newRoot = new TreeNode<>(internalHash, null, left, right);
       left.parent = newRoot;
       right.parent = newRoot;
       return newRoot;
     } else {
-      Node<Hash> newRight = addLeaf(root.right, h);
+      TreeNode<Hash> newRight = addLeaf(root.right, h);
       newRight.parent = root;
       root.right = newRight;
       root.value = ih(root.left.value, root.right.value);

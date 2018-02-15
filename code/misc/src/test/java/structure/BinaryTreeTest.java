@@ -26,10 +26,10 @@ public class BinaryTreeTest {
 
   @Test
   public void testCustomTree() {
-    BinaryTree.Node<Integer> root = new BinaryTree.Node<>(0);
-    BinaryTree.Node<Integer> left = new BinaryTree.Node<>(1);
-    BinaryTree.Node<Integer> right = new BinaryTree.Node<>(2);
-    BinaryTree.Node<Integer> rightRight = new BinaryTree.Node<>(3);
+    TreeNode<Integer> root = new TreeNode<>(0);
+    TreeNode<Integer> left = new TreeNode<>(1);
+    TreeNode<Integer> right = new TreeNode<>(2);
+    TreeNode<Integer> rightRight = new TreeNode<>(3);
     right.right = rightRight;
     root.left = left;
     root.right = right;
@@ -279,13 +279,13 @@ public class BinaryTreeTest {
 
   @Test
   public void testSerialize() {
-    BinaryTree.Node<Character> a = new BinaryTree.Node<>('a');
-    BinaryTree.Node<Character> b = new BinaryTree.Node<>('b');
-    BinaryTree.Node<Character> c = new BinaryTree.Node<>('c');
-    BinaryTree.Node<Character> d = new BinaryTree.Node<>('d');
-    BinaryTree.Node<Character> e = new BinaryTree.Node<>('e');
-    BinaryTree.Node<Character> f = new BinaryTree.Node<>('f');
-    BinaryTree.Node<Character> g = new BinaryTree.Node<>('g');
+    TreeNode<Character> a = new TreeNode<>('a');
+    TreeNode<Character> b = new TreeNode<>('b');
+    TreeNode<Character> c = new TreeNode<>('c');
+    TreeNode<Character> d = new TreeNode<>('d');
+    TreeNode<Character> e = new TreeNode<>('e');
+    TreeNode<Character> f = new TreeNode<>('f');
+    TreeNode<Character> g = new TreeNode<>('g');
     a.left = b;
     a.right = c;
     b.left = d;
@@ -530,5 +530,28 @@ public class BinaryTreeTest {
     }
 
     Assert.assertEquals(" 1\n├ 2\n│├ 4\n│└ 5\n└ 3\n ├ 6\n └ 7", ((BinaryTree) objectUnderTest).toUI3(2));
+  }
+
+  @Test
+  public void testFromUI3Null() {
+    Assert.assertNull(BinaryTree.<Integer>fromUI3((String) null));
+  }
+
+  @Test
+  public void testFromUI3Empty() {
+    Assert.assertNull(BinaryTree.<Integer>fromUI3(""));
+  }
+
+  @Test
+  public void testFromUI3NoChildren() {
+    Assert.assertTrue(BinaryTree.<Integer>fromUI3("1").contains(1));
+  }
+
+  @Test
+  public void testFromUI3BothChildren() {
+    BinaryTree<Integer> tree = BinaryTree.<Integer>fromUI3("0\n├1\n└2");
+    Assert.assertTrue(tree.contains(0));
+    Assert.assertTrue(tree.contains(1));
+    Assert.assertTrue(tree.contains(2));
   }
 }
