@@ -333,6 +333,10 @@ public class BinaryTree<T> implements Tree<T> {
     }
   }
 
+  public String toUI() {
+    return toUI3(1);
+  }
+
   public String toUI1() {
     return toUI1(root).stream().collect(Collectors.joining("\n"));
   }
