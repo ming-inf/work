@@ -227,66 +227,66 @@ public class DAFSA {
 
     return tree;
   }
-}
 
-class Node {
-  Iterator<Integer> stream =
-      Stream.iterate(0, i -> i + 1).iterator();
+  public static class Node {
+    Iterator<Integer> stream =
+        Stream.iterate(0, i -> i + 1).iterator();
 //      new Random().ints().boxed().iterator();
 
-  int id;
-  boolean finalNode;
-  SortedMap<Character, Node> edges;
-  int wordsReachable;
+    int id;
+    boolean finalNode;
+    SortedMap<Character, Node> edges;
+    int wordsReachable;
 
-  public Node() {
-    id = stream.next();
-    finalNode = false;
-    edges = new TreeMap<>();
-    wordsReachable = 0;
-  }
+    public Node() {
+      id = stream.next();
+      finalNode = false;
+      edges = new TreeMap<>();
+      wordsReachable = 0;
+    }
 
-  @Override
-  public String toString() {
-    return "Node [finalNode=" + finalNode + ", edges=" + edges + "]";
-  }
+    @Override
+    public String toString() {
+      return "Node [finalNode=" + finalNode + ", edges=" + edges + "]";
+    }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((edges == null) ? 0 : edges.hashCode());
-    result = prime * result + (finalNode ? 1231 : 1237);
-    return result;
-  }
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((edges == null) ? 0 : edges.hashCode());
+      result = prime * result + (finalNode ? 1231 : 1237);
+      return result;
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Node other = (Node) obj;
-    if (edges == null) {
-      if (other.edges != null)
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
         return false;
-    } else if (!edges.equals(other.edges))
-      return false;
-    return finalNode == other.finalNode;
-  }
-
-  public static int numReachable(Node current) {
-    int count = 0;
-    if (current.finalNode) {
-      count++;
-    }
-    for (Entry<Character, Node> e : current.edges.entrySet()) {
-      count += numReachable(e.getValue());
+      if (getClass() != obj.getClass())
+        return false;
+      Node other = (Node) obj;
+      if (edges == null) {
+        if (other.edges != null)
+          return false;
+      } else if (!edges.equals(other.edges))
+        return false;
+      return finalNode == other.finalNode;
     }
 
-    current.wordsReachable = count;
-    return count;
+    public static int numReachable(Node current) {
+      int count = 0;
+      if (current.finalNode) {
+        count++;
+      }
+      for (Entry<Character, Node> e : current.edges.entrySet()) {
+        count += numReachable(e.getValue());
+      }
+
+      current.wordsReachable = count;
+      return count;
+    }
   }
 }
