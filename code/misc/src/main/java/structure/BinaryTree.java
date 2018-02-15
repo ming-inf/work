@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import structure.api.Tree;
 
@@ -29,28 +30,28 @@ public class BinaryTree<T> implements Tree<T> {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new Node<>(value)).target);
+    return nonNull(searchNode(null, root, new Node<>(value)));
   }
 
-  private Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
+  private Node<T> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
     if (isNull(current)) {
-      return new Tuple<>(null, null);
+      return null;
     }
 
     if (current.value.equals(value.value)) {
-      return new Tuple<>(parent, current);
+      return current;
     } else {
-      Tuple<Node<T>, Node<T>> result = searchNode(current, current.left, value);
-      if (nonNull(result.target)) {
+      Node<T> result = searchNode(current, current.left, value);
+      if (nonNull(result)) {
         return result;
       }
 
       result = searchNode(current, current.right, value);
-      if (nonNull(result.target)) {
+      if (nonNull(result)) {
         return result;
       }
 
-      return new Tuple<>(null, null);
+      return null;
     }
   }
 
@@ -76,6 +77,7 @@ public class BinaryTree<T> implements Tree<T> {
 
       if (isNull(current.left)) {
         current.left = value;
+        value.parent = current;
         break;
       } else {
         q.add(current.left);
@@ -83,6 +85,7 @@ public class BinaryTree<T> implements Tree<T> {
 
       if (isNull(current.right)) {
         current.right = value;
+        value.parent = current;
         break;
       } else {
         q.add(current.right);
@@ -95,62 +98,44 @@ public class BinaryTree<T> implements Tree<T> {
       return false;
     }
 
-    Tuple<Node<T>, Node<T>> parentCurrent = searchNode(null, root, new Node<>(value));
-    Node<T> parent = parentCurrent.parent;
-    Node<T> target = parentCurrent.target;
+    Node<T> target = searchNode(null, root, new Node<>(value));
     if (isNull(target)) {
       return false;
     }
 
-    Node<T> left = target.left;
-    Node<T> right = target.right;
+    return removeNode(root, target);
+  }
 
-    boolean isParentNull = isNull(parent);
-    boolean isBothNull = isNull(left) && isNull(right);
-    boolean isLeftOnly = nonNull(left) && isNull(right);
-    boolean isRightOnly = isNull(left) && nonNull(right);
-    boolean isBothNonNull = nonNull(left) && nonNull(right);
+  private boolean removeNode(Node<T> tree, Node<T> value) {
+    Node<T> temp = null;
+    Queue<Node<T>> q = new LinkedList<>();
+    q.add(tree);
 
-    if (!isParentNull) {
-      boolean isLeftChild = parent.left == target;
-      Node<T> newChild;
-      if (isBothNull) {
-        newChild = null;
-      } else if (isLeftOnly) {
-        newChild = left;
-      } else if (isRightOnly) {
-        newChild = right;
-      } else {
-        newChild = isLeftChild ? parent.left : parent.right;
+    while (!q.isEmpty()) {
+      temp = q.remove();
+
+      if (nonNull(temp.left)) {
+        q.add(temp.left);
       }
-
-      if (isLeftChild) {
-        parent.left = newChild;
-      } else {
-        parent.right = newChild;
-      }
-    } else {
-      if (isBothNull) {
-        root = null;
-      } else if (isLeftOnly) {
-        root.value = left.value;
-        left = null;
-      } else if (isRightOnly) {
-        root.value = right.value;
-        right = null;
+      if (nonNull(temp.right)) {
+        q.add(temp.right);
       }
     }
 
-    if (isBothNonNull) {
-      Node<T> largest = left;
-      while (nonNull(largest.right)) {
-        largest = largest.right;
+    if (temp == tree) {
+      root = null;
+    }
+
+    value.value = temp.value;
+    boolean isNotRoot = null != temp.parent;
+    boolean isLeftChild = isNotRoot && temp.parent.left == temp;
+
+    if (isNotRoot) {
+      if (isLeftChild) {
+        temp.parent.left = null;
+      } else {
+        temp.parent.right = null;
       }
-      Node<T> largestParent = searchNode(target, target.left, largest).parent;
-      if (largestParent != target) {
-        largestParent.right = null;
-      }
-      target.value = largest.value;
     }
 
     return true;
@@ -213,6 +198,13 @@ public class BinaryTree<T> implements Tree<T> {
     tokens.remove(0);
     current.left = preorderDeserialize(tokens);
     current.right = preorderDeserialize(tokens);
+    if (nonNull(current.left)) {
+      current.left.parent = current;
+    }
+
+    if (nonNull(current.right)) {
+      current.right.parent = current;
+    }
 
     return current;
   }
@@ -299,32 +291,32 @@ public class BinaryTree<T> implements Tree<T> {
 
   public static class Node<S> {
     S value;
+    Node<S> parent;
     Node<S> left;
     Node<S> right;
 
     public Node(S value) {
-      this(value, null, null);
+      this(value, null, null, null);
     }
 
-    public Node(S value, Node<S> left, Node<S> right) {
+    public Node(S value, Node<S> parent, Node<S> left, Node<S> right) {
       this.value = value;
+      this.parent = parent;
       this.left = left;
       this.right = right;
     }
 
+    public static int leavesSize(Node<?> current) {
+      if (isNull(current.left) && isNull(current.right)) {
+        return 1;
+      }
+
+      return leavesSize(current.left) + leavesSize(current.right);
+    }
+
     @Override
     public String toString() {
-      return "Node [value=" + value + ", left=" + left + ", right=" + right + "]";
-    }
-  }
-
-  private static class Tuple<X, Y> {
-    public X parent;
-    public Y target;
-
-    public Tuple(X x, Y y) {
-      this.parent = x;
-      this.target = y;
+      return "Node [value=" + value + ", parent=" + parent + ", left=" + left + ", right=" + right + "]";
     }
   }
 
@@ -339,5 +331,58 @@ public class BinaryTree<T> implements Tree<T> {
     } else {
       return 1 + Math.max(heightNode(current.left), heightNode(current.right));
     }
+  }
+
+  public String toUI() {
+    return toUI(root).stream().collect(Collectors.joining("\n"));
+  }
+
+  /*
+a┬b┬d┬h
+ │ │ └i
+ │ └e┬j
+ │   └k
+ └c┬f┬l
+   │ └m
+   └g┬n
+     └o
+   */
+  public static List<String> toUI(BinaryTree.Node<?> current) {
+    List<String> result = new ArrayList<>();
+    if (isNull(current)) {
+      return result;
+    }
+
+    if (isNull(current.left) && isNull(current.right)) {
+      result.add(current.value.toString());
+    } else if (nonNull(current.left) && nonNull(current.right)) {
+      List<String> leftChild = toUI(current.left);
+      List<String> rightChild = toUI(current.right);
+
+      String root = String.format("%s┬%s", current.value.toString(), leftChild.get(0));
+
+      List<String> leftDescendants = new ArrayList<>();
+      for (int i = 1; i < leftChild.size(); i++) {
+        leftDescendants.add(String.format(" │%s", leftChild.get(i)));
+      }
+
+      String child = String.format(" └%s", rightChild.get(0));
+
+      List<String> rightDescendants = new ArrayList<>();
+      for (int i = 1; i < rightChild.size(); i++) {
+        rightDescendants.add(String.format("  %s", rightChild.get(i)));
+      }
+
+      result.add(root);
+      result.addAll(leftDescendants);
+      result.add(child);
+      result.addAll(rightDescendants);
+    } else {
+      Node<?> child = nonNull(current.left) ? current.left : current.right;
+      String root = String.format("%s─%s", current.value.toString(), child.value.toString());
+      result.add(root);
+    }
+
+    return result;
   }
 }

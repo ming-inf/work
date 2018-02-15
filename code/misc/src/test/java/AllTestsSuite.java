@@ -11,7 +11,6 @@ import practice.KeyPlaintextRunningKeyEncryptionTest;
 import structure.AVLTreeTest;
 import structure.BinarySearchTreeTest;
 import structure.BinaryTreeTest;
-import structure.BinaryTreeWithParentLinkTest;
 import structure.DAFSATest;
 import structure.DoublyLinkedListTest;
 import structure.GraphTest;
@@ -34,7 +33,6 @@ import structure.TrieTest;
     , LevenshteinTest.class
     , LevenshteinWithTrieTest.class
     , KeyPlaintextRunningKeyEncryptionTest.class
-    , BinaryTreeWithParentLinkTest.class
     , BinaryTreeTest.class
     , DAFSATest.class
     , GraphTest.class

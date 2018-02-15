@@ -387,4 +387,49 @@ public class BinaryTreeTest {
 
     assertEquals(3, objectUnderTest.height());
   }
+
+  @Test
+  public void testToUINull() {
+    Assert.assertEquals("", ((BinaryTree) objectUnderTest).toUI());
+  }
+
+  @Test
+  public void testToUINoChildren() {
+    objectUnderTest.add(1);
+
+    Assert.assertEquals("1", ((BinaryTree) objectUnderTest).toUI());
+  }
+
+  @Test
+  public void testToUIBothChildren() {
+    objectUnderTest.add(1);
+    objectUnderTest.add(0);
+    objectUnderTest.add(2);
+
+    Assert.assertEquals("1┬0\n └2", ((BinaryTree) objectUnderTest).toUI());
+  }
+
+  @Test
+  public void testToUIMultipleLevels() {
+    objectUnderTest.add(1);
+    objectUnderTest.add(2);
+    objectUnderTest.add(3);
+    objectUnderTest.add(4);
+    objectUnderTest.add(5);
+    objectUnderTest.add(6);
+    objectUnderTest.add(7);
+
+    Assert.assertEquals("1┬2┬4\n │ └5\n └3┬6\n   └7", ((BinaryTree) objectUnderTest).toUI());
+  }
+
+  @Test
+  public void testToUIMultipleLevelsNonFull() {
+    objectUnderTest.add(1);
+    objectUnderTest.add(2);
+    objectUnderTest.add(3);
+    objectUnderTest.add(4);
+    objectUnderTest.add(5);
+
+    Assert.assertEquals("1┬2┬4\n │ └5\n └3", ((BinaryTree) objectUnderTest).toUI());
+  }
 }

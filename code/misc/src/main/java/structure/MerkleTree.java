@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 
-public class MerkleTree extends BinaryTreeWithParentLink<Hash> {
+public class MerkleTree extends BinaryTree<Hash> {
   public int SIZE = 1024;
   public Digest digest = new SHA256Digest();
 
