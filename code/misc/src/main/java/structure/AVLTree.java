@@ -12,16 +12,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import structure.api.Tree;
 
 public class AVLTree<T extends Comparable<T>> implements Tree<T> {
-  Node<T> root;
+  BinarySearchTreeNode<T> root;
 
   public boolean contains(T value) {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new Node<>(value)).target);
+    return nonNull(searchNode(null, root, new BinarySearchTreeNode<>(value)).target);
   }
 
-  Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
+  Tuple<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>> searchNode(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (isNull(current)) {
       return new Tuple<>(null, null);
     }
@@ -35,7 +35,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  Tuple3<Node<T>, Node<T>, List<Node<T>>> searchNodeWithPath(Node<T> parent, Node<T> current, Node<T> value, List<Node<T>> path) {
+  Tuple3<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>, List<BinarySearchTreeNode<T>>> searchNodeWithPath(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value, List<BinarySearchTreeNode<T>> path) {
     if (isNull(current)) {
       return new Tuple3<>(null, null, null);
     }
@@ -57,7 +57,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
       return;
     }
 
-    Node<T> newNode = new Node<>(value);
+    BinarySearchTreeNode<T> newNode = new BinarySearchTreeNode<>(value);
     if (isNull(root)) {
       root = newNode;
     } else {
@@ -65,7 +65,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  void insertNode(Node<T> current, Node<T> value) {
+  void insertNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (-1 == value.compareTo(current)) {
       if (isNull(current.left)) {
         current.left = value;
@@ -87,11 +87,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return root.height;
   }
 
-  void updateHeight(Node<T> current) {
+  void updateHeight(BinarySearchTreeNode<T> current) {
     current.height = 1 + Math.max(nonNull(current.left) ? current.left.height : 0, nonNull(current.right) ? current.right.height : 0);
   }
 
-  void rebalance(Node<T> current) {
+  void rebalance(BinarySearchTreeNode<T> current) {
     int leftHeight = nonNull(current.left) ? current.left.height : 0;
     int rightHeight = nonNull(current.right) ? current.right.height : 0;
 
@@ -114,11 +114,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  void leftRotation(Node<T> current) {
-    Node<T> rightNode = current.right;
+  void leftRotation(BinarySearchTreeNode<T> current) {
+    BinarySearchTreeNode<T> rightNode = current.right;
     current.right = rightNode.left;
     rightNode.left = current;
-    Node<T> parent = searchNode(null, root, current).parent;
+    BinarySearchTreeNode<T> parent = searchNode(null, root, current).parent;
     if (isNull(parent)) {
       root = rightNode;
     } else if (current.equals(parent.left)) {
@@ -130,11 +130,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     updateHeight(rightNode);
   }
 
-  void rightRotation(Node<T> current) {
-    Node<T> leftNode = current.left;
+  void rightRotation(BinarySearchTreeNode<T> current) {
+    BinarySearchTreeNode<T> leftNode = current.left;
     current.left = leftNode.right;
     leftNode.right = current;
-    Node<T> parent = searchNode(null, root, current).parent;
+    BinarySearchTreeNode<T> parent = searchNode(null, root, current).parent;
     if (isNull(parent)) {
       root = leftNode;
     } else if (current.equals(parent.left)) {
@@ -146,12 +146,12 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     updateHeight(leftNode);
   }
 
-  void leftThenRightRotation(Node<T> current) {
+  void leftThenRightRotation(BinarySearchTreeNode<T> current) {
     leftRotation(current.left);
     rightRotation(current);
   }
 
-  void rightThenLeftRotation(Node<T> current) {
+  void rightThenLeftRotation(BinarySearchTreeNode<T> current) {
     rightRotation(current.right);
     leftRotation(current);
   }
@@ -161,16 +161,16 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
       return false;
     }
 
-    Tuple3<Node<T>, Node<T>, List<Node<T>>> parentCurrentPath = searchNodeWithPath(null, root, new Node<>(value), new ArrayList<>());
-    Node<T> parent = parentCurrentPath.parent;
-    Node<T> target = parentCurrentPath.target;
-    List<Node<T>> path = parentCurrentPath.path;
+    Tuple3<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>, List<BinarySearchTreeNode<T>>> parentCurrentPath = searchNodeWithPath(null, root, new BinarySearchTreeNode<>(value), new ArrayList<>());
+    BinarySearchTreeNode<T> parent = parentCurrentPath.parent;
+    BinarySearchTreeNode<T> target = parentCurrentPath.target;
+    List<BinarySearchTreeNode<T>> path = parentCurrentPath.path;
     if (isNull(target)) {
       return false;
     }
 
-    Node<T> left = target.left;
-    Node<T> right = target.right;
+    BinarySearchTreeNode<T> left = target.left;
+    BinarySearchTreeNode<T> right = target.right;
 
     boolean isParentNull = isNull(parent);
     boolean isBothNull = isNull(left) && isNull(right);
@@ -180,7 +180,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 
     if (!isParentNull) {
       boolean isLeftChild = parent.left == target;
-      Node<T> newChild;
+      BinarySearchTreeNode<T> newChild;
       if (isBothNull) {
         newChild = null;
       } else if (isLeftOnly) {
@@ -209,11 +209,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     if (isBothNonNull) {
-      Node<T> largest = left;
+      BinarySearchTreeNode<T> largest = left;
       while (nonNull(largest.right)) {
         largest = largest.right;
       }
-      Node<T> largestParent = searchNode(target, target.left, largest).parent;
+      BinarySearchTreeNode<T> largestParent = searchNode(target, target.left, largest).parent;
       if (largestParent != target) {
         largestParent.right = null;
       }
@@ -221,7 +221,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     while (!path.isEmpty()) {
-      Node<T> last = path.remove(path.size() - 1);
+      BinarySearchTreeNode<T> last = path.remove(path.size() - 1);
       updateHeight(last);
       rebalance(last);
     }
@@ -232,35 +232,6 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
   @Override
   public String toString() {
     return "AVLTree [root=" + root + "]";
-  }
-
-  static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
-    T value;
-    Node<T> left;
-    Node<T> right;
-    int height;
-
-    public Node(T value) {
-      this(value, null, null);
-    }
-
-    public Node(T value, Node<T> left, Node<T> right) {
-      this.value = value;
-      this.left = left;
-      this.right = right;
-      this.height = 1;
-    }
-
-    @Override
-    public int compareTo(Node<T> o) {
-      return value.compareTo(o.value);
-    }
-
-    @Override
-    public String toString() {
-      return "value=" + value + ", height=" + height + ", left=" + (nonNull(left) ? left.value : "") + ", right=" + (nonNull(right) ? right.value : "")
-          + "]\n" + (nonNull(left) ? left : "") + (nonNull(right) ? right : "");
-    }
   }
 
   static class Tuple<X, Y> {
@@ -290,7 +261,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return preorder(root);
   }
 
-  List<T> preorder(Node<T> current) {
+  List<T> preorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -307,7 +278,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return postorder(root);
   }
 
-  List<T> postorder(Node<T> current) {
+  List<T> postorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -324,7 +295,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return inorder(root);
   }
 
-  List<T> inorder(Node<T> current) {
+  List<T> inorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -341,17 +312,17 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     return breadthFirst(root);
   }
 
-  List<T> breadthFirst(Node<T> current) {
+  List<T> breadthFirst(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
 
     List<T> l = new ArrayList<>();
 
-    Queue<Node<T>> q = new ArrayBlockingQueue<>(4);
+    Queue<BinarySearchTreeNode<T>> q = new ArrayBlockingQueue<>(4);
     q.add(current);
     while (!q.isEmpty()) {
-      Node<T> n = q.remove();
+      BinarySearchTreeNode<T> n = q.remove();
       l.add(n.value);
       if (nonNull(n.left)) {
         q.add(n.left);

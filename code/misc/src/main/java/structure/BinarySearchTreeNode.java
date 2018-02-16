@@ -5,9 +5,11 @@ public class BinarySearchTreeNode<T extends Comparable<T>>
     implements Comparable<BinaryTreeNode<T>> {
   BinarySearchTreeNode<T> left;
   BinarySearchTreeNode<T> right;
+  int height;
 
   public BinarySearchTreeNode(T value) {
     super(value);
+    this.height = 1;
   }
 
   @Override
