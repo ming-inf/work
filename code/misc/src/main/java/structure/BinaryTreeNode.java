@@ -2,17 +2,17 @@ package structure;
 
 import static java.util.Objects.isNull;
 
-class BinaryTreeNode<S> {
-  S value;
-  BinaryTreeNode<S> parent;
-  BinaryTreeNode<S> left;
-  BinaryTreeNode<S> right;
+class BinaryTreeNode<T> {
+  T value;
+  BinaryTreeNode<T> parent;
+  BinaryTreeNode<T> left;
+  BinaryTreeNode<T> right;
 
-  public BinaryTreeNode(S value) {
+  public BinaryTreeNode(T value) {
     this(value, null, null, null);
   }
 
-  public BinaryTreeNode(S value, BinaryTreeNode<S> parent, BinaryTreeNode<S> left, BinaryTreeNode<S> right) {
+  public BinaryTreeNode(T value, BinaryTreeNode<T> parent, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
     this.value = value;
     this.parent = parent;
     this.left = left;

@@ -12,16 +12,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import structure.api.Tree;
 
 public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
-  private Node<T> root;
+  private BinarySearchTreeNode<T> root;
 
   public boolean contains(T value) {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new Node<>(value)).target);
+    return nonNull(searchNode(null, root, new BinarySearchTreeNode<>(value)).target);
   }
 
-  private Tuple<Node<T>, Node<T>> searchNode(Node<T> parent, Node<T> current, Node<T> value) {
+  private Tuple<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>> searchNode(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (isNull(current)) {
       return new Tuple<>(null, null);
     }
@@ -40,7 +40,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
       return;
     }
 
-    Node<T> newNode = new Node<>(value);
+    BinarySearchTreeNode<T> newNode = new BinarySearchTreeNode<>(value);
     if (isNull(root)) {
       root = newNode;
     } else {
@@ -48,7 +48,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
   }
 
-  private void insertNode(Node<T> current, Node<T> value) {
+  private void insertNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (-1 == value.compareTo(current)) {
       if (isNull(current.left)) {
         current.left = value;
@@ -69,15 +69,15 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
       return false;
     }
 
-    Tuple<Node<T>, Node<T>> parentCurrent = searchNode(null, root, new Node<>(value));
-    Node<T> parent = parentCurrent.parent;
-    Node<T> target = parentCurrent.target;
+    Tuple<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>> parentCurrent = searchNode(null, root, new BinarySearchTreeNode<>(value));
+    BinarySearchTreeNode<T> parent = parentCurrent.parent;
+    BinarySearchTreeNode<T> target = parentCurrent.target;
     if (isNull(target)) {
       return false;
     }
 
-    Node<T> left = target.left;
-    Node<T> right = target.right;
+    BinarySearchTreeNode<T> left = target.left;
+    BinarySearchTreeNode<T> right = target.right;
 
     boolean isParentNull = isNull(parent);
     boolean isBothNull = isNull(left) && isNull(right);
@@ -87,7 +87,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
     if (!isParentNull) {
       boolean isLeftChild = parent.left == target;
-      Node<T> newChild;
+      BinarySearchTreeNode<T> newChild;
       if (isBothNull) {
         newChild = null;
       } else if (isLeftOnly) {
@@ -116,11 +116,11 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     if (isBothNonNull) {
-      Node<T> largest = left;
+      BinarySearchTreeNode<T> largest = left;
       while (nonNull(largest.right)) {
         largest = largest.right;
       }
-      Node<T> largestParent = searchNode(target, target.left, largest).parent;
+      BinarySearchTreeNode<T> largestParent = searchNode(target, target.left, largest).parent;
       if (largestParent != target) {
         largestParent.right = null;
       }
@@ -135,7 +135,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     return preorder(root);
   }
 
-  private List<T> preorder(Node<T> current) {
+  private List<T> preorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -152,7 +152,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     return postorder(root);
   }
 
-  private List<T> postorder(Node<T> current) {
+  private List<T> postorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -169,7 +169,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     return inorder(root);
   }
 
-  private List<T> inorder(Node<T> current) {
+  private List<T> inorder(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
@@ -186,17 +186,17 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     return breadthFirst(root);
   }
 
-  private List<T> breadthFirst(Node<T> current) {
+  private List<T> breadthFirst(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return Collections.emptyList();
     }
 
     List<T> l = new ArrayList<>();
 
-    Queue<Node<T>> q = new ArrayBlockingQueue<>(4);
+    Queue<BinarySearchTreeNode<T>> q = new ArrayBlockingQueue<>(4);
     q.add(current);
     while (!q.isEmpty()) {
-      Node<T> n = q.remove();
+      BinarySearchTreeNode<T> n = q.remove();
       l.add(n.value);
       if (nonNull(n.left)) {
         q.add(n.left);
@@ -208,32 +208,6 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     return l;
-  }
-
-  private static class Node<S extends Comparable<S>> implements Comparable<Node<S>> {
-    S value;
-    Node<S> left;
-    Node<S> right;
-
-    public Node(S value) {
-      this(value, null, null);
-    }
-
-    public Node(S value, Node<S> left, Node<S> right) {
-      this.value = value;
-      this.left = left;
-      this.right = right;
-    }
-
-    @Override
-    public int compareTo(Node<S> o) {
-      return value.compareTo(o.value);
-    }
-
-    @Override
-    public String toString() {
-      return "BinaryTreeNode [value=" + value + ", left=" + left + ", right=" + right + "]";
-    }
   }
 
   private static class Tuple<X, Y> {
@@ -251,7 +225,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     return heightNode(root);
   }
 
-  public int heightNode(Node<T> current) {
+  public int heightNode(BinarySearchTreeNode<T> current) {
     if (isNull(current)) {
       return 0;
     } else {
