@@ -1,21 +1,16 @@
 package structure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.google.common.base.Functions;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import structure.api.Tree;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.google.common.base.Functions;
-
-import structure.api.Tree;
+import static org.junit.Assert.*;
 
 public class BinaryTreeTest {
   private Tree<Integer> objectUnderTest;
