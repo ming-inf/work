@@ -1,14 +1,13 @@
 package structure;
 
-import static java.util.Objects.isNull;
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.digests.SHA256Digest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.LinkedList;
 
-import org.bouncycastle.crypto.Digest;
-import org.bouncycastle.crypto.digests.SHA256Digest;
+import static java.util.Objects.isNull;
 
 public class MerkleTree extends BinaryTree<Hash> {
   public int SIZE = 1024;

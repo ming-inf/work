@@ -1,8 +1,5 @@
 package structure;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Trie {
   TrieNode trie = new TrieNode();
 
