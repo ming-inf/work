@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -534,24 +535,40 @@ public class BinaryTreeTest {
 
   @Test
   public void testFromUI3Null() {
-    Assert.assertNull(BinaryTree.<Integer>fromUI3((String) null));
+    Assert.assertNull(BinaryTree.fromUI3((String) null, Integer::parseInt));
   }
 
   @Test
   public void testFromUI3Empty() {
-    Assert.assertNull(BinaryTree.<Integer>fromUI3(""));
+    Assert.assertNull(BinaryTree.fromUI3("", Integer::parseInt));
   }
 
   @Test
   public void testFromUI3NoChildren() {
-    Assert.assertTrue(BinaryTree.<Integer>fromUI3("1").contains(1));
+    Assert.assertTrue(BinaryTree.fromUI3("1", Integer::parseInt).contains(1));
   }
 
   @Test
   public void testFromUI3BothChildren() {
-    BinaryTree<Integer> tree = BinaryTree.<Integer>fromUI3("0\n├1\n└2");
+    BinaryTree<Integer> tree = BinaryTree.fromUI3("0\n├1\n└2", Integer::parseInt);
     Assert.assertTrue(tree.contains(0));
     Assert.assertTrue(tree.contains(1));
     Assert.assertTrue(tree.contains(2));
+  }
+
+  @Test
+  public void testFromUI3MultipleLevels() {
+    BinaryTree<Integer> tree = BinaryTree.fromUI3("1\n├2\n│├4\n│└5\n└3\n ├6\n └7", Integer::parseInt);
+    for (int i = 1; i <= 7; i++) {
+      Assert.assertTrue(tree.contains(i));
+    }
+  }
+
+  @Test
+  public void testFromUI3MultipleLevelsNonFull() {
+    BinaryTree<Integer> tree = BinaryTree.fromUI3("1\n├2\n│├4\n│└5\n└3", Integer::parseInt);
+    for (int i = 1; i <= 5; i++) {
+      Assert.assertTrue(tree.contains(i));
+    }
   }
 }

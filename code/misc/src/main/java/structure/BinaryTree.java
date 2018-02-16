@@ -487,21 +487,53 @@ a
     return result;
   }
 
-  public static <T> BinaryTree<T> fromUI3(String tree) {
+  public static <T> BinaryTree<T> fromUI3(String tree, Function<String, T> mapper) {
     if (isNull(tree) || tree.isEmpty()) {
       return null;
     }
 
     String[] split = tree.split("\n");
-    TreeNode<T> treeNode = fromUI3(split);
+    TreeNode<T> treeNode = fromUI3(split, mapper);
     return new BinaryTree<>(treeNode);
   }
 
-  public static <T> TreeNode<T> fromUI3(String[] tree) {
-    TreeNode<T> root = null;
+  public static <T> TreeNode<T> fromUI3(String[] tree, Function<String, T> mapper) {
+    TreeNode root = null;
 
-    for (String line : tree) {
+    if (!"├└│".contains("" + tree[0].charAt(0))) {
+      root = new TreeNode<>(mapper.apply(tree[0]));
+    }
 
+    int indexOfLeft = -1;
+    int indexOfRight = -1;
+    if (1 < tree.length) {
+      for (int i = 1; i < tree.length; i++) {
+        if ("├".contains("" + tree[i].charAt(0))) {
+          indexOfLeft = i;
+        } else if ("└".contains("" + tree[i].charAt(0))) {
+          indexOfRight = i;
+        }
+      }
+
+      int leftTreeSize = -1 != indexOfRight ? indexOfRight - indexOfLeft : tree.length - 2;
+      String[] leftTree = new String[leftTreeSize];
+      System.arraycopy(tree, 1, leftTree, 0, leftTreeSize);
+      for (int i = 0; i < leftTreeSize; i++) {
+        leftTree[i] = leftTree[i].substring(1);
+      }
+      TreeNode left = fromUI3(leftTree, mapper);
+      root.left = left;
+    }
+
+    if (-1 != indexOfRight) {
+      int rightTreeSize = tree.length - indexOfRight;
+      String[] rightTree = new String[rightTreeSize];
+      System.arraycopy(tree, indexOfRight, rightTree, 0, rightTreeSize);
+      for (int i = 0; i < rightTreeSize; i++) {
+        rightTree[i] = rightTree[i].substring(1);
+      }
+      TreeNode right = fromUI3(rightTree, mapper);
+      root.right = right;
     }
 
     return root;
