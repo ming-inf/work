@@ -30,9 +30,4 @@ public class TreeNaturalNumberTest {
     Assert.assertEquals(399, objectUnderTest.tInv(objectUnderTest.t(399)));
     Assert.assertEquals(1, objectUnderTest.tInv(objectUnderTest.t(1)));
   }
-
-  @Test
-  public void testInit() {
-    objectUnderTest.init();
-  }
 }
