@@ -9,17 +9,7 @@ import algorithm.LevenshteinWithTrieTest;
 import algorithm.sort.SortTest;
 import javafx.AppTest;
 import practice.KeyPlaintextRunningKeyEncryptionTest;
-import structure.AVLTreeTest;
-import structure.BinarySearchTreeTest;
-import structure.BinaryTreeTest;
-import structure.DAFSATest;
-import structure.DoublyLinkedListTest;
-import structure.GraphTest;
-import structure.HeapTest;
-import structure.MerkleTreeTest;
-import structure.SinglyLinkedListTest;
-import structure.SuccinctTrieTest;
-import structure.TrieTest;
+import structure.*;
 
 @RunWith(Suite.class)
 
@@ -41,6 +31,7 @@ import structure.TrieTest;
     , SuccinctTrieTest.class
     , TrieTest.class
     , TreeNaturalNumberTest.class
+    , IntervalTreeTest.class
 })
 
 public class AllTestsSuite {
