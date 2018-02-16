@@ -1,5 +1,6 @@
 
 
+import algorithm.TreeNaturalNumberTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -39,6 +40,7 @@ import structure.TrieTest;
     , MerkleTreeTest.class
     , SuccinctTrieTest.class
     , TrieTest.class
+    , TreeNaturalNumberTest.class
 })
 
 public class AllTestsSuite {
