@@ -571,4 +571,20 @@ public class BinaryTreeTest {
       Assert.assertTrue(tree.contains(i));
     }
   }
+
+  @Test
+  public void testFromUI3OneChild() {
+    BinaryTree<Integer> tree = BinaryTree.fromUI3("1\n└2", Integer::parseInt);
+    for (int i = 1; i <= 2; i++) {
+      Assert.assertTrue(tree.contains(i));
+    }
+  }
+
+  @Test
+  public void testFromUI3Padding() {
+    BinaryTree<Integer> tree = BinaryTree.fromUI3("  0\n├  1\n│└  3\n│ └  6\n└  2\n ├  4\n │└  7\n └  5\n  ├  8\n  └  9", s -> Integer.parseInt(s.trim()));
+    for (int i = 1; i <= 9; i++) {
+      Assert.assertTrue(tree.contains(i));
+    }
+  }
 }

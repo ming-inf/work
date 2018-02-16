@@ -514,7 +514,9 @@ a
           indexOfRight = i;
         }
       }
+    }
 
+    if (-1 != indexOfLeft) {
       int leftTreeSize = -1 != indexOfRight ? indexOfRight - indexOfLeft : tree.length - 2;
       String[] leftTree = new String[leftTreeSize];
       System.arraycopy(tree, 1, leftTree, 0, leftTreeSize);
@@ -533,7 +535,11 @@ a
         rightTree[i] = rightTree[i].substring(1);
       }
       TreeNode right = fromUI3(rightTree, mapper);
-      root.right = right;
+      if (-1 != indexOfLeft ^ -1 != indexOfRight) {
+        root.left = right;
+      } else {
+        root.right = right;
+      }
     }
 
     return root;
