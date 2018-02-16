@@ -6,28 +6,28 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class IntervalTree extends AVLTree<Interval> {
-  void leftRotation(BinarySearchTreeNode<Interval> current) {
-    BinarySearchTreeNode<Interval> rightNode = current.right;
+public class IntervalTree extends AVLTree<IntervalNode> {
+  void leftRotation(BinarySearchTreeNode<IntervalNode> current) {
+    BinarySearchTreeNode<IntervalNode> rightNode = current.right;
     super.leftRotation(current);
 
     updateMax(current);
     updateMax(rightNode);
   }
 
-  void rightRotation(BinarySearchTreeNode<Interval> current) {
-    BinarySearchTreeNode<Interval> leftNode = current.left;
+  void rightRotation(BinarySearchTreeNode<IntervalNode> current) {
+    BinarySearchTreeNode<IntervalNode> leftNode = current.left;
     super.rightRotation(current);
 
     updateMax(current);
     updateMax(leftNode);
   }
 
-  void insertNode(BinarySearchTreeNode<Interval> current, BinarySearchTreeNode<Interval> value) {
+  void insertNode(BinarySearchTreeNode<IntervalNode> current, BinarySearchTreeNode<IntervalNode> value) {
     super.insertNode(current, value);
   }
 
-  private void updateMax(BinarySearchTreeNode<Interval> current) {
+  private void updateMax(BinarySearchTreeNode<IntervalNode> current) {
     if (nonNull(current.left)) {
       current.value.max = Math.max(current.value.high, current.left.value.max);
     }
@@ -37,21 +37,21 @@ public class IntervalTree extends AVLTree<Interval> {
   }
 
   @Override
-  public boolean remove(Interval value) {
+  public boolean remove(IntervalNode value) {
     if (isNull(value) || isNull(root)) {
       return false;
     }
 
-    Tuple3<BinarySearchTreeNode<Interval>, BinarySearchTreeNode<Interval>, List<BinarySearchTreeNode<Interval>>> parentCurrentPath = searchNodeWithPath(null, root, new BinarySearchTreeNode<>(value), new ArrayList<>());
-    BinarySearchTreeNode<Interval> parent = parentCurrentPath.parent;
-    BinarySearchTreeNode<Interval> target = parentCurrentPath.target;
-    List<BinarySearchTreeNode<Interval>> path = parentCurrentPath.path;
+    Tuple3<BinarySearchTreeNode<IntervalNode>, BinarySearchTreeNode<IntervalNode>, List<BinarySearchTreeNode<IntervalNode>>> parentCurrentPath = searchNodeWithPath(null, root, new BinarySearchTreeNode<>(value), new ArrayList<>());
+    BinarySearchTreeNode<IntervalNode> parent = parentCurrentPath.parent;
+    BinarySearchTreeNode<IntervalNode> target = parentCurrentPath.target;
+    List<BinarySearchTreeNode<IntervalNode>> path = parentCurrentPath.path;
     if (isNull(target)) {
       return false;
     }
 
-    BinarySearchTreeNode<Interval> left = target.left;
-    BinarySearchTreeNode<Interval> right = target.right;
+    BinarySearchTreeNode<IntervalNode> left = target.left;
+    BinarySearchTreeNode<IntervalNode> right = target.right;
 
     boolean isParentNull = isNull(parent);
     boolean isBothNull = isNull(left) && isNull(right);
@@ -61,7 +61,7 @@ public class IntervalTree extends AVLTree<Interval> {
 
     if (!isParentNull) {
       boolean isLeftChild = parent.left == target;
-      BinarySearchTreeNode<Interval> newChild;
+      BinarySearchTreeNode<IntervalNode> newChild;
       if (isBothNull) {
         newChild = null;
       } else if (isLeftOnly) {
@@ -91,11 +91,11 @@ public class IntervalTree extends AVLTree<Interval> {
     }
 
     if (isBothNonNull) {
-      BinarySearchTreeNode<Interval> largest = left;
+      BinarySearchTreeNode<IntervalNode> largest = left;
       while (nonNull(largest.right)) {
         largest = largest.right;
       }
-      BinarySearchTreeNode<Interval> largestParent = searchNode(target, target.left, largest).parent;
+      BinarySearchTreeNode<IntervalNode> largestParent = searchNode(target, target.left, largest).parent;
       if (largestParent != target) {
         largestParent.right = null;
       }
@@ -103,7 +103,7 @@ public class IntervalTree extends AVLTree<Interval> {
     }
 
     while (!path.isEmpty()) {
-      BinarySearchTreeNode<Interval> last = path.remove(path.size() - 1);
+      BinarySearchTreeNode<IntervalNode> last = path.remove(path.size() - 1);
       updateHeight(last);
       rebalance(last);
       updateMax(last);
@@ -112,8 +112,8 @@ public class IntervalTree extends AVLTree<Interval> {
     return true;
   }
 
-  public boolean intersect(Interval i) {
-    BinarySearchTreeNode<Interval> x = root;
+  public boolean intersect(IntervalNode i) {
+    BinarySearchTreeNode<IntervalNode> x = root;
     while (nonNull(x) && (x.value.high < i.low || i.high < x.value.low)) {
       if (nonNull(x.left) && i.low <= x.left.value.max) {
         x = x.left;
