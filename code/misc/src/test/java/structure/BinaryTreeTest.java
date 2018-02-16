@@ -22,10 +22,10 @@ public class BinaryTreeTest {
 
   @Test
   public void testCustomTree() {
-    TreeNode<Integer> root = new TreeNode<>(0);
-    TreeNode<Integer> left = new TreeNode<>(1);
-    TreeNode<Integer> right = new TreeNode<>(2);
-    TreeNode<Integer> rightRight = new TreeNode<>(3);
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(0);
+    BinaryTreeNode<Integer> left = new BinaryTreeNode<>(1);
+    BinaryTreeNode<Integer> right = new BinaryTreeNode<>(2);
+    BinaryTreeNode<Integer> rightRight = new BinaryTreeNode<>(3);
     right.right = rightRight;
     root.left = left;
     root.right = right;
@@ -275,13 +275,13 @@ public class BinaryTreeTest {
 
   @Test
   public void testSerialize() {
-    TreeNode<Character> a = new TreeNode<>('a');
-    TreeNode<Character> b = new TreeNode<>('b');
-    TreeNode<Character> c = new TreeNode<>('c');
-    TreeNode<Character> d = new TreeNode<>('d');
-    TreeNode<Character> e = new TreeNode<>('e');
-    TreeNode<Character> f = new TreeNode<>('f');
-    TreeNode<Character> g = new TreeNode<>('g');
+    BinaryTreeNode<Character> a = new BinaryTreeNode<>('a');
+    BinaryTreeNode<Character> b = new BinaryTreeNode<>('b');
+    BinaryTreeNode<Character> c = new BinaryTreeNode<>('c');
+    BinaryTreeNode<Character> d = new BinaryTreeNode<>('d');
+    BinaryTreeNode<Character> e = new BinaryTreeNode<>('e');
+    BinaryTreeNode<Character> f = new BinaryTreeNode<>('f');
+    BinaryTreeNode<Character> g = new BinaryTreeNode<>('g');
     a.left = b;
     a.right = c;
     b.left = d;

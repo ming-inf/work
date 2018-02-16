@@ -232,7 +232,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
     @Override
     public String toString() {
-      return "TreeNode [value=" + value + ", left=" + left + ", right=" + right + "]";
+      return "BinaryTreeNode [value=" + value + ", left=" + left + ", right=" + right + "]";
     }
   }
 
