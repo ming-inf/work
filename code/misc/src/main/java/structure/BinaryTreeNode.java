@@ -1,5 +1,7 @@
 package structure;
 
+import java.util.Objects;
+
 import static java.util.Objects.isNull;
 
 class BinaryTreeNode<T> {
@@ -25,6 +27,20 @@ class BinaryTreeNode<T> {
     }
 
     return leavesSize(current.left) + leavesSize(current.right);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BinaryTreeNode<?> that = (BinaryTreeNode<?>) o;
+    return Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(value);
   }
 
   @Override

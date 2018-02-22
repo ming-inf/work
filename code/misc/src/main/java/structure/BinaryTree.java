@@ -98,10 +98,7 @@ public class BinaryTree<T> implements Tree<T> {
       return false;
     }
 
-    BinaryTreeNode<T> target = searchNode(null, root, new BinaryTreeNode<>(value));
-    if (isNull(target)) {
-      return false;
-    }
+    BinaryTreeNode<T> target = new BinaryTreeNode<>(value);
 
     return removeNode(root, target);
   }
@@ -111,8 +108,12 @@ public class BinaryTree<T> implements Tree<T> {
     Queue<BinaryTreeNode<T>> q = new LinkedList<>();
     q.add(tree);
 
+    BinaryTreeNode<T> target = null;
     while (!q.isEmpty()) {
       temp = q.remove();
+      if (value.equals(temp)) {
+        target = temp;
+      }
 
       if (nonNull(temp.left)) {
         q.add(temp.left);
@@ -122,20 +123,24 @@ public class BinaryTree<T> implements Tree<T> {
       }
     }
 
-    if (temp == tree) {
-      root = null;
+    if (isNull(target)) {
+      return false;
     }
 
-    value.value = temp.value;
-    boolean isNotRoot = null != temp.parent;
-    boolean isLeftChild = isNotRoot && temp.parent.left == temp;
+    BinaryTreeNode<T> replacement = temp;
+    target.value = replacement.value;
+    boolean isNotRoot = null != replacement.parent;
+    boolean isLeftChild = isNotRoot && replacement.parent.left == replacement;
 
     if (isNotRoot) {
       if (isLeftChild) {
-        temp.parent.left = null;
+        replacement.parent.left = null;
       } else {
-        temp.parent.right = null;
+        replacement.parent.right = null;
       }
+    } else if (replacement.equals(target)) {
+      root = null;
+      return true;
     }
 
     return true;
