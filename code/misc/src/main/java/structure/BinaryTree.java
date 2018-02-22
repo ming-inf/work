@@ -30,10 +30,10 @@ public class BinaryTree<T> implements Tree<T> {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new BinaryTreeNode<>(value)));
+    return nonNull(searchNode(root, new BinaryTreeNode<>(value)));
   }
 
-  private BinaryTreeNode<T> searchNode(BinaryTreeNode<T> parent, BinaryTreeNode<T> current, BinaryTreeNode<T> value) {
+  private BinaryTreeNode<T> searchNode(BinaryTreeNode<T> current, BinaryTreeNode<T> value) {
     if (isNull(current)) {
       return null;
     }
@@ -41,12 +41,12 @@ public class BinaryTree<T> implements Tree<T> {
     if (current.value.equals(value.value)) {
       return current;
     } else {
-      BinaryTreeNode<T> result = searchNode(current, current.left, value);
+      BinaryTreeNode<T> result = searchNode(current.left, value);
       if (nonNull(result)) {
         return result;
       }
 
-      result = searchNode(current, current.right, value);
+      result = searchNode(current.right, value);
       if (nonNull(result)) {
         return result;
       }
