@@ -3,6 +3,7 @@ package structure;
 public class BinarySearchTreeNode<T extends Comparable<T>>
     extends BinaryTreeNode<T>
     implements Comparable<BinaryTreeNode<T>> {
+  BinarySearchTreeNode<T> parent;
   BinarySearchTreeNode<T> left;
   BinarySearchTreeNode<T> right;
   int height;

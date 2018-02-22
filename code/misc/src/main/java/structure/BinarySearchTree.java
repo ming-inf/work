@@ -18,16 +18,16 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new BinarySearchTreeNode<>(value)).target);
+    return nonNull(searchNode(null, root, new BinarySearchTreeNode<>(value)));
   }
 
-  private Tuple<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>> searchNode(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
+  private BinarySearchTreeNode<T> searchNode(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (isNull(current)) {
-      return new Tuple<>(null, null);
+      return null;
     }
 
     if (0 == current.compareTo(value)) {
-      return new Tuple<>(parent, current);
+      return current;
     } else if (-1 == value.compareTo(current)) {
       return searchNode(current, current.left, value);
     } else {
@@ -69,65 +69,64 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
       return false;
     }
 
-    Tuple<BinarySearchTreeNode<T>, BinarySearchTreeNode<T>> parentCurrent = searchNode(null, root, new BinarySearchTreeNode<>(value));
-    BinarySearchTreeNode<T> parent = parentCurrent.parent;
-    BinarySearchTreeNode<T> target = parentCurrent.target;
-    if (isNull(target)) {
+    BinarySearchTreeNode<T> target = new BinarySearchTreeNode<>(value);
+    return removeNode(root, target);
+  }
+
+  private boolean removeNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
+    if (isNull(current)) {
       return false;
     }
 
-    BinarySearchTreeNode<T> left = target.left;
-    BinarySearchTreeNode<T> right = target.right;
+    if (current.equals(value)) {
+      if (isNull(current.left) && isNull(current.right)) {
+        if (nonNull(current.parent)) {
+          if (current.equals(current.parent.left)) {
+            current.parent.left = null;
+          } else {
+            current.parent.right = null;
+          }
+          return true;
+        } else {
+          root = null;
+          return true;
+        }
+      } else if (nonNull(current.left) && nonNull(current.right)) {
+        BinarySearchTreeNode<T> successor = current.right;
+        while (nonNull(successor) && nonNull(successor.left)) {
+          successor = successor.left;
+        }
 
-    boolean isParentNull = isNull(parent);
-    boolean isBothNull = isNull(left) && isNull(right);
-    boolean isLeftOnly = nonNull(left) && isNull(right);
-    boolean isRightOnly = isNull(left) && nonNull(right);
-    boolean isBothNonNull = nonNull(left) && nonNull(right);
+        if (successor.equals(current.right)) {
+          current.right = successor.right;
+          if (nonNull(successor.right)) {
+            successor.right.parent = current.parent;
+          }
+        } else {
+          successor.parent.left = successor.right;
+          successor.right.parent = successor.parent;
+        }
 
-    if (!isParentNull) {
-      boolean isLeftChild = parent.left == target;
-      BinarySearchTreeNode<T> newChild;
-      if (isBothNull) {
-        newChild = null;
-      } else if (isLeftOnly) {
-        newChild = left;
-      } else if (isRightOnly) {
-        newChild = right;
+        current.value = successor.value;
+      } else if (nonNull(current.left)) {
+        current.value = current.left.value;
+        current.left = current.left.left;
+        if (nonNull(current.left)) {
+          current.left.parent = current;
+        }
       } else {
-        newChild = isLeftChild ? parent.left : parent.right;
+        current.value = current.right.value;
+        current.right = current.right.right;
+        if (nonNull(current.right)) {
+          current.right.parent = current;
+        }
       }
-
-      if (isLeftChild) {
-        parent.left = newChild;
-      } else {
-        parent.right = newChild;
-      }
+      return true;
+    } else if (-1 == current.compareTo(value)) {
+      return removeNode(current.right, value);
     } else {
-      if (isBothNull) {
-        root = null;
-      } else if (isLeftOnly) {
-        root.value = left.value;
-        left = null;
-      } else if (isRightOnly) {
-        root.value = right.value;
-        right = null;
-      }
+      return removeNode(current.left, value);
     }
-
-    if (isBothNonNull) {
-      BinarySearchTreeNode<T> largest = left;
-      while (nonNull(largest.right)) {
-        largest = largest.right;
-      }
-      BinarySearchTreeNode<T> largestParent = searchNode(target, target.left, largest).parent;
-      if (largestParent != target) {
-        largestParent.right = null;
-      }
-      target.value = largest.value;
-    }
-
-    return true;
   }
 
   @Override
@@ -208,16 +207,6 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     return l;
-  }
-
-  private static class Tuple<X, Y> {
-    public X parent;
-    public Y target;
-
-    public Tuple(X x, Y y) {
-      this.parent = x;
-      this.target = y;
-    }
   }
 
   @Override
