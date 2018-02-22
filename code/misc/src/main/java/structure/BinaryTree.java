@@ -38,7 +38,7 @@ public class BinaryTree<T> implements Tree<T> {
       return null;
     }
 
-    if (current.value.equals(value.value)) {
+    if (current.equals(value)) {
       return current;
     } else {
       BinaryTreeNode<T> result = searchNode(current.left, value);
@@ -130,7 +130,7 @@ public class BinaryTree<T> implements Tree<T> {
     BinaryTreeNode<T> replacement = temp;
     target.value = replacement.value;
     boolean isNotRoot = null != replacement.parent;
-    boolean isLeftChild = isNotRoot && replacement.parent.left == replacement;
+    boolean isLeftChild = isNotRoot && replacement.parent.left.equals(replacement);
 
     if (isNotRoot) {
       if (isLeftChild) {
