@@ -64,11 +64,11 @@ public class BinaryTree<T> implements Tree<T> {
     if (isNull(root)) {
       root = newNode;
     } else {
-      insertNode(root, newNode);
+      addNode(root, newNode);
     }
   }
 
-  private void insertNode(BinaryTreeNode<T> tree, BinaryTreeNode<T> value) {
+  private void addNode(BinaryTreeNode<T> tree, BinaryTreeNode<T> value) {
     Queue<BinaryTreeNode<T>> q = new LinkedList<>();
     q.add(tree);
 
