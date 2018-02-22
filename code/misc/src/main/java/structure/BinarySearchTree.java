@@ -44,22 +44,22 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     if (isNull(root)) {
       root = newNode;
     } else {
-      insertNode(root, newNode);
+      addNode(root, newNode);
     }
   }
 
-  private void insertNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
+  private void addNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (-1 == value.compareTo(current)) {
       if (isNull(current.left)) {
         current.left = value;
       } else {
-        insertNode(current.left, value);
+        addNode(current.left, value);
       }
     } else {
       if (isNull(current.right)) {
         current.right = value;
       } else {
-        insertNode(current.right, value);
+        addNode(current.right, value);
       }
     }
   }
