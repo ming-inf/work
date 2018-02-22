@@ -138,7 +138,7 @@ public class BinaryTree<T> implements Tree<T> {
       } else {
         replacement.parent.right = null;
       }
-    } else if (replacement.equals(target)) {
+    } else {
       root = null;
       return true;
     }
