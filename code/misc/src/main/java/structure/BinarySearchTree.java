@@ -18,10 +18,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     if (isNull(value)) {
       return false;
     }
-    return nonNull(searchNode(null, root, new BinarySearchTreeNode<>(value)));
+    return nonNull(searchNode(root, new BinarySearchTreeNode<>(value)));
   }
 
-  private BinarySearchTreeNode<T> searchNode(BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
+  private BinarySearchTreeNode<T> searchNode(BinarySearchTreeNode<T> current, BinarySearchTreeNode<T> value) {
     if (isNull(current)) {
       return null;
     }
@@ -29,9 +29,9 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     if (0 == current.compareTo(value)) {
       return current;
     } else if (-1 == value.compareTo(current)) {
-      return searchNode(current, current.left, value);
+      return searchNode(current.left, value);
     } else {
-      return searchNode(current, current.right, value);
+      return searchNode(current.right, value);
     }
   }
 
