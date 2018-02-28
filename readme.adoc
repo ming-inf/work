@@ -1,6 +1,9 @@
 = readme
 
 == articles
+- https://news.ycombinator.com/item?id=16432344["Pwned Passwords" V2 With Half a Billion Passwords]
+- https://news.ycombinator.com/item?id=16471372[Introduction to Functional Programming (1988) [pdf\]]
+- https://news.ycombinator.com/item?id=16478744[Beautiful folds in Haskell (2016)]
 - http://habitatchronicles.com/2008/10/the-tripartite-identity-pattern/[The Tripartite Identity Pattern]
 - https://news.ycombinator.com/item?id=16356397[Let’s talk about usernames]
 - https://news.ycombinator.com/item?id=16285104[The introduction to Reactive Programming you've been missing]
