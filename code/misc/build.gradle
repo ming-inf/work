@@ -14,7 +14,7 @@ apply plugin: 'application'
 
 apply plugin: 'maven'
 
-sourceCompatibility = 1.9
+sourceCompatibility = 11
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -41,7 +41,21 @@ configurations {
 }
 */
 
+def currentOS = org.gradle.internal.os.OperatingSystem.current()
+def platform
+if (currentOS.isWindows()) {
+    platform = 'win'
+} else if (currentOS.isLinux()) {
+    platform = 'linux'
+} else if (currentOS.isMacOsX()) {
+    platform = 'mac'
+}
 dependencies {
+    compile "org.openjfx:javafx-base:11:${platform}"
+    compile "org.openjfx:javafx-graphics:11:${platform}"
+    compile "org.openjfx:javafx-controls:11:${platform}"
+    compile "org.openjfx:javafx-fxml:11:${platform}"
+
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:21.0'
     compile 'com.ibm.icu:icu4j:59.1'
@@ -74,20 +88,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir 'resources' 
-        }
-    }
-    test {
-		resources {
-			srcDir 'resources'
-		}
-	}
-}
-
-
 // Define the main class for the application
 mainClassName = 'javafx.App'
 
@@ -101,5 +101,28 @@ jar {
         exclude 'META-INF/*.SF'
         exclude 'META-INF/*.DSA'
         exclude 'META-INF/*.RSA'
+    }
+}
+
+compileJava {
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'javafx.base',
+                '--add-modules', 'javafx.controls',
+                '--add-modules', 'javafx.graphics',
+        ]
+        classpath = files()
+    }
+}
+
+run {
+    doFirst {
+        jvmArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'javafx.base',
+                '--add-modules', 'javafx.controls',
+                '--add-modules', 'javafx.graphics',
+        ]
     }
 }
